@@ -1,0 +1,191 @@
+#include "ZComDef.h"
+#include "OSAL.h"
+#include "sapi.h"
+#include "hal_key.h"
+#include "hal_led.h"
+#include "hal_uart.h"
+#include "SimpleApp.h"
+#include "hal_lcd.h"
+#include "MTEL.h"
+#include "OSAL_Memory.h"
+#include "OSAL_Nv.h"
+#include "OnBoard.h"
+#include "ZMAC.h"
+
+#include "nwk_globals.h"
+#include "ZDApp.h"
+#include "ssp.h"
+#include "ZGlobals.h"
+
+/*********************************************************************
+ * CONSTANTS
+ */
+
+// Application States
+#define APP_INIT                           0
+#define APP_START                          1
+
+// Application osal event identifiers
+#define MY_START_EVT                0x0001
+#define MY_BLINK_EVT                0x0002
+
+// Same definitions as in SimpleSensor.c
+#define TEMP_REPORT     0x01
+#define BATTERY_REPORT 0x02
+/*********************************************************************
+ * TYPEDEFS
+ */
+
+/*********************************************************************
+ * LOCAL VARIABLES
+ */
+
+static uint8 myAppState = APP_INIT;
+static uint8 myStartRetryDelay = 10;
+
+/*********************************************************************
+ * GLOBAL VARIABLES
+ */
+
+// Inputs and Outputs for Switch device
+#define NUM_OUT_CMD_COLLECTOR                0
+#define NUM_IN_CMD_COLLECTOR                 1
+
+// List of output and input commands for Switch device
+const cId_t zb_InCmdList[NUM_IN_CMD_COLLECTOR] =
+{
+  SENSOR_REPORT_CMD_ID
+};
+
+// Define SimpleDescriptor for Switch device
+const SimpleDescriptionFormat_t zb_SimpleDesc =
+{
+  MY_ENDPOINT_ID,             //  Endpoint
+  MY_PROFILE_ID,              //  Profile ID
+  DEV_ID_COLLECTOR,          //  Device ID
+  DEVICE_VERSION_COLLECTOR,  //  Device Version
+  0,                          //  Reserved
+  NUM_IN_CMD_COLLECTOR,      //  Number of Input Commands
+  (cId_t *) zb_InCmdList,     //  Input Command List
+  NUM_OUT_CMD_COLLECTOR,     //  Number of Output Commands
+  (cId_t *) NULL              //  Output Command List
+};
+
+/******************************************************************************
+ * @fn          zb_HandleOsalEvent
+ *
+ * @brief       The zb_HandleOsalEvent function is called by the operating
+ *              system when a task event is set
+ *
+ * @param       event - Bitmask containing the events that have been set
+ *
+ * @return      none
+ */
+void zb_HandleOsalEvent( uint16 event )
+{
+
+}
+/*********************************************************************
+ * @fn      zb_HandleKeys
+ *
+ * @brief   Handles all key events for this device.
+ *
+ * @param   shift - true if in shift/alt.
+ * @param   keys - bit field for key events. Valid entries:
+ *                 EVAL_SW4
+ *                 EVAL_SW3
+ *                 EVAL_SW2
+ *                 EVAL_SW1
+ *
+ * @return  none
+ */
+void zb_HandleKeys( uint8 shift, uint8 keys )
+{
+#if defined(LCD_SUPPORTED)
+  // Shift is used to make each button/switch dual purpose.
+  if ( shift )
+  {
+      HalLcdWriteString( "Press OK key", HAL_LCD_LINE_4 ,0);
+      HalLedBlink(HAL_LED_4, 100, 50, 500);
+  }
+  else
+  {
+    if ( keys & HAL_KEY_SW_1 )
+    {
+      HalLcdWriteString( "Press up key", HAL_LCD_LINE_4 ,0);
+    }
+    if ( keys & HAL_KEY_SW_2 )
+    {
+      HalLcdWriteString( "Press Right key", HAL_LCD_LINE_4 ,0 );
+    }
+    if ( keys & HAL_KEY_SW_3 )
+    {
+       HalLcdWriteString( "Press Down key", HAL_LCD_LINE_4 ,0 );
+    }
+    if ( keys & HAL_KEY_SW_4 )
+    {
+       HalLcdWriteString( "Press Left key", HAL_LCD_LINE_4 ,0 );
+    }
+
+    if ( keys & HAL_KEY_SW_5 )
+    {
+       HalLcdWriteString( "Press ESC key", HAL_LCD_LINE_4 ,0 );
+       HalLedSet( HAL_LED_4, HAL_LED_MODE_OFF );
+    }
+
+    if ( keys & HAL_KEY_SW_7 )
+    {
+       HalLcdWriteString( "Press Center key", HAL_LCD_LINE_4 ,0 );
+    }
+  }
+  #endif
+}
+
+
+/******************************************************************************
+ * @fn          zb_StartConfirm
+ *
+ * @brief       The zb_StartConfirm callback is called by the ZigBee stack
+ *              after a start request operation completes
+ *
+ * @param       status - The status of the start operation.  Status of
+ *                       ZB_SUCCESS indicates the start operation completed
+ *                       successfully.  Else the status is an error code.
+ *
+ * @return      none
+ */
+void zb_StartConfirm( uint8 status )
+{
+
+ // If the device sucessfully started, change state to running
+  if ( status == ZB_SUCCESS )
+  {
+    myAppState = APP_START;
+  }
+  else
+  {
+    // Try again later with a delay
+    osal_start_timerEx(sapi_TaskID, MY_START_EVT, myStartRetryDelay);
+  }
+
+}
+
+void zb_SendDataConfirm( uint8 handle, uint8 status )
+{
+}
+
+void zb_BindConfirm( uint16 commandId, uint8 status )
+{
+}
+
+void zb_AllowBindConfirm( uint16 source )
+{
+}
+
+void zb_FindDeviceConfirm( uint8 searchType, uint8 *searchKey, uint8 *result )
+{
+}
+
+void zb_ReceiveDataIndication( uint16 source, uint16 command, uint16 len, uint8 *pData  )
+{
+}
