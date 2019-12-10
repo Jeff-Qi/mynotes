@@ -37,3 +37,5 @@ where TIME_TO_SEC(timediff(now(),trx_started))>60
 ```
 
 ### 小结
+- 参数：transaction_isolation：查看数据库当前隔离状态
+- 参数：MAX_EXECUTION_TIME：set MAX_EXECUTION_TIME来设置事务最大执行时间
