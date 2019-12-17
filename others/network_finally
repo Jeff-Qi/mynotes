@@ -1,0 +1,474 @@
+##outside——dns
+#
+sysname R1
+#
+ip host www.wangluo.com 10.0.100.254
+#
+ dns server 10.0.200.254
+ dns proxy enable
+#
+aaa
+ authentication-scheme default
+ authorization-scheme default
+ accounting-scheme default
+ domain default
+ domain default_admin
+ local-user admin password cipher OOCM4m($F4ajUn1vMEIBNUw#
+ local-user admin service-type http
+#
+firewall zone Local
+ priority 16
+#
+interface Ethernet0/0/0
+ ip address 10.0.200.254 255.255.255.0
+#
+interface Ethernet0/0/1
+ ip address 192.168.1.254 255.255.255.0
+#
+interface Serial0/0/0
+ link-protocol ppp
+#
+interface Serial0/0/1
+ link-protocol ppp
+#
+interface Serial0/0/2
+ link-protocol ppp
+#
+interface Serial0/0/3
+ link-protocol ppp
+#
+interface GigabitEthernet0/0/0
+#
+interface GigabitEthernet0/0/1
+#
+interface GigabitEthernet0/0/2
+#
+interface GigabitEthernet0/0/3
+#
+wlan
+#
+interface NULL0
+#
+interface LoopBack1
+ ip address 20.20.20.20 255.255.255.0
+#
+ip route-static 10.0.200.0 255.255.255.0 Ethernet0/0/0
+ip route-static 192.168.2.0 255.255.255.0 Ethernet0/0/1
+#
+user-interface con 0
+user-interface vty 0 4
+user-interface vty 16 20
+#
+return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###############################################################################
+## fw
+2019-12-12 13:15:30.890
+!Software Version V500R005C10SPC300
+#
+sysname FW
+#
+ l2tp domain suffix-separator @
+#
+ ipsec sha2 compatible enable
+#
+undo telnet server enable
+undo telnet ipv6 server enable
+#
+ update schedule location-sdb weekly Sun 04:11
+#
+ firewall defend action discard
+#
+ banner enable
+#
+ user-manage web-authentication security port 8887
+ undo privacy-statement english
+ undo privacy-statement chinese
+page-setting
+ user-manage security version tlsv1.1 tlsv1.2
+password-policy
+ level high
+user-manage single-sign-on ad
+user-manage single-sign-on tsm
+user-manage single-sign-on radius
+user-manage auto-sync online-user
+#
+ web-manager security version tlsv1.1 tlsv1.2
+ web-manager enable
+ web-manager security enable
+#
+firewall dataplane to manageplane application-apperceive default-action drop
+#
+ undo ips log merge enable
+#
+ decoding uri-cache disable
+#
+ update schedule ips-sdb daily 23:41
+ update schedule av-sdb daily 23:41
+ update schedule sa-sdb daily 23:41
+ update schedule cnc daily 23:41
+ update schedule file-reputation daily 23:41
+#
+ip vpn-instance default
+ ipv4-family
+#
+ time-range worktime
+  period-range 08:00:00 to 18:00:00 working-day
+#
+ike proposal default
+ encryption-algorithm aes-256 aes-192 aes-128
+ dh group14
+ authentication-algorithm sha2-512 sha2-384 sha2-256
+ authentication-method pre-share
+ integrity-algorithm hmac-sha2-256
+ prf hmac-sha2-256
+#
+aaa
+ authentication-scheme default
+ authentication-scheme admin_local
+ authentication-scheme admin_radius_local
+ authentication-scheme admin_hwtacacs_local
+ authentication-scheme admin_ad_local
+ authentication-scheme admin_ldap_local
+ authentication-scheme admin_radius
+ authentication-scheme admin_hwtacacs
+ authentication-scheme admin_ad
+ authorization-scheme default
+ accounting-scheme default
+ domain default
+  service-type internetaccess ssl-vpn l2tp ike
+  internet-access mode password
+  reference user current-domain
+ manager-user audit-admin
+  password cipher @%@%3USx>0U!&-1)q:Wmwl}88$]~,$^%YP;cV9`'\y<S/~wY$]B8@%@%
+  service-type web terminal
+  level 15
+
+ manager-user api-admin
+  password cipher @%@%=y;R.kko-1%^R;N7qT@N|}"!S|v:M$AgC!AhM2@UDj.+}"$|@%@%
+  level 15
+
+ manager-user admin
+  password cipher @%@%[E-q:&e^o:"mP&<2`$RG~>d28Z~z"&2qd1jOBC2.(TP">d5~@%@%
+  service-type web terminal
+  level 15
+
+ role system-admin
+ role device-admin
+ role device-admin(monitor)
+ role audit-admin
+ bind manager-user audit-admin role audit-admin
+ bind manager-user admin role system-admin
+#
+l2tp-group default-lns
+#
+interface GigabitEthernet0/0/0
+ undo shutdown
+ ip binding vpn-instance default
+ ip address 192.168.0.1 255.255.255.0
+ alias GE0/METH
+#
+interface GigabitEthernet1/0/0
+ undo shutdown
+ ip address 10.0.200.1 255.255.255.0
+ service-manage http permit
+ service-manage https permit
+ service-manage ping permit
+ service-manage ssh permit
+ service-manage snmp permit
+ service-manage telnet permit
+#
+interface GigabitEthernet1/0/1
+ undo shutdown
+ ip address 10.0.14.1 255.255.255.0
+ service-manage http permit
+ service-manage https permit
+ service-manage ping permit
+ service-manage ssh permit
+ service-manage snmp permit
+ service-manage telnet permit
+#
+interface GigabitEthernet1/0/2
+ undo shutdown
+ ip address 10.0.100.1 255.255.255.0
+ service-manage http permit
+ service-manage https permit
+ service-manage ping permit
+ service-manage ssh permit
+ service-manage snmp permit
+ service-manage telnet permit
+#
+interface GigabitEthernet1/0/3
+ undo shutdown
+#
+interface GigabitEthernet1/0/4
+ undo shutdown
+#
+interface GigabitEthernet1/0/5
+ undo shutdown
+#
+interface GigabitEthernet1/0/6
+ undo shutdown
+#
+interface Virtual-if0
+#
+interface NULL0
+#
+interface LoopBack1
+ ip address 10.10.10.10 255.255.255.0
+#
+firewall zone local
+ set priority 100
+#
+firewall zone trust
+ set priority 85
+ add interface GigabitEthernet0/0/0
+ add interface GigabitEthernet1/0/1
+#
+firewall zone untrust
+ set priority 5
+ add interface GigabitEthernet1/0/0
+#
+firewall zone dmz
+ set priority 50
+ add interface GigabitEthernet1/0/2
+#
+firewall interzone trust dmz
+ detect ftp
+#
+ospf 1 router-id 10.10.10.10
+ default-route-advertise cost 20 type 1
+ area 0.0.0.0
+  network 10.0.14.0 0.0.0.255
+  network 10.10.10.0 0.0.0.255
+#
+ip route-static 0.0.0.0 0.0.0.0 GigabitEthernet1/0/0
+#
+undo ssh server compatible-ssh1x enable
+ssh authentication-type default password
+ssh server cipher aes256_ctr aes128_ctr
+ssh server hmac sha2_256 sha1
+ssh client cipher aes256_ctr aes128_ctr
+ssh client hmac sha2_256 sha1
+#
+firewall detect ftp
+#
+user-interface con 0
+ authentication-mode aaa
+user-interface vty 0 4
+ authentication-mode aaa
+ protocol inbound ssh
+user-interface vty 16 20
+#
+pki realm default
+#
+sa
+#
+location
+#
+nat address-group nat_address_pool 0
+ mode pat
+ section 1 10.0.200.100 10.0.200.200
+#
+multi-linkif
+ mode proportion-of-weight
+#
+right-manager server-group
+#
+device-classification
+ device-group pc
+ device-group mobile-terminal
+ device-group undefined-group
+#
+user-manage server-sync tsm
+#
+security-policy
+//公司访问dmz的http与ftp
+ rule name trust_to_dmz
+  source-zone trust
+  destination-zone dmz
+  service ftp
+  service http
+  action permit
+
+//外部网络访问dmz的http
+ rule name untrust_to_dmz
+  source-zone untrust
+  destination-zone dmz
+  service http
+  action permit
+
+//公司访问外网
+ rule name trust_to_untrust
+  source-zone trust
+  destination-zone untrust
+  action permit
+
+//指定地址访问dmztelnet
+ rule name trust_to_dmz_telnet
+  destination-zone dmz
+  source-address 10.0.13.0 mask 255.255.255.0
+  service telnet
+  action permit
+
+#
+auth-policy
+#
+traffic-policy
+#
+policy-based-route
+#
+//公司内网nat
+nat-policy
+ rule name easy_ip_policy
+  source-zone trust
+  destination-zone untrust
+  action source-nat easy-ip
+#
+quota-policy
+#
+pcp-policy
+#
+dns-transparent-policy
+#
+rightm-policy
+#
+return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+################################################################################
+## s1
+#
+sysname S1
+#
+dns resolve
+dns server 10.0.200.254
+#
+vlan batch 11 to 15
+#
+cluster enable
+ntdp enable
+ndp enable
+#
+drop illegal-mac alarm
+#
+diffserv domain default
+#
+drop-profile default
+#
+aaa
+ authentication-scheme default
+ authorization-scheme default
+ accounting-scheme default
+ domain default
+ domain default_admin
+ local-user admin password simple admin
+ local-user admin service-type http
+#
+interface Vlanif1
+#
+interface Vlanif14
+ ip address 10.0.14.254 255.255.255.0
+#
+interface MEth0/0/1
+#
+interface GigabitEthernet0/0/1
+ port link-type access
+ port default vlan 14
+#
+interface GigabitEthernet0/0/2
+#
+interface GigabitEthernet0/0/3
+#
+interface GigabitEthernet0/0/4
+#
+interface GigabitEthernet0/0/5
+#
+interface GigabitEthernet0/0/6
+#
+interface GigabitEthernet0/0/7
+#
+interface GigabitEthernet0/0/8
+#
+interface GigabitEthernet0/0/9
+#
+interface GigabitEthernet0/0/10
+#
+interface GigabitEthernet0/0/11
+#
+interface GigabitEthernet0/0/12
+#
+interface GigabitEthernet0/0/13
+#
+interface GigabitEthernet0/0/14
+#
+interface GigabitEthernet0/0/15
+#
+interface GigabitEthernet0/0/16
+#
+interface GigabitEthernet0/0/17
+#
+interface GigabitEthernet0/0/18
+#
+interface GigabitEthernet0/0/19
+#
+interface GigabitEthernet0/0/20
+#
+interface GigabitEthernet0/0/21
+#
+interface GigabitEthernet0/0/22
+#
+interface GigabitEthernet0/0/23
+#
+interface GigabitEthernet0/0/24
+#
+interface NULL0
+#
+interface LoopBack1
+ ip address 30.30.30.30 255.255.255.0
+#
+ospf 1 router-id 30.30.30.30
+ area 0.0.0.0
+  network 30.30.30.0 0.0.0.255
+  network 10.0.14.0 0.0.0.255
+#
+user-interface con 0
+user-interface vty 0 4
+#
+return
