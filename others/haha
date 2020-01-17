@@ -1,0 +1,9 @@
+public void conn() {
+    String connectURL = getString(R.string.connectURL) + "offer_advice.php";
+    boolean isSucceed = offerAdviceConn.insert(Number.phone, advice.getText().toString(), teacherName.getText().toString(), selGrade,selSub,connectURL);
+}
+public void conn2(){
+    String connectURL = getString(R.string.connectURL) + "IsInTeacher.php";
+    boolean result = isInTeacher.exist(teacherName.getText().toString(),selSub,selGrade,connectURL);
+    inTeacher = isInTeacher.result;
+}
