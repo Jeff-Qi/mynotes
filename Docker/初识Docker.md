@@ -1,7 +1,6 @@
 ---
 title: 初始Docker
 date: 2019-11-29 11:07:00
-tags: Containers
 categories: Docker
 ---
 
@@ -25,7 +24,8 @@ categories: Docker
 3. 更新并安装
   ```sh
   yum update
-  yum install docker-ce
+  yum list docker-ce --showduplicates | sort -r
+  yum install docker-ce-19.03.2-3.el7
   ```
 
 ### 创建docker用户组

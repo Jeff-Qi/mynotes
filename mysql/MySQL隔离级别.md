@@ -1,7 +1,6 @@
 ---
 title: MySQL隔离级别
 date: 2019-12-09 20:50:00
-tags: MySQL知识
 categories: MySQL
 ---
 

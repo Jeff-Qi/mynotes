@@ -1,7 +1,6 @@
 ---
 title: MySQL全局锁与表锁
 date: 2020-02-12 19:26:00
-tags: MySQL知识
 categories: MySQL
 ---
 ## MySQL锁

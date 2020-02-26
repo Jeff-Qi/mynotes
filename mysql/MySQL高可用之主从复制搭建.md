@@ -1,7 +1,6 @@
 ---
-title: MySQL主从复制
+title: MySQL高可用之主从复制搭建
 date: 2019-11-07 18:21:07
-tags: MySQL主从
 categories: MySQL
 ---
 
@@ -31,7 +30,7 @@ categories: MySQL
 2. 创建一个用于复制的用户
   ```
   create user 'repl_user'@'%' identified with 'mysql_native_password' by '123456';
-  grant replication on *.* to 'repl_user'@'%';
+  grant replication slave on *.* to 'repl_user'@'%';
   ```
 
 3. 重启master服务器的MySQL服务
@@ -71,7 +70,10 @@ categories: MySQL
     master_host='ip',
     master_port=3306,
     master_user='repl_user'
-    master_password='123456';
+    master_password='123456',
+    <!-- Master_log_file='',
+    master_log_pos='' -->
+    master_auto_position=1;
 
   start slave
   ```

@@ -1,7 +1,6 @@
 ---
 title: MySQL索引
 date: 2019-12-10 14:51:00
-tags: MySQL知识
 categories: MySQL
 ---
 

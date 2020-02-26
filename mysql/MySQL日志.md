@@ -1,7 +1,6 @@
 ---
 title: MySQL日志
 date: 2019-12-08 21:33:00
-tags: MySQL技巧
 categories: MySQL
 ---
 

@@ -1,7 +1,6 @@
 ---
 title: MySQL磁盘扩展与介质迁移
 date: 2019-11-23 18:50:00
-tags: MySQL技巧
 categories: MySQL
 ---
 

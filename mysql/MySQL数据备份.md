@@ -1,7 +1,6 @@
 ---
 title: MySQL数据备份
 date: 2019-11-26 19:00:00
-tags: MySQL技巧
 categories: MySQL
 ---
 
