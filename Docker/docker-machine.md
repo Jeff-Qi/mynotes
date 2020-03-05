@@ -28,5 +28,5 @@ categories: Docker
 
 2.  创建docker主机
     ```
-    docker-machine -d 驱动 --generic-ip-address='ip' nam
+    docker-machine -d 驱动 --generic-ip-address='ip' name
     ```

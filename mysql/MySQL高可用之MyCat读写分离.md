@@ -56,7 +56,7 @@ categories: MySQL
 #### 三大组件
 1.  server.xml
     - 添加两个mycat逻辑库：user,pay: system 参数是所有的mycat参数配置，比如添加解析器：defaultSqlParser，其他类推 user 是用户参数。
-      ```
+      ```xml
       <system>
       	<property name="defaultSqlParser">druidparser</property>
       </system>
@@ -67,7 +67,7 @@ categories: MySQL
       ```
 2.  schema.xml
     - 修改dataHost和schema对应的连接信息，user,pay 垂直切分后的配置如下所示：schema 是实际逻辑库的配置，user，pay分别对应两个逻辑库，多个schema代表多个逻辑库。dataNode是逻辑库对应的分片，如果配置多个分片只需要多个dataNode即可。dataHost是实际的物理库配置地址，可以配置多主主从等其他配置，多个dataHost代表分片对应的物理库地址，下面的writeHost、readHost代表该分片是否配置多写，主从，读写分离等高级特性。以下例子配置了两个writeHost为主从。
-        ```
+        ```xml
         <schema name="user" checkSQLschema="false" sqlMaxLimit="100" dataNode="user" />
         <schema name="pay"  checkSQLschema="false" sqlMaxLimit="100" dataNode="pay" >
            <table name="order" dataNode="pay1,pay2" rule="rule1"/>
@@ -87,7 +87,7 @@ categories: MySQL
         ```
 3.  rule.xml
     - 该规则配置了order表的数据切分方式，及数据切分字段。
-      ```
+      ```xml
       <mycat:rule xmlns:mycat="http://org.opencloudb/">
         <tableRule name="rule1">
           <rule>
@@ -101,3 +101,36 @@ categories: MySQL
         </function>
       </mycat:rule>
       ```
+
+#### 实验配置
+- server.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mycat:server SYSTEM "server.dtd">
+<mycat:server xmlns:mycat="http://io.mycat/">
+	<user name="root">
+		<property name="password">456789</property>
+		<property name="schemas">TESTDB</property>
+	</user>
+</mycat:server>
+```
+
+- schema.xml
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE mycat:schema SYSTEM "schema.dtd">
+<mycat:schema xmlns:mycat="http://io.mycat/">
+	<schema name="TESTDB" checkSQLschema="false" sqlMaxLimit="100" dataNode="dn1">
+	</schema>
+	<dataNode name="dn1" dataHost="localhost1" database="mycat_test" />
+	<dataHost name="localhost1" maxCon="1000" minCon="10" balance="3"
+			  writeType="0" dbType="mysql" dbDriver="native" switchType="1"  slaveThreshold="100">
+		<heartbeat>select user()</heartbeat>
+		<writeHost host="hostM1" url="192.168.80.130:3306" user="mycat"
+				   password="Hjqme525+">
+			<readHost host="hostS2" url="192.168.80.131:3306" user="mycat" password="Hjqme525+" />
+			<readHost host="hostS3" url="192.168.80.129:3306" user="mycat" password="Hjqme525+" />
+		</writeHost>
+	</dataHost>
+</mycat:schema>
+```

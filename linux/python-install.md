@@ -35,8 +35,8 @@ yum -y install epel-release
 yum install -y python36 python36-devel
 mv /usr/bin/python /usr/bin/python.bak
 ln -s /usr/bin/python3.6 /usr/bin/python
-sed -i 's/python/python2/' /usr/bin/yum
-sed -i 's/python/python2/' /usr/libexec/urlgrabber-ext-down
+sed -i 's/python2/python/' /usr/bin/yum
+sed -i 's/python2/python/' /usr/libexec/urlgrabber-ext-down
 wget https://bootstrap.pypa.io/get-pip.py
 python get-pip.py
 ```
