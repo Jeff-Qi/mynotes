@@ -52,3 +52,4 @@
 # foobar = collections.namedtuple('a', ['x', 'y', 'z'])
 # print(foobar(1, 2, 3).y)
 # print(type(foobar))
+print("hello word")

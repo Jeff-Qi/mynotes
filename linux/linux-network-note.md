@@ -8,3 +8,6 @@
 - linux调度：https://blog.csdn.net/qq_37375427/article/details/83046906
 - centos7 开机详解：https://blog.csdn.net/weixin_34007906/article/details/93529347?depth_1-utm_source=distribute.pc_relevant.none-task&utm_source=distribute.pc_relevant.none-task
 - linux防火墙之iptables：http://www.zsythink.net/archives/tag/iptables/page/2/
+- linux各种括号：https://blog.csdn.net/taiyang1987912/article/details/39551385
+- linux负载均衡lvs：https://www.cnblogs.com/yanjieli/p/10582324.html
+- linux VRRP：https://www.jianshu.com/p/81115a4293c7

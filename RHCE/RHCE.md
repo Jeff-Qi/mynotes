@@ -252,7 +252,7 @@ Full path required for exclude: net:[4026532578].
 [root@server0 ~]# cd /etc/httpd/
 [root@server0 httpd]# wget http://classroom.example.com/pub/tls/certs/server0.crt
 [root@server0 httpd]# wget http://classroom.example.com/pub/tls/private/server0.key
-[root@server0 httpd]# wget http://classroom.example.com/pub/example-ca.crt
+[root@server0 httpd]# wget http://classroom.exampl  e.com/pub/example-ca.crt
 [root@server0 httpd]# vim /etc/httpd/conf.d/ssl.conf
     SSLCertificateFile /etc/httpd/server0.crt
     SSLCertificateKeyFile /etc/httpd/server0.key

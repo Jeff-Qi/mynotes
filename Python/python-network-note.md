@@ -1,1 +1,2 @@
 - python垃圾回收算法:https://www.jianshu.com/p/1e375fb40506
+- python迭代器生成器：https://www.jianshu.com/p/dcc4c1af63c7
