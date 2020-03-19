@@ -23,193 +23,88 @@
 </head>
 <body><div id="readme" class="container"><article class="markdown-body entry-content"><!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
 <ul>
-<li><a href="#%E8%BD%AF%E7%A1%AC%E9%93%BE%E6%8E%A5%E7%9A%84%E5%8C%BA%E5%88%AB">&#x8F6F;&#x786C;&#x94FE;&#x63A5;&#x7684;&#x533A;&#x522B;</a></li>
-<li><a href="#linux%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B">linux&#x542F;&#x52A8;&#x6D41;&#x7A0B;</a><ul>
-<li><a href="#linux%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E7%BA%A7%E5%88%AB">linux&#x5F00;&#x673A;&#x542F;&#x52A8;&#x7EA7;&#x522B;</a></li>
-</ul>
-</li>
-<li><a href="#ansible%E8%AE%B2%E4%B8%80%E4%B8%8B">ansible&#x8BB2;&#x4E00;&#x4E0B;</a><ul>
-<li><a href="#ansible%E6%9E%B6%E6%9E%84">ansible&#x67B6;&#x6784;</a></li>
-<li><a href="#role%E7%9B%B8%E6%AF%94%E4%BA%8E%E7%BC%96%E5%86%99%E5%AE%8C%E6%95%B4%E7%9A%84playbook%E7%9A%84%E4%BC%98%E7%82%B9">role&#x76F8;&#x6BD4;&#x4E8E;&#x7F16;&#x5199;&#x5B8C;&#x6574;&#x7684;playbook&#x7684;&#x4F18;&#x70B9;</a></li>
-<li><a href="#%E8%BF%90%E8%A1%8C%E8%BF%87%E7%A8%8B%E8%AE%B2%E4%B8%80%E4%B8%8B">&#x8FD0;&#x884C;&#x8FC7;&#x7A0B;&#x8BB2;&#x4E00;&#x4E0B;</a></li>
-</ul>
-</li>
-<li><a href="#%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B">&#x8FDB;&#x7A0B;&#x3001;&#x7EBF;&#x7A0B;&#x3001;&#x534F;&#x7A0B;</a><ul>
-<li><a href="#%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B%E5%8C%BA%E5%88%AB">&#x8FDB;&#x7A0B;&#x7EBF;&#x7A0B;&#x534F;&#x7A0B;&#x533A;&#x522B;</a></li>
-<li><a href="#%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8C%BA%E5%88%AB">&#x8FDB;&#x7A0B;&#x7EBF;&#x7A0B;&#x533A;&#x522B;&#xFF1A;</a></li>
-<li><a href="#%E8%81%94%E7%B3%BB">&#x8054;&#x7CFB;&#xFF1A;</a></li>
-</ul>
-</li>
-<li><a href="#apache">apache</a><ul>
-<li><a href="#apache%E7%9A%84%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83">apache&#x7684;&#x8BA4;&#x8BC1;&#x548C;&#x6388;&#x6743;</a></li>
-<li><a href="#%E8%AE%A4%E8%AF%81">&#x8BA4;&#x8BC1;</a></li>
-<li><a href="#mod_ssl-%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8%E4%BB%A5%E5%8F%8Assl%E5%9C%A8apache%E4%B8%AD%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C">mod_ssl &#x6709;&#x4EC0;&#x4E48;&#x7528;&#x4EE5;&#x53CA;SSL&#x5728;Apache&#x4E2D;&#x5982;&#x4F55;&#x5DE5;&#x4F5C;</a></li>
-<li><a href="#%E5%B8%B8%E8%A7%81%E5%AE%89%E5%85%A8%E6%A8%A1%E5%9D%97">&#x5E38;&#x89C1;&#x5B89;&#x5168;&#x6A21;&#x5757;</a></li>
-<li><a href="#%E8%AE%B2%E8%AE%B2mpm%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F">&#x8BB2;&#x8BB2;mpm&#x5DE5;&#x4F5C;&#x6A21;&#x5F0F;</a></li>
-</ul>
-</li>
-<li><a href="#nginx">Nginx</a><ul>
-<li><a href="#%E6%A8%A1%E5%9D%97">&#x6A21;&#x5757;</a><ul>
-<li><a href="#ngx_http_headers_module%E5%90%91%E7%94%B1%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%93%8D%E5%BA%94%E7%BB%99%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A6%96%E9%83%A8%E6%88%96%E4%BF%AE%E6%94%B9%E6%8C%87%E5%AE%9A%E9%A6%96%E9%83%A8%E7%9A%84%E5%80%BC">ngx_http_headers_module&#xFF1A;&#x5411;&#x7531;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x54CD;&#x5E94;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x54CD;&#x5E94;&#x62A5;&#x6587;&#x6DFB;&#x52A0;&#x81EA;&#x5B9A;&#x4E49;&#x9996;&#x90E8;&#xFF0C;&#x6216;&#x4FEE;&#x6539;&#x6307;&#x5B9A;&#x9996;&#x90E8;&#x7684;&#x503C;</a></li>
-</ul>
-</li>
-<li><a href="#%E9%9D%A2%E8%AF%95%E9%A2%98">&#x9762;&#x8BD5;&#x9898;</a><ul>
-<li><a href="#nginx%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E9%AB%98%E5%B9%B6%E5%8F%91">nginx&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x9AD8;&#x5E76;&#x53D1;</a></li>
-<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88-nginx-%E4%B8%8D%E4%BD%BF%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B">&#x4E3A;&#x4EC0;&#x4E48; Nginx &#x4E0D;&#x4F7F;&#x7528;&#x591A;&#x7EBF;&#x7A0B;?</a></li>
-<li><a href="#nginx%E5%B8%B8%E8%A7%81%E7%9A%84%E4%BC%98%E5%8C%96%E9%85%8D%E7%BD%AE%E6%9C%89%E5%93%AA%E4%BA%9B">Nginx&#x5E38;&#x89C1;&#x7684;&#x4F18;&#x5316;&#x914D;&#x7F6E;&#x6709;&#x54EA;&#x4E9B;?</a></li>
-<li><a href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95">&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x7B97;&#x6CD5;</a><!-- TOC END -->
+<li><a href="#%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2">&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;</a><ul>
+<li><a href="#%E8%BF%9B%E7%A8%8B%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2">&#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;</a></li>
+<li><a href="#%E7%BA%BF%E7%A8%8B%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2">&#x7EBF;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;</a></li>
+<li><a href="#%E4%B8%AD%E6%96%AD%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2">&#x4E2D;&#x65AD;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;</a></li>
+<li><a href="#%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90">&#x6848;&#x4F8B;&#x5206;&#x6790;</a><!-- TOC END -->
 
 </li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<h1 id="-">&#x8F6F;&#x786C;&#x94FE;&#x63A5;&#x7684;&#x533A;&#x522B;</h1>
-<ul>
-<li>&#x786C;&#x94FE;&#x63A5;&#x6587;&#x4EF6;&#x4E0E;&#x6E90;&#x6587;&#x4EF6;&#x7684;inode&#x8282;&#x70B9;&#x53F7;&#x76F8;&#x540C;&#xFF0C;&#x4E0D;&#x4F1A;&#x5360;&#x7528;&#x65B0;&#x7684;inode&#x548C;block&#xFF0C;&#x53EA;&#x662F;&#x5728;&#x67D0;&#x4E2A;&#x76EE;&#x5F55;&#x7684;block&#x4E0B;&#x8BB0;&#x5F55;&#xFF0C;&#x4E0D;&#x80FD;&#x8DE8;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x548C;&#x76EE;&#x5F55;&#xFF1B;</li>
-<li>&#x8F6F;&#x94FE;&#x63A5;&#x6587;&#x4EF6;&#x7684;inode&#x8282;&#x70B9;&#x53F7;&#x4E0E;&#x6E90;&#x6587;&#x4EF6;&#x4E0D;&#x540C;&#xFF0C;&#x9700;&#x8981;&#x5360;&#x7528;&#x65B0;&#x7684;inode&#x548C;block&#xFF0C;&#x53EF;&#x4EE5;&#x8DE8;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x548C;&#x94FE;&#x63A5;&#x76EE;&#x5F55;&#xFF1B;</li>
-</ul>
-<h1 id="linux-">linux&#x542F;&#x52A8;&#x6D41;&#x7A0B;</h1>
+<h1 id="-">&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;</h1>
 <ol>
-<li>BIOS===&#x300B;&#x52A0;&#x8F7D;&#x7B2C;&#x4E00;&#x6247;&#x533A;===&#x300B;&#x52A0;&#x8F7D;/boot&#x5F15;&#x5BFC;&#x5185;&#x6838;===&#x300B;&#x8FD0;&#x884C; init/systemd===&#x300B;&#x7CFB;&#x7EDF;&#x521D;&#x59CB;&#x5316;===&#x300B;&#x8FD0;&#x884C;&#x7EA7;&#x522B;===&#x300B;&#x5EFA;&#x7ACB;&#x7EC8;&#x7AEF;===&#x300B;&#x7528;&#x6237;&#x767B;&#x5F55;&#x7CFB;&#x7EDF;</li>
-<li>&#x63A5;&#x7535;&#x540E;BOIS&#x8F7D;&#x5165;&#xFF0C;&#x7136;&#x540E;&#x52A0;&#x8F7D;&#x7B2C;&#x4E00;&#x6247;&#x533A;&#xFF0C;&#x52A0;&#x8F7D;/boot&#x76EE;&#x5F55;&#xFF0C;&#x5F00;&#x59CB;&#x5F15;&#x5BFC;&#x5185;&#x6838;&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x7A0B;&#x5E8F;systemd&#xFF0C;&#x8FD0;&#x884C;&#x8BBE;&#x7F6E;&#x7684;runlevel&#x7B49;&#x7EA7;&#x3002;&#x521D;&#x59CB;&#x5316;&#x7CFB;&#x7EDF;&#xFF0C;&#x542F;&#x52A8;&#x8BBE;&#x7F6E;&#x4E3A;&#x5F00;&#x673A;&#x81EA;&#x542F;&#x52A8;&#x7684;&#x7A0B;&#x5E8F;&#x3002;&#x751F;&#x6210;&#x7EC8;&#x7AEF;&#xFF0C;&#x7B49;&#x5F85;&#x7528;&#x6237;&#x767B;&#x5F55;&#x3002;</li>
+<li>CPU &#x5BC4;&#x5B58;&#x5668;&#xFF1A;CPU &#x5185;&#x7F6E;&#x7684;&#x5BB9;&#x91CF;&#x5C0F;&#x3001;&#x4F46;&#x901F;&#x5EA6;&#x6781;&#x5FEB;&#x7684;&#x5185;&#x5B58;</li>
+<li>&#x7A0B;&#x5E8F;&#x8BA1;&#x6570;&#x5668;&#xFF1A;&#x7528;&#x6765;&#x5B58;&#x50A8; CPU &#x6B63;&#x5728;&#x6267;&#x884C;&#x7684;&#x6307;&#x4EE4;&#x4F4D;&#x7F6E;&#x3001;&#x6216;&#x8005;&#x5373;&#x5C06;&#x6267;&#x884C;&#x7684;&#x4E0B;&#x4E00;&#x6761;&#x6307;&#x4EE4;&#x4F4D;&#x7F6E;</li>
+<li>CPU&#x5BC4;&#x5B58;&#x5668;&#x548C;&#x7A0B;&#x5E8F;&#x8BA1;&#x6570;&#x5668;&#x662F;&#x8FD0;&#x884C;&#x4EFB;&#x4F55;&#x4EFB;&#x52A1;&#x7684;&#x524D;&#x63D0;&#xFF0C;&#x5FC5;&#x987B;&#x4F9D;&#x8D56;&#x7684;&#x73AF;&#x5883;&#x4E5F;&#x79F0;&#x4E3A;CPU&#x4E0A;&#x4E0B;&#x6587;</li>
+<li>&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x7C7B;&#x578B;<ol>
+<li>&#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;</li>
+<li>&#x7EBF;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;</li>
+<li>&#x4E2D;&#x65AD;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;</li>
 </ol>
-<h2 id="linux-">linux&#x5F00;&#x673A;&#x542F;&#x52A8;&#x7EA7;&#x522B;</h2>
-<ol>
-<li>runlevel&#x6709;7&#x4E2A;0~6&#xFF1A;<ul>
-<li>&#x8FD0;&#x884C;&#x7EA7;&#x522B;0&#xFF1A;&#x7CFB;&#x7EDF;&#x505C;&#x673A;&#x72B6;&#x6001;&#xFF0C;&#x7CFB;&#x7EDF;&#x9ED8;&#x8BA4;&#x8FD0;&#x884C;&#x7EA7;&#x522B;&#x4E0D;&#x80FD;&#x8BBE;&#x4E3A;0&#xFF0C;&#x5426;&#x5219;&#x4E0D;&#x80FD;&#x6B63;&#x5E38;&#x542F;&#x52A8;</li>
-<li>&#x8FD0;&#x884C;&#x7EA7;&#x522B;1&#xFF1A;&#x5355;&#x7528;&#x6237;&#x5DE5;&#x4F5C;&#x72B6;&#x6001;&#xFF0C;root&#x6743;&#x9650;&#xFF0C;&#x7528;&#x4E8E;&#x7CFB;&#x7EDF;&#x7EF4;&#x62A4;&#xFF0C;&#x7981;&#x6B62;&#x8FDC;&#x7A0B;&#x767B;&#x9646;</li>
-<li>&#x8FD0;&#x884C;&#x7EA7;&#x522B;2&#xFF1A;&#x591A;&#x7528;&#x6237;&#x72B6;&#x6001;(&#x6CA1;&#x6709;NFS)</li>
-<li>&#x8FD0;&#x884C;&#x7EA7;&#x522B;3&#xFF1A;&#x5B8C;&#x5168;&#x7684;&#x591A;&#x7528;&#x6237;&#x72B6;&#x6001;(&#x6709;NFS)&#xFF0C;&#x767B;&#x9646;&#x540E;&#x8FDB;&#x5165;&#x63A7;&#x5236;&#x53F0;&#x547D;&#x4EE4;&#x884C;&#x6A21;&#x5F0F;</li>
-<li>&#x8FD0;&#x884C;&#x7EA7;&#x522B;4&#xFF1A;&#x7CFB;&#x7EDF;&#x672A;&#x4F7F;&#x7528;&#xFF0C;&#x4FDD;&#x7559;</li>
-<li>&#x8FD0;&#x884C;&#x7EA7;&#x522B;5&#xFF1A;X11&#x63A7;&#x5236;&#x53F0;&#xFF0C;&#x767B;&#x9646;&#x540E;&#x8FDB;&#x5165;&#x56FE;&#x5F62;GUI&#x6A21;&#x5F0F;</li>
-<li>&#x8FD0;&#x884C;&#x7EA7;&#x522B;6&#xFF1A;&#x7CFB;&#x7EDF;&#x6B63;&#x5E38;&#x5173;&#x95ED;&#x5E76;&#x91CD;&#x542F;&#xFF0C;&#x9ED8;&#x8BA4;&#x8FD0;&#x884C;&#x7EA7;&#x522B;&#x4E0D;&#x80FD;&#x8BBE;&#x4E3A;6&#xFF0C;&#x5426;&#x5219;&#x4E0D;&#x80FD;&#x6B63;&#x5E38;&#x542F;&#x52A8;</li>
-</ul>
 </li>
 </ol>
-<h1 id="ansible-">ansible&#x8BB2;&#x4E00;&#x4E0B;</h1>
-<ul>
-<li>ansible&#x4F7F;&#x7528;python&#x7F16;&#x5199;&#x7684;&#x81EA;&#x52A8;&#x5316;&#x8FD0;&#x7EF4;&#x5DE5;&#x5177;&#x3002;&#x5B9E;&#x73B0;&#x4E86;&#x6279;&#x91CF;&#x8BBE;&#x7F6E;&#x7BA1;&#x7406;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x64CD;&#x4F5C;&#x6548;&#x7387;&#x9AD8;&#x3002;ansible&#x57FA;&#x4E8E;&#x6A21;&#x5757;&#x5316;&#x5DE5;&#x4F5C;&#x3002;&#x672C;&#x8EAB;&#x5E76;&#x6CA1;&#x6709;&#x6279;&#x91CF;&#x7BA1;&#x7406;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x901A;&#x8FC7;&#x5176;&#x4ED6;&#x6A21;&#x5757;&#x6765;&#x5B9E;&#x73B0;&#x8FD9;&#x4E9B;&#x529F;&#x80FD;&#x3002;</li>
-</ul>
-<h2 id="ansible-">ansible&#x67B6;&#x6784;</h2>
-<ul>
-<li>ansible&#xFF1A;&#x6838;&#x5FC3;&#x7EC4;&#x4EF6;</li>
-<li>module&#xFF1A;&#x5305;&#x542B;&#x558A;&#x81EA;&#x5E26;&#x7684;&#x6838;&#x5FC3;&#x6A21;&#x5757;&#x548C;&#x81EA;&#x5B9A;&#x4E49;&#x6A21;&#x5757;</li>
-<li>plugin&#xFF1A;&#x5BF9;&#x4E8E;&#x6A21;&#x5757;&#x529F;&#x80FD;&#x7684;&#x5B8C;&#x5584;&#x6BD4;&#x5982;&#xFF0C;&#x90AE;&#x4EF6;&#x63D2;&#x4EF6;&#xFF0C;&#x94FE;&#x63A5;&#x63D2;&#x4EF6;&#x7B49;</li>
-<li>inventory&#xFF1A;&#x4E3B;&#x673A;&#x6E05;&#x5355;&#xFF0C;&#x9700;&#x8981;&#x7BA1;&#x7406;&#x7684;&#x4E3B;&#x673A;&#x4FE1;&#x606F;</li>
-<li>playbook&#xFF1A;&#x5267;&#x672C;&#xFF0C;&#x5B9A;&#x4E49;&#x591A;&#x4E2A;&#x4EFB;&#x52A1;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x7531;ansible&#x81EA;&#x52A8;&#x8FD0;&#x884C;</li>
-<li>connection plugin&#xFF1A;&#x8D1F;&#x8D23;&#x88AB;&#x76D1;&#x63A7;&#x7AEF;&#x7684;&#x901A;&#x4FE1;</li>
-</ul>
-<h2 id="role-playbook-">role&#x76F8;&#x6BD4;&#x4E8E;&#x7F16;&#x5199;&#x5B8C;&#x6574;&#x7684;playbook&#x7684;&#x4F18;&#x70B9;</h2>
-<ul>
-<li>&#x4E00;&#x4E2A;palybook&#x53EA;&#x80FD;&#x6F14;&#x4E00;&#x573A;&#x620F;&#xFF0C;&#x53EA;&#x80FD;&#x505A;&#x505A;&#x7279;&#x5B9A;&#x7684;&#x4E8B;&#xFF1B;&#x7F16;&#x5199;role&#x901A;&#x8FC7;&#x7EC4;&#x5408;role&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x66F4;&#x52A0;&#x590D;&#x6742;&#x7684;&#x64CD;&#x4F5C;</li>
-</ul>
-<h2 id="-">&#x8FD0;&#x884C;&#x8FC7;&#x7A0B;&#x8BB2;&#x4E00;&#x4E0B;</h2>
+<h2 id="-">&#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;</h2>
 <ol>
-<li>ansible&#x542F;&#x52A8;&#x52A0;&#x8F7D;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</li>
-<li>ansible&#x52A0;&#x8F7D;&#x6A21;&#x5757;</li>
-<li>&#x66F4;&#x5177;&#x6A21;&#x5757;&#x6216;&#x547D;&#x4EE4;&#x7B49;&#x751F;&#x6210;python&#x6587;&#x4EF6;&#x53D1;&#x9001;&#x4E2A;&#x88AB;&#x7BA1;&#x7406;&#x8282;&#x70B9;</li>
-<li>&#x88AB;&#x7BA1;&#x7406;&#x8282;&#x70B9;&#x63A5;&#x6536;&#x5E76;&#x4FDD;&#x5B58;&#x5230;ansible&#x8BBE;&#x7F6E;&#x7684;&#x76EE;&#x5F55;&#x4E0B;</li>
-<li>&#x5BF9;python&#x6587;&#x4EF6;&#x52A0;&#x53EF;&#x6267;&#x884C;&#x6743;&#x9650;</li>
-<li>&#x6267;&#x884C;&#x5B8C;&#x6210;&#x540E;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#xFF0C;&#x5E76;&#x5220;&#x9664;python&#x6587;&#x4EF6;sleep&#x9000;&#x51FA;</li>
+<li>&#x5185;&#x6838;&#x7A7A;&#x95F4;&#xFF08;Ring 0&#xFF09;&#x5177;&#x6709;&#x6700;&#x9AD8;&#x6743;&#x9650;&#xFF0C;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x8BBF;&#x95EE;&#x6240;&#x6709;&#x8D44;&#x6E90;&#xFF1B;</li>
+<li>&#x7528;&#x6237;&#x7A7A;&#x95F4;&#xFF08;Ring 3&#xFF09;&#x53EA;&#x80FD;&#x8BBF;&#x95EE;&#x53D7;&#x9650;&#x8D44;&#x6E90;&#xFF0C;&#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x8BBF;&#x95EE;&#x5185;&#x5B58;&#x7B49;&#x786C;&#x4EF6;&#x8BBE;&#x5907;&#xFF0C;&#x5FC5;&#x987B;&#x901A;&#x8FC7;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x9677;&#x5165;&#x5230;&#x5185;&#x6838;&#x4E2D;&#xFF0C;&#x624D;&#x80FD;&#x8BBF;&#x95EE;&#x8FD9;&#x4E9B;&#x7279;&#x6743;&#x8D44;&#x6E90;&#x3002;
+<img src="http://study.jeffqi.cn/linux/linux-source-space.png" alt></li>
+<li>&#x8FDB;&#x7A0B;&#x5728;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x8FD0;&#x884C;&#x65F6;&#xFF0C;&#x88AB;&#x79F0;&#x4E3A;&#x8FDB;&#x7A0B;&#x7684;&#x7528;&#x6237;&#x6001;&#xFF0C;&#x800C;&#x9677;&#x5165;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x88AB;&#x79F0;&#x4E3A;&#x8FDB;&#x7A0B;&#x7684;&#x5185;&#x6838;&#x6001;&#x3002;&#x4ECE;&#x7528;&#x6237;&#x6001;&#x5230;&#x5185;&#x6838;&#x6001;&#x7684;&#x8F6C;&#x53D8;&#xFF0C;&#x9700;&#x8981;&#x901A;&#x8FC7;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x6765;&#x5B8C;&#x6210;&#xFF1B;<strong>&#x4E00;&#x6B21;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x5176;&#x5B9E;&#x662F;&#x53D1;&#x751F;&#x4E86;&#x4E24;&#x6B21; CPU &#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#xFF1B;&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5E76;&#x4E0D;&#x4F1A;&#x6D89;&#x53CA;&#x5230;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x7B49;&#x8FDB;&#x7A0B;&#x7528;&#x6237;&#x6001;&#x7684;&#x8D44;&#x6E90;&#xFF0C;&#x4E5F;&#x4E0D;&#x4F1A;&#x5207;&#x6362;&#x8FDB;&#x7A0B;</strong><ol>
+<li>&#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x662F;&#x5728;&#x4E0D;&#x540C;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;</li>
+<li>&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x53EA;&#x5728;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x4E2D;</li>
+<li><strong>&#x7CFB;&#x7EDF;&#x8C03;&#x7528;&#x8FC7;&#x7A0B;&#x901A;&#x5E38;&#x79F0;&#x4E3A;&#x7279;&#x6743;&#x6A21;&#x5F0F;&#x5207;&#x6362;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#xFF1B;&#x4F46;&#x662F;&#x4E5F;&#x4E0D;&#x53EF;&#x907F;&#x514D;CPU&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;</strong></li>
 </ol>
-<h1 id="-">&#x8FDB;&#x7A0B;&#x3001;&#x7EBF;&#x7A0B;&#x3001;&#x534F;&#x7A0B;</h1>
-<h2 id="-">&#x8FDB;&#x7A0B;&#x7EBF;&#x7A0B;&#x534F;&#x7A0B;&#x533A;&#x522B;</h2>
-<ol>
-<li><strong>&#x8FDB;&#x7A0B;</strong>&#xFF1A;&#x4FDD;&#x5B58;&#x5728;&#x786C;&#x76D8;&#x4E0A;&#x7684;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x4EE5;&#x540E;&#xFF0C;&#x4F1A;&#x5728;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x91CC;&#x5F62;&#x6210;&#x4E00;&#x4E2A;&#x72EC;&#x7ACB;&#x7684;&#x5185;&#x5B58;&#x4F53;&#xFF0C;&#x8FD9;&#x4E2A;&#x5185;&#x5B58;&#x4F53;&#x6709;&#x81EA;&#x5DF1;&#x72EC;&#x7ACB;&#x7684;&#x5730;&#x5740;&#x7A7A;&#x95F4;&#xFF0C;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x5806;&#xFF0C;&#x4E0A;&#x7EA7;&#x6302;&#x9760;&#x5355;&#x4F4D;&#x662F;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x3002;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4F1A;&#x4EE5;&#x8FDB;&#x7A0B;&#x4E3A;&#x5355;&#x4F4D;&#xFF0C;&#x5206;&#x914D;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#xFF08;CPU&#x65F6;&#x95F4;&#x7247;&#x3001;&#x5185;&#x5B58;&#x7B49;&#x8D44;&#x6E90;&#xFF09;&#xFF0C;&#x8FDB;&#x7A0B;&#x662F;&#x8D44;&#x6E90;&#x5206;&#x914D;&#x7684;&#x6700;&#x5C0F;&#x5355;&#x4F4D;&#x3002;</li>
-<li><strong>&#x7EBF;&#x7A0B;</strong>&#xFF1A;&#x7EBF;&#x7A0B;&#xFF0C;&#x6709;&#x65F6;&#x88AB;&#x79F0;&#x4E3A;&#x8F7B;&#x91CF;&#x7EA7;&#x8FDB;&#x7A0B;(Lightweight Process&#xFF0C;LWP&#xFF09;&#xFF0C;&#x662F;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x8C03;&#x5EA6;&#xFF08;CPU&#x8C03;&#x5EA6;&#xFF09;&#x6267;&#x884C;&#x7684;&#x6700;&#x5C0F;&#x5355;&#x4F4D;&#x3002;</li>
-<li><strong>&#x534F;&#x7A0B;</strong>&#xFF1A;&#x534F;&#x7A0B;&#x662F;&#x7531;&#x7A0B;&#x5E8F;&#x81EA;&#x5DF1;&#x51B3;&#x5B9A;&#x7684;&#xFF1B;&#x534F;&#x7A0B;&#x5728;&#x5B50;&#x7A0B;&#x5E8F;&#x5185;&#x90E8;&#x662F;&#x53EF;&#x4E2D;&#x65AD;&#x7684;&#xFF0C;&#x7136;&#x540E;&#x8F6C;&#x800C;&#x6267;&#x884C;&#x522B;&#x7684;&#x5B50;&#x7A0B;&#x5E8F;&#xFF0C;&#x5728;&#x9002;&#x5F53;&#x7684;&#x65F6;&#x5019;&#x518D;&#x8FD4;&#x56DE;&#x6765;&#x63A5;&#x7740;&#x6267;&#x884C;&#xFF1B;&#x4E0D;&#x9700;&#x8981;&#x5207;&#x6362;&#x7EBF;&#x7A0B;&#x8FDB;&#x7A0B;&#x9020;&#x6210;&#x8D44;&#x6E90;&#x6D6A;&#x8D39;&#x56E0;&#x4E3A;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;&#x4E5F;&#x4E0D;&#x5B58;&#x5728;&#x540C;&#x65F6;&#x5199;&#x53D8;&#x91CF;&#x51B2;&#x7A81;&#xFF0C;&#x5728;&#x534F;&#x7A0B;&#x4E2D;&#x63A7;&#x5236;&#x5171;&#x4EAB;&#x8D44;&#x6E90;&#x4E0D;&#x52A0;&#x9501;&#x3002;</li>
-</ol>
-<h2 id="-">&#x8FDB;&#x7A0B;&#x7EBF;&#x7A0B;&#x533A;&#x522B;&#xFF1A;</h2>
-<ol>
-<li>&#x8FDB;&#x7A0B;&#x662F;&#x8D44;&#x6E90;&#x5206;&#x914D;&#x7684;&#x6700;&#x5C0F;&#x5355;&#x4F4D;&#xFF0C;&#x7EBF;&#x7A0B;&#x662F;&#x8C03;&#x5EA6;&#x548C;&#x5206;&#x914D;&#x7684;&#x57FA;&#x672C;&#x5355;&#x4F4D;&#xFF1B;</li>
-<li>&#x4E0D;&#x540C;&#x8FDB;&#x7A0B;&#x53EF;&#x4EE5;&#x5E76;&#x53D1;&#xFF0C;&#x540C;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x4E2D;&#x7684;&#x7EBF;&#x7A0B;&#x9700;&#x8981;&#x8003;&#x8651;&#x8D44;&#x6E90;&#x51B2;&#x7A81;</li>
-<li>&#x8FDB;&#x7A0B;&#x62E5;&#x6709;&#x9759;&#x6001;&#x8D44;&#x6E90;&#xFF0C;&#x7EBF;&#x7A0B;&#x4E0D;&#x62E5;&#x6709;&#x8D44;&#x6E90;&#xFF0C;&#x53EA;&#x6709;&#x52A8;&#x6001;&#x5206;&#x914D;&#x7684;&#x8D44;&#x6E90;&#xFF1B;&#x7CFB;&#x7EDF;&#x5F00;&#x9500;&#x4E0A;&#xFF0C;&#x8FDB;&#x7A0B;&#x7684;&#x521B;&#x5EFA;&#x3001;&#x5207;&#x6362;&#x548C;&#x9500;&#x6BC1;&#x76F8;&#x6BD4;&#x7EBF;&#x7A0B;&#x66F4;&#x52A0;&#x5927;</li>
-</ol>
-<h2 id="-">&#x8054;&#x7CFB;&#xFF1A;</h2>
-<ol>
-<li>&#x7EBF;&#x7A0B;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x53EA;&#x80FD;&#x5C5E;&#x4E8E;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#xFF0C;&#x800C;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x53EF;&#x4EE5;&#x6709;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;&#x4F46;&#x81F3;&#x5C11;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF1B;</li>
-<li>&#x7EBF;&#x7A0B;&#x5171;&#x4EAB;&#x540C;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;&#x8D44;&#x6E90;</li>
-<li>&#x7EBF;&#x7A0B;&#x5728;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x9700;&#x8981;&#x534F;&#x4F5C;&#x540C;&#x6B65;&#x3002;&#x4E0D;&#x540C;&#x8FDB;&#x7A0B;&#x7684;&#x7EBF;&#x7A0B;&#x95F4;&#x8981;&#x5229;&#x7528;&#x6D88;&#x606F;&#x901A;&#x4FE1;&#x7684;&#x529E;&#x6CD5;&#x5B9E;&#x73B0;&#x540C;&#x6B65;&#x3002;</li>
-</ol>
-<h1 id="apache">apache</h1>
-<h2 id="apache-">apache&#x7684;&#x8BA4;&#x8BC1;&#x548C;&#x6388;&#x6743;</h2>
-<ul>
-<li>&#x8BA4;&#x8BC1;&#xFF1A;&#x8BC6;&#x522B;&#x7528;&#x6237;&#x7684;&#x8FC7;&#x7A0B;</li>
-<li>&#x6388;&#x6743;&#xFF1A;&#x7ED9;&#x4E88;&#x7279;&#x5B9A;&#x7528;&#x6237;&#x5BF9;&#x7279;&#x5B9A;&#x8D44;&#x6E90;&#x533A;&#x57DF;&#x7684;&#x8BBF;&#x95EE;</li>
-</ul>
-<h2 id="-">&#x8BA4;&#x8BC1;</h2>
-<ul>
-<li>basic&#x4E0E;digest&#x4E24;&#x79CD;&#xFF0C;basic&#x66F4;&#x52A0;&#x5E7F;&#x6CDB;&#x652F;&#x6301;&#xFF0C;&#x4F46;&#x662F;&#x4F20;&#x8F93;base64&#x660E;&#x6587;&#x7F16;&#x7801;&#xFF0C;&#x76F8;&#x6BD4;&#x4E0E;diges&#x4F20;&#x9001;&#x6458;&#x8981;&#x5148;&#x5F97;&#x4E0D;&#x5B89;&#x5168;</li>
-</ul>
-<h2 id="mod_ssl-ssl-apache-">mod_ssl &#x6709;&#x4EC0;&#x4E48;&#x7528;&#x4EE5;&#x53CA;SSL&#x5728;Apache&#x4E2D;&#x5982;&#x4F55;&#x5DE5;&#x4F5C;</h2>
-<ul>
-<li>mod_ssl&#x6A21;&#x5757;&#xFF0C;&#x63D0;&#x4F9B;&#x4E86;&#x5B89;&#x5168;&#x5957;&#x63A5;&#x5B57;&#x548C;&#x4F20;&#x8F93;&#x5C42;&#x52A0;&#x5BC6;&#x534F;&#x8BAE;&#x8BA9;&#x4FE1;&#x606F;&#x4F20;&#x9012;&#x66F4;&#x52A0;&#x5B89;&#x5168;&#xFF1B;</li>
-<li>&#x4F7F;&#x7528;&#xFF1A;&#x5BA2;&#x6237;&#x7AEF;&#x8BBF;&#x95EE;&#x670D;&#x52A1;&#x5668;&#x65F6;&#xFF0C;apache&#x4F1A;&#x5C06;&#x79C1;&#x94A5;&#x751F;&#x6210;csr&#x53D1;&#x9001;&#x7ED9;&#x8BC1;&#x4E66;&#x7BA1;&#x7406;&#x4E2D;&#x5FC3;&#x3002;&#x8BC1;&#x4E66;&#x7BA1;&#x7406;&#x4E2D;&#x5FC3;&#x4F1A;&#x66F4;&#x5177;&#x8FD9;&#x4E2A;csr&#x6587;&#x4EF6;&#x8FD4;&#x56DE;&#x8BC1;&#x4E66;</li>
-</ul>
-<h2 id="-">&#x5E38;&#x89C1;&#x5B89;&#x5168;&#x6A21;&#x5757;</h2>
-<ul>
-<li>mod_security&#x6A21;&#x5757;&#xFF1A;&#x5B8C;&#x6574;&#x7684;http&#x6D41;&#x91CF;&#x8BB0;&#x5F55;&#x3002;&#x63D0;&#x4F9B;&#x5B9E;&#x65F6;&#x7684;&#x76D1;&#x63A7;&#x548C;&#x653B;&#x51FB;&#x68C0;&#x6D4B;</li>
-<li>mod_ssl&#x6A21;&#x5757;&#xFF1A;&#x63D0;&#x4F9B;&#x5B89;&#x5168;&#x5957;&#x63A5;&#x5B57;&#x4E0E;&#x52A0;&#x5BC6;&#x4F20;&#x8F93;&#x529F;&#x80FD;</li>
-</ul>
-<h2 id="-mpm-">&#x8BB2;&#x8BB2;mpm&#x5DE5;&#x4F5C;&#x6A21;&#x5F0F;</h2>
-<ol>
-<li>perfect&#xFF1A;&#x91C7;&#x7528;&#x7684;&#x662F;&#x9884;&#x6D3E;&#x751F;&#x5B50;&#x8FDB;&#x7A0B;&#x65B9;&#x5F0F;&#xFF0C;&#x7528;&#x5355;&#x72EC;&#x7684;&#x5B50;&#x8FDB;&#x7A0B;&#x6765;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#xFF0C;&#x5B50;&#x8FDB;&#x7A0B;&#x95F4;&#x4E92;&#x76F8;&#x72EC;&#x7ACB;&#xFF0C;&#x4E92;&#x4E0D;&#x5F71;&#x54CD;&#xFF0C;&#x5927;&#x5927;&#x7684;&#x63D0;&#x9AD8;&#x4E86;&#x7A33;&#x5B9A;&#x6027;&#xFF0C;&#x4F46;&#x6BCF;&#x4E2A;&#x8FDB;&#x7A0B;&#x90FD;&#x4F1A;&#x5360;&#x7528;&#x5185;&#x5B58;&#xFF0C;&#x6240;&#x4EE5;&#x6D88;&#x8017;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#x8FC7;&#x9AD8;&#xFF1B;</li>
-<li>worker&#xFF1A;&#x652F;&#x6301;&#x591A;&#x8FDB;&#x7A0B;&#x591A;&#x7EBF;&#x7A0B;&#x6DF7;&#x5408;&#x6A21;&#x578B;&#x7684;MPM&#xFF0C;&#x6BCF;&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;&#x53EF;&#x4EE5;&#x751F;&#x6210;&#x591A;&#x4E2A;&#x5B50;&#x7EBF;&#x7A0B;&#x6765;&#x54CD;&#x5E94;&#x8BF7;&#x6C42;&#xFF1B;&#x6BCF;&#x4E2A;&#x8FDB;&#x7A0B;&#x4F1A;&#x751F;&#x6210;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF0C;&#x7531;&#x7EBF;&#x7A0B;&#x6765;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#xFF0C;&#x8FD9;&#x6837;&#x53EF;&#x4EE5;&#x4FDD;&#x8BC1;&#x591A;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x83B7;&#x5F97;&#x8FDB;&#x7A0B;&#x7684;&#x7A33;&#x5B9A;&#x6027;&#xFF1B;</li>
-<li>event&#xFF1A;&#x5B83;&#x548C; worker&#x6A21;&#x5F0F;&#x5F88;&#x50CF;&#xFF0C;&#x6700;&#x5927;&#x7684;&#x533A;&#x522B;&#x5728;&#x4E8E;&#xFF0C;&#x5B83;&#x89E3;&#x51B3;&#x4E86; keep-alive &#x573A;&#x666F;&#x4E0B; &#xFF0C;&#x957F;&#x671F;&#x88AB;&#x5360;&#x7528;&#x7684;&#x7EBF;&#x7A0B;&#x7684;&#x8D44;&#x6E90;&#x6D6A;&#x8D39;&#x95EE;&#x9898;&#xFF1B;&#x4F1A;&#x6709;&#x4E00;&#x4E2A;&#x4E13;&#x95E8;&#x7684;&#x7EBF;&#x7A0B;&#x6765;&#x7BA1;&#x7406;&#x8FD9;&#x4E9B; keep-alive &#x7C7B;&#x578B;&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x5F53;&#x6709;&#x771F;&#x5B9E;&#x8BF7;&#x6C42;&#x8FC7;&#x6765;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C06;&#x8BF7;&#x6C42;&#x4F20;&#x9012;&#x7ED9;&#x670D;&#x52A1;&#x7EBF;&#x7A0B;&#xFF0C;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x540E;&#xFF0C;&#x53C8;&#x5141;&#x8BB8;&#x5B83;&#x91CA;&#x653E;</li>
-<li>&#x4F7F;&#x7528;ab&#x6D4B;&#x538B;&#x5DE5;&#x5177;&#x53EF;&#x4EE5;&#x8FDB;&#x884C;&#x7B80;&#x5355;&#x7684;&#x6D4B;&#x8BD5;</li>
-</ol>
-<h1 id="nginx">Nginx</h1>
-<ul>
-<li>&#x57FA;&#x7840;&#xFF1A;<a href="https://zhuanlan.zhihu.com/p/31196264">https://zhuanlan.zhihu.com/p/31196264</a></li>
-<li>&#x57FA;&#x7840;&#x914D;&#x7F6E;&#xFF1A;<a href="https://zhuanlan.zhihu.com/p/101961241">https://zhuanlan.zhihu.com/p/101961241</a></li>
-<li>keepalive + nginx&#xFF1A;<a href="https://zhuanlan.zhihu.com/p/102528726">https://zhuanlan.zhihu.com/p/102528726</a></li>
-</ul>
-<h2 id="-">&#x6A21;&#x5757;</h2>
-<h3 id="ngx_http_headers_module-">ngx_http_headers_module&#xFF1A;&#x5411;&#x7531;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x54CD;&#x5E94;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x54CD;&#x5E94;&#x62A5;&#x6587;&#x6DFB;&#x52A0;&#x81EA;&#x5B9A;&#x4E49;&#x9996;&#x90E8;&#xFF0C;&#x6216;&#x4FEE;&#x6539;&#x6307;&#x5B9A;&#x9996;&#x90E8;&#x7684;&#x503C;</h3>
-<ol>
-<li>add_header name&#xFF1A;&#x6DFB;&#x52A0;&#x81EA;&#x5B9A;&#x4E49;&#x9996;&#x90E8;</li>
-<li>expires&#xFF1A;&#x7528;&#x4E8E;&#x5B9A;&#x4E49;Expire&#x6216;Cache-Control&#x9996;&#x90E8;&#x7684;&#x503C;</li>
-</ol>
-<h2 id="-">&#x9762;&#x8BD5;&#x9898;</h2>
-<h3 id="nginx-">nginx&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x9AD8;&#x5E76;&#x53D1;</h3>
-<ol>
-<li>&#x5F02;&#x6B65;&#xFF0C;&#x975E;&#x963B;&#x585E;&#xFF0C;&#x4F7F;&#x7528;&#x4E86;epoll &#x548C;&#x5927;&#x91CF;&#x7684;&#x5E95;&#x5C42;&#x4EE3;&#x7801;&#x4F18;&#x5316;&#x3002;&#xFF08;&#x9910;&#x5385;&#x670D;&#x52A1;&#x5458;&#x670D;&#x52A1;&#x5BA2;&#x670D;&#x6848;&#x4F8B;&#xFF09;</li>
-<li>master&#x548C;worker&#x7EBF;&#x7A0B;</li>
-</ol>
-<h3 id="-nginx-">&#x4E3A;&#x4EC0;&#x4E48; Nginx &#x4E0D;&#x4F7F;&#x7528;&#x591A;&#x7EBF;&#x7A0B;?</h3>
-<ul>
-<li>Apache: &#x521B;&#x5EFA;&#x591A;&#x4E2A;&#x8FDB;&#x7A0B;&#x6216;&#x7EBF;&#x7A0B;&#xFF0C;&#x800C;&#x6BCF;&#x4E2A;&#x8FDB;&#x7A0B;&#x6216;&#x7EBF;&#x7A0B;&#x90FD;&#x4F1A;&#x4E3A;&#x5176;&#x5206;&#x914D; cpu &#x548C;&#x5185;&#x5B58;(&#x7EBF;&#x7A0B;&#x8981;&#x6BD4;&#x8FDB;&#x7A0B;&#x5C0F;&#x7684;&#x591A;&#xFF0C;&#x6240;&#x4EE5;worker&#x652F;&#x6301;&#x6BD4;perfork&#x9AD8;&#x7684;&#x5E76;&#x53D1;)&#xFF0C;&#x5E76;&#x53D1;&#x8FC7;&#x5927;&#x4F1A;&#x8017;&#x5149;&#x670D;&#x52A1;&#x5668;&#x8D44;&#x6E90;&#x3002;</li>
-<li>Nginx: &#x91C7;&#x7528;&#x5355;&#x7EBF;&#x7A0B;&#x6765;&#x5F02;&#x6B65;&#x975E;&#x963B;&#x585E;&#x5904;&#x7406;&#x8BF7;&#x6C42;(&#x7BA1;&#x7406;&#x5458;&#x53EF;&#x4EE5;&#x914D;&#x7F6E;Nginx&#x4E3B;&#x8FDB;&#x7A0B;&#x7684;&#x5DE5;&#x4F5C;&#x8FDB;&#x7A0B;&#x7684;&#x6570;&#x91CF;)(epoll)&#xFF0C;&#x4E0D;&#x4F1A;&#x4E3A;&#x6BCF;&#x4E2A;&#x8BF7;&#x6C42;&#x5206;&#x914D;cpu&#x548C;&#x5185;&#x5B58;&#x8D44;&#x6E90;&#xFF0C;&#x8282;&#x7701;&#x4E86;&#x5927;&#x91CF;&#x8D44;&#x6E90;&#xFF0C;&#x540C;&#x65F6;&#x4E5F;&#x51CF;&#x5C11;&#x4E86;&#x5927;&#x91CF;&#x7684;CPU&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x3002;&#x6240;&#x4EE5;&#x624D;&#x4F7F;&#x5F97;Nginx&#x652F;&#x6301;&#x66F4;&#x9AD8;&#x7684;&#x5E76;&#x53D1;&#x3002;</li>
-</ul>
-<h3 id="nginx-">Nginx&#x5E38;&#x89C1;&#x7684;&#x4F18;&#x5316;&#x914D;&#x7F6E;&#x6709;&#x54EA;&#x4E9B;?</h3>
-<ol>
-<li>&#x8C03;&#x6574;worker_processes&#xFF1A;work&#x8FDB;&#x7A0B;&#x6570;&#xFF0C;&#x901A;&#x5E38;&#x4E0E;cpu&#x6838;&#x6570;&#x76F8;&#x5F53;<pre><code class="language-sh">worker_processes auto</code></pre>
 </li>
-<li>&#x6700;&#x5927;&#x5316;worker_connections&#xFF1A;&#x6BCF;&#x4E2A;work&#x8FDB;&#x7A0B;&#x80FD;&#x591F;&#x5904;&#x7406;&#x7684;&#x6700;&#x5927;&#x8BF7;&#x6C42;&#x6570;<pre><code class="language-sh">events {
-  worker_connections 1024
-}</code></pre>
-</li>
-<li>&#x542F;&#x7528;Gzip&#x538B;&#x7F29;&#xFF1A;&#x538B;&#x7F29;&#x6587;&#x4EF6;&#x5927;&#x5C0F;&#xFF0C;&#x63D0;&#x9AD8;&#x5E26;&#x5BBD;&#x5229;&#x7528;&#x7387;<pre><code class="language-shell">gzip on;
-gzip_http_version 1.1;</code></pre>
-</li>
-<li>&#x4E3A;&#x9759;&#x6001;&#x6587;&#x4EF6;&#x542F;&#x7528;&#x7F13;&#x5B58;&#xFF1A;<pre><code class="language-shell">location ~* .(jpg|jpeg|png|gif|ico|css|js)$ {  
-expires 365d;  
-}</code></pre>
-</li>
-<li>Timeouts&#xFF1A;keepalive&#x8FDE;&#x63A5;&#x51CF;&#x5C11;&#x4E86;&#x6253;&#x5F00;&#x548C;&#x5173;&#x95ED;&#x8FDE;&#x63A5;&#x6240;&#x9700;&#x7684;CPU&#x548C;&#x7F51;&#x7EDC;&#x5F00;&#x9500;&#xFF1B;<pre><code class="language-sh">keepalive_timeout   65;
-send_timeout  10;</code></pre>
+<li><strong>&#x8FDB;&#x7A0B;&#x662F;&#x7531;&#x5185;&#x6838;&#x6765;&#x7BA1;&#x7406;&#x548C;&#x8C03;&#x5EA6;&#x7684;&#xFF0C;&#x8FDB;&#x7A0B;&#x7684;&#x5207;&#x6362;&#x53EA;&#x80FD;&#x53D1;&#x751F;&#x5728;&#x5185;&#x6838;&#x6001;</strong>&#xFF1B;&#x8FDB;&#x7A0B;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x4E0D;&#x4EC5;&#x5305;&#x62EC;&#x4E86;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x3001;&#x6808;&#x3001;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x7B49;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x7684;&#x8D44;&#x6E90;&#xFF0C;&#x8FD8;&#x5305;&#x62EC;&#x4E86;&#x5185;&#x6838;&#x5806;&#x6808;&#x3001;&#x5BC4;&#x5B58;&#x5668;&#x7B49;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x7684;&#x72B6;&#x6001;&#x3002;</li>
+<li>&#x8FDB;&#x7A0B;&#x5207;&#x6362;&#x573A;&#x666F;<ol>
+<li>&#x65F6;&#x95F4;&#x7247;&#x8F6E;&#x8F6C;&#x7ED3;&#x675F;&#xFF0C;&#x6216;&#x8FDB;&#x7A0B;&#x6267;&#x884C;&#x5B8C;&#x6210;</li>
+<li>&#x8C03;&#x7528;sleep&#x51FD;&#x6570;</li>
+<li>&#x7B49;&#x5F85;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;</li>
+<li>&#x66F4;&#x9AD8;&#x4F18;&#x5148;&#x7EA7;&#x8FDB;&#x7A0B;&#x62A2;&#x5360;</li>
+<li>&#x786C;&#x4EF6;&#x4E2D;&#x65AD;</li>
+</ol>
 </li>
 </ol>
-<h3 id="-">&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x7B97;&#x6CD5;</h3>
+<h2 id="-">&#x7EBF;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;</h2>
 <ol>
-<li>&#x8F6E;&#x8BE2;(&#x9ED8;&#x8BA4;)&#xFF1A;&#x6BCF;&#x4E2A;&#x8BF7;&#x6C42;&#x6309;&#x65F6;&#x95F4;&#x987A;&#x5E8F;&#x9010;&#x4E00;&#x5206;&#x914D;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x540E;&#x7AEF;&#x670D;&#x52A1;&#xFF0C;&#x5982;&#x679C;&#x540E;&#x7AEF;&#x67D0;&#x53F0;&#x670D;&#x52A1;&#x5668;&#x6B7B;&#x673A;&#xFF0C;&#x81EA;&#x52A8;&#x5254;&#x9664;&#x6545;&#x969C;&#x7CFB;&#x7EDF;&#xFF0C;&#x4F7F;&#x7528;&#x6237;&#x8BBF;&#x95EE;&#x4E0D;&#x53D7;&#x5F71;&#x54CD;&#x3002;</li>
-<li>weight&#xFF08;&#x8F6E;&#x8BE2;&#x6743;&#x503C;&#xFF09;&#xFF1A;weight&#x7684;&#x503C;&#x8D8A;&#x5927;&#x5206;&#x914D;&#x5230;&#x7684;&#x8BBF;&#x95EE;&#x6982;&#x7387;&#x8D8A;&#x9AD8;&#xFF0C;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x540E;&#x7AEF;&#x6BCF;&#x53F0;&#x670D;&#x52A1;&#x5668;&#x6027;&#x80FD;&#x4E0D;&#x5747;&#x8861;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x3002;&#x6216;&#x8005;&#x4EC5;&#x4EC5;&#x4E3A;&#x5728;&#x4E3B;&#x4ECE;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x8BBE;&#x7F6E;&#x4E0D;&#x540C;&#x7684;&#x6743;&#x503C;&#xFF0C;&#x8FBE;&#x5230;&#x5408;&#x7406;&#x6709;&#x6548;&#x7684;&#x5730;&#x5229;&#x7528;&#x4E3B;&#x673A;&#x8D44;&#x6E90;
-ip_hash&#xFF1A;&#x6BCF;&#x4E2A;&#x8BF7;&#x6C42;&#x6309;&#x8BBF;&#x95EE;IP&#x7684;&#x54C8;&#x5E0C;&#x7ED3;&#x679C;&#x5206;&#x914D;&#xFF0C;&#x4F7F;&#x6765;&#x81EA;&#x540C;&#x4E00;&#x4E2A;IP&#x7684;&#x8BBF;&#x5BA2;&#x56FA;&#x5B9A;&#x8BBF;&#x95EE;&#x4E00;&#x53F0;&#x540E;&#x7AEF;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x5E76;&#x4E14;&#x53EF;&#x4EE5;&#x6709;&#x6548;&#x89E3;&#x51B3;&#x52A8;&#x6001;&#x7F51;&#x9875;&#x5B58;&#x5728;&#x7684;session&#x5171;&#x4EAB;&#x95EE;&#x9898;&#x3002;</li>
-<li>fair&#xFF1A;&#x6BD4;weight&#x3001;ip_hash&#x66F4;&#x52A0;&#x667A;&#x80FD;&#x7684;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x7B97;&#x6CD5;&#xFF0C;fair&#x7B97;&#x6CD5;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x9875;&#x9762;&#x5927;&#x5C0F;&#x548C;&#x52A0;&#x8F7D;&#x65F6;&#x95F4;&#x957F;&#x77ED;&#x667A;&#x80FD;&#x5730;&#x8FDB;&#x884C;&#x8D1F;&#x8F7D;&#x5747;
-&#x8861;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x6839;&#x636E;&#x540E;&#x7AEF;&#x670D;&#x52A1;&#x5668;&#x7684;&#x54CD;&#x5E94;&#x65F6;&#x95F4;&#x6765;&#x5206;&#x914D;&#x8BF7;&#x6C42;&#xFF0C;&#x54CD;&#x5E94;&#x65F6;&#x95F4;&#x77ED;&#x7684;&#x4F18;&#x5148;&#x5206;&#x914D;&#x3002;Nginx&#x672C;&#x8EAB;&#x4E0D;&#x652F;&#x6301;fair&#xFF0C;&#x5982;&#x679C;&#x9700;&#x8981;&#x8FD9;&#x79CD;&#x8C03;&#x5EA6;&#x7B97;&#x6CD5;&#xFF0C;&#x5219;&#x5FC5;&#x987B;&#x5B89;&#x88C5;upstream_fair&#x6A21;&#x5757;&#x3002;</li>
-<li>url_hash&#xFF1A;&#x6309;&#x8BBF;&#x95EE;&#x7684;URL&#x7684;&#x54C8;&#x5E0C;&#x7ED3;&#x679C;&#x6765;&#x5206;&#x914D;&#x8BF7;&#x6C42;&#xFF0C;&#x4F7F;&#x6BCF;&#x4E2A;URL&#x5B9A;&#x5411;&#x5230;&#x4E00;&#x53F0;&#x540E;&#x7AEF;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x53EF;&#x4EE5;&#x8FDB;&#x4E00;&#x6B65;&#x63D0;&#x9AD8;&#x540E;&#x7AEF;&#x7F13;&#x5B58;&#x670D;&#x52A1;&#x5668;&#x7684;&#x6548;&#x7387;&#x3002;Nginx&#x672C;&#x8EAB;&#x4E0D;&#x652F;&#x6301;url_hash&#xFF0C;&#x5982;&#x679C;&#x9700;&#x8981;&#x8FD9;&#x79CD;&#x8C03;&#x5EA6;&#x7B97;&#x6CD5;&#xFF0C;&#x5219;&#x5FC5;&#x987B;&#x5B89;&#x88C5;Nginx&#x7684;hash&#x8F6F;&#x4EF6;&#x5305;&#x3002;</li>
+<li>&#x7EBF;&#x7A0B;&#x5C5E;&#x4E8E;&#x4E0D;&#x540C;&#x7684;&#x8FDB;&#x7A0B;&#xFF0C;&#x4E0E;&#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x4E00;&#x81F4;</li>
+<li>&#x5F53;&#x8FDB;&#x7A0B;&#x62E5;&#x6709;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x65F6;&#xFF0C;&#x8FD9;&#x4E9B;&#x7EBF;&#x7A0B;&#x4F1A;<strong>&#x5171;&#x4EAB;</strong>&#x76F8;&#x540C;&#x7684;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x548C;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x7B49;&#x8D44;&#x6E90;&#x3002;&#x8FD9;&#x4E9B;&#x8D44;&#x6E90;&#x5728;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x65F6;&#x662F;&#x4E0D;&#x9700;&#x8981;&#x4FEE;&#x6539;&#x7684;&#x3002;</li>
+<li><strong>&#x7EBF;&#x7A0B;&#x4E5F;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x79C1;&#x6709;&#x6570;&#x636E;</strong>&#xFF0C;&#x6BD4;&#x5982;&#x6808;&#x548C;&#x5BC4;&#x5B58;&#x5668;&#x7B49;&#xFF0C;&#x8FD9;&#x4E9B;&#x5728;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x65F6;&#x4E5F;&#x662F;&#x9700;&#x8981;&#x4FDD;&#x5B58;&#x7684;&#x3002;</li>
+</ol>
+<h2 id="-">&#x4E2D;&#x65AD;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;</h2>
+<ol>
+<li>&#x4E3A;&#x4E86;&#x5FEB;&#x901F;&#x54CD;&#x5E94;&#x786C;&#x4EF6;&#x7684;&#x4E8B;&#x4EF6;&#xFF0C;<strong>&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x4F1A;&#x6253;&#x65AD;&#x8FDB;&#x7A0B;&#x7684;&#x6B63;&#x5E38;&#x8C03;&#x5EA6;&#x548C;&#x6267;&#x884C;</strong></li>
+<li><strong>&#x7EC8;&#x7AEF;&#x4E0A;&#x4E0B;&#x6587;&#x4E0D;&#x6D89;&#x53CA;&#x7528;&#x6237;&#x7A7A;&#x95F4;</strong>&#xFF1B;&#x4E2D;&#x65AD;&#x8FC7;&#x7A0B;&#x6253;&#x65AD;&#x4E86;&#x4E00;&#x4E2A;&#x6B63;&#x5904;&#x5728;&#x7528;&#x6237;&#x6001;&#x7684;&#x8FDB;&#x7A0B;&#xFF0C;&#x4E0D;&#x4F1A;&#x4FDD;&#x5B58;&#x548C;&#x6062;&#x590D;&#x7528;&#x6237;&#x7A7A;&#x95F4;&#x7684;&#x865A;&#x62DF;&#x5185;&#x5B58;&#x3001;&#x5168;&#x5C40;&#x53D8;&#x91CF;&#x7B49;&#xFF1B;&#x53EA;&#x5305;&#x542B;&#x5185;&#x6838;&#x7A7A;&#x95F4;&#x7684;&#x6808;&#x3001;CPU&#x5BC4;&#x5B58;&#x5668;&#x7B49;</li>
+<li>&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x6BD4;&#x8FDB;&#x7A0B;&#x62E5;&#x6709;&#x66F4;&#x9AD8;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#xFF1B;&#x4E2D;&#x65AD;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x4E5F;&#x9700;&#x8981;&#x6D88;&#x8017; CPU&#xFF0C;&#x5207;&#x6362;&#x6B21;&#x6570;&#x8FC7;&#x591A;&#x4E5F;&#x4F1A;&#x8017;&#x8D39;&#x5927;&#x91CF;&#x7684; CPU&#xFF0C;&#x751A;&#x81F3;&#x4E25;&#x91CD;&#x964D;&#x4F4E;&#x7CFB;&#x7EDF;&#x7684;&#x6574;&#x4F53;&#x6027;&#x80FD;</li>
+</ol>
+<h2 id="-">&#x6848;&#x4F8B;&#x5206;&#x6790;</h2>
+<ol>
+<li>&#x4F7F;&#x7528;vmstat&#x67E5;&#x770B;&#x5185;&#x5B58;&#x4F7F;&#x7528;&#x60C5;&#x51B5;;vmstat &#x53EA;&#x7ED9;&#x51FA;&#x4E86;&#x7CFB;&#x7EDF;&#x603B;&#x4F53;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x60C5;&#x51B5;
+<img src="http://study.jeffqi.cn/linux/vmstat.jpg" alt="vmstat"></li>
+<li>pid&#x67E5;&#x770B;&#x8FDB;&#x7A0B;&#x8BE6;&#x7EC6;&#x60C5;&#x51B5;&#xFF1B;-w &#x9009;&#x9879;&#xFF0C;&#x4F60;&#x5C31;&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x6BCF;&#x4E2A;&#x8FDB;&#x7A0B;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x7684;&#x60C5;&#x51B5;&#xFF1B;
+<img src="http://study.jeffqi.cn/linux/pidstat_w.jpg" alt="pidstat_w"></li>
+<li>&#x4E0A;&#x56FE;&#x4E2D;&#xFF1A;cswch&#xFF0C;&#x8868;&#x793A;&#x6BCF;&#x79D2;<strong>&#x81EA;&#x613F;</strong>&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#xFF08;voluntary context switches&#xFF09;&#x7684;&#x6B21;&#x6570;&#xFF1B; nvcswch &#xFF0C;&#x8868;&#x793A;&#x6BCF;&#x79D2;<strong>&#x975E;&#x81EA;&#x613F;</strong>&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#xFF08;non voluntary context switches&#xFF09;&#x7684;&#x6B21;&#x6570;<ol>
+<li>&#x81EA;&#x613F;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#xFF0C;&#x662F;&#x6307;&#x8FDB;&#x7A0B;&#x65E0;&#x6CD5;&#x83B7;&#x53D6;&#x6240;&#x9700;&#x8D44;&#x6E90;&#xFF0C;&#x5BFC;&#x81F4;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x3002;&#x6BD4;&#x5982;&#x8BF4;&#xFF0C; I/O&#x3001;&#x5185;&#x5B58;&#x7B49;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#x4E0D;&#x8DB3;&#x65F6;&#xFF0C;&#x5C31;&#x4F1A;&#x53D1;&#x751F;&#x81EA;&#x613F;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x3002;</li>
+<li>&#x975E;&#x81EA;&#x613F;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#xFF0C;&#x5219;&#x662F;&#x6307;&#x8FDB;&#x7A0B;&#x7531;&#x4E8E;&#x65F6;&#x95F4;&#x7247;&#x5DF2;&#x5230;&#x7B49;&#x539F;&#x56E0;&#xFF0C;&#x88AB;&#x7CFB;&#x7EDF;&#x5F3A;&#x5236;&#x8C03;&#x5EA6;&#xFF0C;&#x8FDB;&#x800C;&#x53D1;&#x751F;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x3002;&#x6BD4;&#x5982;&#x8BF4;&#xFF0C;&#x5927;&#x91CF;&#x8FDB;&#x7A0B;&#x90FD;&#x5728;&#x4E89;&#x62A2; CPU &#x65F6;&#xFF0C;&#x5C31;&#x5BB9;&#x6613;&#x53D1;&#x751F;&#x975E;&#x81EA;&#x613F;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;</li>
+</ol>
+</li>
+<li><strong>&#x5B9E;&#x9A8C;</strong></li>
+<li>sysbench&#xFF1A;&#x662F;&#x4E00;&#x4E2A;&#x591A;&#x7EBF;&#x7A0B;&#x7684;&#x57FA;&#x51C6;&#x6D4B;&#x8BD5;&#x5DE5;&#x5177;&#xFF0C;&#x4E00;&#x822C;&#x7528;&#x6765;&#x8BC4;&#x4F30;&#x4E0D;&#x540C;&#x7CFB;&#x7EDF;&#x53C2;&#x6570;&#x4E0B;&#x7684;&#x6570;&#x636E;&#x5E93;&#x8D1F;&#x8F7D;&#x60C5;&#x51B5;&#xFF1B;sysstat
+<img src="http://study.jeffqi.cn/linux/sysbench.jpg" alt="sysbench"></li>
+<li>vmstat&#x67E5;&#x770B;&#x5B9E;&#x9A8C;&#x524D;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x60C5;&#x51B5;&#xFF1B;&#x5BF9;&#x6BD4;&#x4E0A;&#x9762;&#x5B9E;&#x9A8C;&#x524D;&#x7684;&#x7ED3;&#x679C;&#xFF1B;r&#x3001;in&#x3001;cs&#x3001;us&#x3001;sy&#x53C2;&#x6570;&#x6FC0;&#x589E;
+<img src="http://study.jeffqi.cn/linux/vmstat_sysbench.jpg" alt="vmstat_sysbench"></li>
+<li>pidstat&#x67E5;&#x770B;&#x8FDB;&#x7A0B;&#x7EBF;&#x7A0B;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x60C5;&#x51B5;&#xFF1B;sysbench&#x57FA;&#x4E8E;&#x591A;&#x7EBF;&#x7A0B;&#x5DE5;&#x4F5C;&#x6A21;&#x5F0F;&#xFF0C;&#x9700;&#x8981;&#x4F7F;&#x7528;-t&#x53C2;&#x6570;&#x67E5;&#x770B;
+<img src="http://study.jeffqi.cn/linux/pidstat_w_u_sysbench.jpg" alt="pidstat_w_u_sysbench">
+<img src="http://study.jeffqi.cn/linux/pidstat_w_t_sysbench.jpg" alt="pidstat_w_t_sysbench"></li>
+<li>&#x67E5;&#x770B;&#x4E2D;&#x65AD;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x901A;&#x8FC7;&#x67E5;&#x770B;/proc/interrupt&#x6587;&#x4EF6;
+<img src="http://study.jeffqi.cn/linux/cat_proc_interrupts.jpg" alt="cat_proc_interrupt"></li>
+<li>&#x603B;&#x7ED3;<ol>
+<li>&#x81EA;&#x613F;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x53D8;&#x591A;&#x4E86;&#xFF0C;&#x8BF4;&#x660E;&#x8FDB;&#x7A0B;&#x90FD;&#x5728;&#x7B49;&#x5F85;&#x8D44;&#x6E90;&#xFF0C;&#x6709;&#x53EF;&#x80FD;&#x53D1;&#x751F;&#x4E86; I/O &#x7B49;&#x5176;&#x4ED6;&#x95EE;&#x9898;&#xFF1B;</li>
+<li>&#x975E;&#x81EA;&#x613F;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x53D8;&#x591A;&#x4E86;&#xFF0C;&#x8BF4;&#x660E;&#x8FDB;&#x7A0B;&#x90FD;&#x5728;&#x88AB;&#x5F3A;&#x5236;&#x8C03;&#x5EA6;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x90FD;&#x5728;&#x4E89;&#x62A2; CPU&#xFF0C;&#x8BF4;&#x660E; CPU &#x7684;&#x786E;&#x6210;&#x4E86;&#x74F6;&#x9888;&#xFF1B;</li>
+<li>&#x4E2D;&#x65AD;&#x6B21;&#x6570;&#x53D8;&#x591A;&#x4E86;&#xFF0C;&#x8BF4;&#x660E; CPU &#x88AB;&#x4E2D;&#x65AD;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x5360;&#x7528;&#xFF0C;&#x8FD8;&#x9700;&#x8981;&#x901A;&#x8FC7;&#x67E5;&#x770B; /proc/interrupts &#x6587;&#x4EF6;&#x6765;&#x5206;&#x6790;&#x5177;&#x4F53;&#x7684;&#x4E2D;&#x65AD;&#x7C7B;&#x578B;&#x3002;</li>
+</ol>
+</li>
 </ol>
 </article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
   <svg t="1533629773982" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1035" xlink="http://www.w3.org/1999/xlink" width="40" height="40"><defs><style type="text/css">@font-face { font-family: uc-nexus-iconfont; src: url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff") format("woff"), url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf") format("truetype"); }

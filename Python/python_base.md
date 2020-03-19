@@ -28,6 +28,25 @@ r+b	| 读写【可读，可写】
 w+b	| 写读【可写，可读】
 a+b	| 写读【可写，可读】
 
+3.  文件输入与输出
+    1.  输出
+        ```py
+        f.read(size)：读多少字节，默认为一次性读完
+        f.readline()：读一行，默认为‘\n’符号
+        f.readlines()：读所有行，符号为 \n
+        ```
+    2.  输入
+        ```py
+        f.write('xxxx')：写入
+        ```
+    3.  f.tell()：返回当前文件指正
+    4.  f.seek()：如果要改变文件当前的位置, 可以使用 f.seek(offset, from_what) 函数。from_what 的值, 如果是 0 表示开头, 如果是 1 表示当前位置, 2 表示文件的结尾
+        ```py
+        seek(x,0) ： 从起始位置即文件首行首字符开始移动 x 个字符
+        seek(x,1) ： 表示从当前位置往后移动x个字符
+        seek(-x,2)：表示从文件的结尾往前移动x个字符
+        ```
+
 ## 函数
 1.  return关键字的作用
     1.  return 是一个关键字，这个词翻译过来就是“返回”，所以我们管写在return后面的值叫“返回值”。
@@ -85,6 +104,7 @@ a+b	| 写读【可写，可读】
         a:1
         args: 2 3 4
         ```
+
 ## 命名空间和作用域
 1.  创建的存储“变量名与值的关系”的空间叫做全局命名空间；在函数的运行中开辟的临时的空间叫做局部命名空间
 2.  类型：
@@ -377,7 +397,236 @@ a+b	| 写读【可写，可读】
         1.  优点：方便
         2.  缺点：只能在导入包中的模块时才能使用
 
-## 常用的包
+## 常用的模块
+
+### json模块
+1.  Json模块提供了四个功能：dumps、dump、loads、load
+
+参数 | 解释
+---|---
+ensure_ascii | 当它为True的时候，所有非ASCII码字符显示为\uXXXX序列，只需在dump时将ensure_ascii设置为False即可，此时存入json的中文即可正常显示。
+separators | 分隔符，实际上是(item_separator, dict_separator)的一个元组，默认的就是(‘,’,’:’)；这表示dictionary内keys之间用“,”隔开，而KEY和value之间用“：”隔开。
+
+```py
+import json
+##
+data = {'name':'陈松','sex':'female','age':88}
+json_dic2 = json.dumps(data,sort_keys=True,indent=2,separators=(',',':'),ensure_ascii=False)
+print(json_dic2)
+```
+
+### pickle模块
+1.  pickle模块提供了四个功能：dumps、dump(序列化，存）、loads（反序列化，读）、load
+不仅可以序列化字典，列表…可以把python中任意的数据类型序列化
+
+2.  区别
+
+模块 | 区别
+---|---
+json | 用于字符串 和 python数据类型间进行转换
+pickle | 用于python特有的类型 和 python的数据类型间进行转换
+
+### hashlib模块
+1.  Python的hashlib提供了常见的摘要算法，如MD5，SHA1等等。
+
+```py
+import hashlib
+##
+md5 = hashlib.md5()
+md5.update('how to use md5 in python hashlib?'.encode('utf-8'))
+# md5.update('how to use md5 in python hashlib?'.encode('utf-8')) # 多次调用
+print(md5.hexdigest())
+```
+
+2.  如果数据大，可以分块多次调用update()，最后计算的结果是一样的
+
+### logging模块
+1.  日志等级
+```py
+import logging  
+logging.debug('debug message')  
+logging.info('info message')  
+logging.warning('warning message')  # （默认）
+logging.error('error message')  
+logging.critical('critical message')
+```
+
+```py
+import logging
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                    datefmt='%a, %d %b %Y %H:%M:%S',
+                    filename='test.log',
+                    filemode='w')
+#
+logging.debug('debug message')
+logging.info('info message')
+logging.warning('warning message')
+logging.error('error message')
+logging.critical('critical message')
+```
+2.  解释
+    1.  logging.basicConfig()函数中可通过具体参数来更改logging模块默认行为，可用参数有：
+    2.  filename：用指定的文件名创建FiledHandler，这样日志会被存储在指定的文件中。
+    3.  filemode：文件打开方式，在指定了filename时使用这个参数，默认值为“a”还可指定为“w”。
+    4.  format：指定handler使用的日志显示格式。
+    5.  datefmt：指定日期时间格式。
+    6.  level：设置rootlogger（后边会讲解具体概念）的日志级别
+    7.  stream：用指定的stream创建StreamHandler。可以指定输出到sys.stderr,sys.stdout或者文件(f=open- (‘test.log’,’w’))，默认为sys.stderr。若同时列出了filename和stream两个参数，则stream参数会被忽略。
+    8.  format参数中可能用到的格式化串：
+        ```py
+        %(name)s Logger的名字
+        %(levelno)s 数字形式的日志级别
+        %(levelname)s 文本形式的日志级别
+        %(pathname)s 调用日志输出函数的模块的完整路径名，可能没有
+        %(filename)s 调用日志输出函数的模块的文件名
+        %(module)s 调用日志输出函数的模块名
+        %(funcName)s 调用日志输出函数的函数名
+        %(lineno)d 调用日志输出函数的语句所在的代码行
+        %(created)f 当前时间，用UNIX标准的表示时间的浮 点数表示
+        %(relativeCreated)d 输出日志信息时的，自Logger创建以 来的毫秒数
+        %(asctime)s 字符串形式的当前时间。默认格式是 “2003-07-08 16:49:45,896”。逗号后面的是毫秒
+        %(thread)d 线程ID。可能没有
+        %(threadName)s 线程名。可能没有
+        %(process)d 进程ID。可能没有
+        %(message)s用户输出的消息
+        ```
+
+3.  logger对象设置
+```py
+import logging
+#
+logger = logging.getLogger()
+# 创建一个handler，用于写入日志文件
+fh = logging.FileHandler('test.log',encoding='utf-8')
+#
+# 再创建一个handler，用于输出到控制台
+ch = logging.StreamHandler()
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setLevel(logging.DEBUG)
+#
+fh.setFormatter(formatter)
+ch.setFormatter(formatter)
+logger.addHandler(fh) #logger对象可以添加多个fh和ch对象
+logger.addHandler(ch)
+```
+
+### collections模块
+1.  在内置数据类型（dict、list、set、tuple）的基础上，collections模块还提供了几个额外的数据类型：Counter、deque、defaultdict、namedtuple和OrderedDict等
+    1.  namedtuple: 生成可以使用名字来访问元素内容的tuple
+    2.  deque: 双端队列，可以快速的从另外一侧追加和推出对象
+    3.  Counter: 计数器，主要用来计数
+    4.  OrderedDict: 有序字典
+    5.  defaultdict: 带有默认值的字典
+2.  namedtuple
+    ```py
+    from collections import namedtuple
+    point = namedtuple('point',['x','y'])
+    p = point(1,2)
+    print(p.x)  
+    ```
+3.  deque
+    ```py
+    from collections import deque
+
+    q = deque(['a','b','c'])
+    q.append('x')
+    q.appendleft('y')
+
+    print(q)
+    ```
+4.  OrderedDict
+    ```py
+    from collections import OrderedDict
+
+    d = dict([('a',1),('b',2),('c',3)])
+    print(d)
+
+    od = OrderedDict([('a',1),('b',2),('c',3)])
+    print(od)
+    ```
+5.  defaultdict
+    ```py
+    from collections import defaultdict
+
+    li = [11,22,33,44,55,77,88,99,90]
+    result=defaultdict(list)
+
+    for row in li:
+        if row > 66:
+            result['key1'].append(row)
+        else:
+            result['key2'].append(row)
+
+    print(result)
+    ```
+6.  counter
+    ```py
+    from collections import Counter
+
+    c = Counter('qazxswqazxswqazxswsxaqwsxaqws')
+    print(c)
+    ```
+
+### 时间模块
+1.  time.sleep(secs)：(线程)推迟指定的时间运行。单位为秒。
+2.  time.time()：获取当前时间戳
+3.  格式：时间戳、元祖、格式化显示
+
+格式化 | 解释
+---|---
+%y | 两位数的年份表示（00-99）
+%Y | 四位数的年份表示（000-9999）
+%m | 月份（01-12）
+%d |月内中的一天（0-31）
+%H | 24小时制小时数（0-23）
+%I | 12小时制小时数（01-12）
+%M | 分钟数（00=59）
+%S | 秒（00-59）
+
+4.  时间转换
+    ```py
+    import time
+
+    # 格式化时间 ---->  结构化时间
+    ft = time.strftime('%Y/%m/%d %H:%M:%S')
+    st = time.strptime(ft,'%Y/%m/%d %H:%M:%S')
+    print(st)
+    # 结构化时间 ---> 时间戳
+    t = time.mktime(st)
+    print(t)
+
+    # 时间戳 ----> 结构化时间
+    t = time.time()
+    st = time.localtime(t)
+    print(st)
+    # 结构化时间 ---> 格式化时间
+    ft = time.strftime('%Y/%m/%d %H:%M:%S',st)
+    print(ft)
+    ```
+
+### random模块
+1.  随机模块
+    ```py
+    random.randint(m, n)：m、n之间的随机数
+    random.randrange(m, n, s)：m、n之间的随机数，步长s
+    random.choice(argv)：从argv中随机选择其中的数据
+    ```
+
+### OS模块
+1.  os模块是与操作系统交互的一个接口
+
+### sys模块
+1.  sys模块是与python解释器交互的一个接口
+
+### re正则模块
+1.  re.match(pattern, string, flags=0)：re.match 尝试从字符串的起始位置匹配一个模式，如果不是起始位置匹配成功的话，match()就返回none。
+2.  re.search(pattern, string, flags=0)：扫描整个字符串并返回第一个成功的匹配
+3.  findall(string[, pos[, endpos]])：在字符串中找到正则表达式所匹配的所有子串，并返回一个列表，如果没有找到匹配的，则返回空列表；**match 和 search 是匹配一次 findall 匹配所有。**
+
+
+
 
 ## 异常处理
 1.  为每一种异常定制了一个类型，然后提供了一种特定的语法结构用来进行异常处理

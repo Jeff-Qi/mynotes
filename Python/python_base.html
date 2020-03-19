@@ -83,6 +83,22 @@ f.close()</code></pre>
 <td>&#x5199;&#x8BFB;&#x3010;&#x53EF;&#x5199;&#xFF0C;&#x53EF;&#x8BFB;&#x3011;</td>
 </tr>
 </tbody></table>
+<ol start="3">
+<li>&#x6587;&#x4EF6;&#x8F93;&#x5165;&#x4E0E;&#x8F93;&#x51FA;<ol>
+<li>&#x8F93;&#x51FA;<pre><code class="language-py">f.read(size)&#xFF1A;&#x8BFB;&#x591A;&#x5C11;&#x5B57;&#x8282;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;&#x4E00;&#x6B21;&#x6027;&#x8BFB;&#x5B8C;
+f.readline()&#xFF1A;&#x8BFB;&#x4E00;&#x884C;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;&#x2018;\n&#x2019;&#x7B26;&#x53F7;
+f.readlines()&#xFF1A;&#x8BFB;&#x6240;&#x6709;&#x884C;&#xFF0C;&#x7B26;&#x53F7;&#x4E3A; \n</code></pre>
+</li>
+<li>&#x8F93;&#x5165;<pre><code class="language-py">f.write(&apos;xxxx&apos;)&#xFF1A;&#x5199;&#x5165;</code></pre>
+</li>
+<li>f.tell()&#xFF1A;&#x8FD4;&#x56DE;&#x5F53;&#x524D;&#x6587;&#x4EF6;&#x6307;&#x6B63;</li>
+<li>f.seek()&#xFF1A;&#x5982;&#x679C;&#x8981;&#x6539;&#x53D8;&#x6587;&#x4EF6;&#x5F53;&#x524D;&#x7684;&#x4F4D;&#x7F6E;, &#x53EF;&#x4EE5;&#x4F7F;&#x7528; f.seek(offset, from_what) &#x51FD;&#x6570;&#x3002;from_what &#x7684;&#x503C;, &#x5982;&#x679C;&#x662F; 0 &#x8868;&#x793A;&#x5F00;&#x5934;, &#x5982;&#x679C;&#x662F; 1 &#x8868;&#x793A;&#x5F53;&#x524D;&#x4F4D;&#x7F6E;, 2 &#x8868;&#x793A;&#x6587;&#x4EF6;&#x7684;&#x7ED3;&#x5C3E;<pre><code class="language-py">seek(x,0) &#xFF1A; &#x4ECE;&#x8D77;&#x59CB;&#x4F4D;&#x7F6E;&#x5373;&#x6587;&#x4EF6;&#x9996;&#x884C;&#x9996;&#x5B57;&#x7B26;&#x5F00;&#x59CB;&#x79FB;&#x52A8; x &#x4E2A;&#x5B57;&#x7B26;
+seek(x,1) &#xFF1A; &#x8868;&#x793A;&#x4ECE;&#x5F53;&#x524D;&#x4F4D;&#x7F6E;&#x5F80;&#x540E;&#x79FB;&#x52A8;x&#x4E2A;&#x5B57;&#x7B26;
+seek(-x,2)&#xFF1A;&#x8868;&#x793A;&#x4ECE;&#x6587;&#x4EF6;&#x7684;&#x7ED3;&#x5C3E;&#x5F80;&#x524D;&#x79FB;&#x52A8;x&#x4E2A;&#x5B57;&#x7B26;</code></pre>
+</li>
+</ol>
+</li>
+</ol>
 <h2 id="-">&#x51FD;&#x6570;</h2>
 <ol>
 <li>return&#x5173;&#x952E;&#x5B57;&#x7684;&#x4F5C;&#x7528;<ol>
@@ -138,10 +154,12 @@ fun(*li)
 ##
 a:1
 args: 2 3 4</code></pre>
-<h2 id="-">&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x548C;&#x4F5C;&#x7528;&#x57DF;</h2>
 </li>
 </ol>
 </li>
+</ol>
+<h2 id="-">&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x548C;&#x4F5C;&#x7528;&#x57DF;</h2>
+<ol>
 <li>&#x521B;&#x5EFA;&#x7684;&#x5B58;&#x50A8;&#x201C;&#x53D8;&#x91CF;&#x540D;&#x4E0E;&#x503C;&#x7684;&#x5173;&#x7CFB;&#x201D;&#x7684;&#x7A7A;&#x95F4;&#x53EB;&#x505A;&#x5168;&#x5C40;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#xFF1B;&#x5728;&#x51FD;&#x6570;&#x7684;&#x8FD0;&#x884C;&#x4E2D;&#x5F00;&#x8F9F;&#x7684;&#x4E34;&#x65F6;&#x7684;&#x7A7A;&#x95F4;&#x53EB;&#x505A;&#x5C40;&#x90E8;&#x547D;&#x540D;&#x7A7A;&#x95F4;</li>
 <li>&#x7C7B;&#x578B;&#xFF1A;<ol>
 <li>&#x5168;&#x5C40;</li>
@@ -475,7 +493,280 @@ print(dic[max(dic,key=lambda k:dic[k])])   </code></pre>
 </ol>
 </li>
 </ol>
-<h2 id="-">&#x5E38;&#x7528;&#x7684;&#x5305;</h2>
+<h2 id="-">&#x5E38;&#x7528;&#x7684;&#x6A21;&#x5757;</h2>
+<h3 id="json-">json&#x6A21;&#x5757;</h3>
+<ol>
+<li>Json&#x6A21;&#x5757;&#x63D0;&#x4F9B;&#x4E86;&#x56DB;&#x4E2A;&#x529F;&#x80FD;&#xFF1A;dumps&#x3001;dump&#x3001;loads&#x3001;load</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>&#x53C2;&#x6570;</th>
+<th>&#x89E3;&#x91CA;</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ensure_ascii</td>
+<td>&#x5F53;&#x5B83;&#x4E3A;True&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6240;&#x6709;&#x975E;ASCII&#x7801;&#x5B57;&#x7B26;&#x663E;&#x793A;&#x4E3A;\uXXXX&#x5E8F;&#x5217;&#xFF0C;&#x53EA;&#x9700;&#x5728;dump&#x65F6;&#x5C06;ensure_ascii&#x8BBE;&#x7F6E;&#x4E3A;False&#x5373;&#x53EF;&#xFF0C;&#x6B64;&#x65F6;&#x5B58;&#x5165;json&#x7684;&#x4E2D;&#x6587;&#x5373;&#x53EF;&#x6B63;&#x5E38;&#x663E;&#x793A;&#x3002;</td>
+</tr>
+<tr>
+<td>separators</td>
+<td>&#x5206;&#x9694;&#x7B26;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x662F;(item_separator, dict_separator)&#x7684;&#x4E00;&#x4E2A;&#x5143;&#x7EC4;&#xFF0C;&#x9ED8;&#x8BA4;&#x7684;&#x5C31;&#x662F;(&#x2018;,&#x2019;,&#x2019;:&#x2019;)&#xFF1B;&#x8FD9;&#x8868;&#x793A;dictionary&#x5185;keys&#x4E4B;&#x95F4;&#x7528;&#x201C;,&#x201D;&#x9694;&#x5F00;&#xFF0C;&#x800C;KEY&#x548C;value&#x4E4B;&#x95F4;&#x7528;&#x201C;&#xFF1A;&#x201D;&#x9694;&#x5F00;&#x3002;</td>
+</tr>
+</tbody></table>
+<pre><code class="language-py">import json
+##
+data = {&apos;name&apos;:&apos;&#x9648;&#x677E;&apos;,&apos;sex&apos;:&apos;female&apos;,&apos;age&apos;:88}
+json_dic2 = json.dumps(data,sort_keys=True,indent=2,separators=(&apos;,&apos;,&apos;:&apos;),ensure_ascii=False)
+print(json_dic2)</code></pre>
+<h3 id="pickle-">pickle&#x6A21;&#x5757;</h3>
+<ol>
+<li><p>pickle&#x6A21;&#x5757;&#x63D0;&#x4F9B;&#x4E86;&#x56DB;&#x4E2A;&#x529F;&#x80FD;&#xFF1A;dumps&#x3001;dump(&#x5E8F;&#x5217;&#x5316;&#xFF0C;&#x5B58;&#xFF09;&#x3001;loads&#xFF08;&#x53CD;&#x5E8F;&#x5217;&#x5316;&#xFF0C;&#x8BFB;&#xFF09;&#x3001;load
+&#x4E0D;&#x4EC5;&#x53EF;&#x4EE5;&#x5E8F;&#x5217;&#x5316;&#x5B57;&#x5178;&#xFF0C;&#x5217;&#x8868;&#x2026;&#x53EF;&#x4EE5;&#x628A;python&#x4E2D;&#x4EFB;&#x610F;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x5E8F;&#x5217;&#x5316;</p>
+</li>
+<li><p>&#x533A;&#x522B;</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>&#x6A21;&#x5757;</th>
+<th>&#x533A;&#x522B;</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>json</td>
+<td>&#x7528;&#x4E8E;&#x5B57;&#x7B26;&#x4E32; &#x548C; python&#x6570;&#x636E;&#x7C7B;&#x578B;&#x95F4;&#x8FDB;&#x884C;&#x8F6C;&#x6362;</td>
+</tr>
+<tr>
+<td>pickle</td>
+<td>&#x7528;&#x4E8E;python&#x7279;&#x6709;&#x7684;&#x7C7B;&#x578B; &#x548C; python&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x95F4;&#x8FDB;&#x884C;&#x8F6C;&#x6362;</td>
+</tr>
+</tbody></table>
+<h3 id="hashlib-">hashlib&#x6A21;&#x5757;</h3>
+<ol>
+<li>Python&#x7684;hashlib&#x63D0;&#x4F9B;&#x4E86;&#x5E38;&#x89C1;&#x7684;&#x6458;&#x8981;&#x7B97;&#x6CD5;&#xFF0C;&#x5982;MD5&#xFF0C;SHA1&#x7B49;&#x7B49;&#x3002;</li>
+</ol>
+<pre><code class="language-py">import hashlib
+##
+md5 = hashlib.md5()
+md5.update(&apos;how to use md5 in python hashlib?&apos;.encode(&apos;utf-8&apos;))
+# md5.update(&apos;how to use md5 in python hashlib?&apos;.encode(&apos;utf-8&apos;)) # &#x591A;&#x6B21;&#x8C03;&#x7528;
+print(md5.hexdigest())</code></pre>
+<ol start="2">
+<li>&#x5982;&#x679C;&#x6570;&#x636E;&#x5927;&#xFF0C;&#x53EF;&#x4EE5;&#x5206;&#x5757;&#x591A;&#x6B21;&#x8C03;&#x7528;update()&#xFF0C;&#x6700;&#x540E;&#x8BA1;&#x7B97;&#x7684;&#x7ED3;&#x679C;&#x662F;&#x4E00;&#x6837;&#x7684;</li>
+</ol>
+<h3 id="logging-">logging&#x6A21;&#x5757;</h3>
+<ol>
+<li>&#x65E5;&#x5FD7;&#x7B49;&#x7EA7;<pre><code class="language-py">import logging  
+logging.debug(&apos;debug message&apos;)  
+logging.info(&apos;info message&apos;)  
+logging.warning(&apos;warning message&apos;)  # &#xFF08;&#x9ED8;&#x8BA4;&#xFF09;
+logging.error(&apos;error message&apos;)  
+logging.critical(&apos;critical message&apos;)</code></pre>
+</li>
+</ol>
+<pre><code class="language-py">import logging
+
+logging.basicConfig(level=logging.DEBUG,
+                    format=&apos;%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s&apos;,
+                    datefmt=&apos;%a, %d %b %Y %H:%M:%S&apos;,
+                    filename=&apos;test.log&apos;,
+                    filemode=&apos;w&apos;)
+#
+logging.debug(&apos;debug message&apos;)
+logging.info(&apos;info message&apos;)
+logging.warning(&apos;warning message&apos;)
+logging.error(&apos;error message&apos;)
+logging.critical(&apos;critical message&apos;)</code></pre>
+<ol start="2">
+<li><p>&#x89E3;&#x91CA;</p>
+<ol>
+<li>logging.basicConfig()&#x51FD;&#x6570;&#x4E2D;&#x53EF;&#x901A;&#x8FC7;&#x5177;&#x4F53;&#x53C2;&#x6570;&#x6765;&#x66F4;&#x6539;logging&#x6A21;&#x5757;&#x9ED8;&#x8BA4;&#x884C;&#x4E3A;&#xFF0C;&#x53EF;&#x7528;&#x53C2;&#x6570;&#x6709;&#xFF1A;</li>
+<li>filename&#xFF1A;&#x7528;&#x6307;&#x5B9A;&#x7684;&#x6587;&#x4EF6;&#x540D;&#x521B;&#x5EFA;FiledHandler&#xFF0C;&#x8FD9;&#x6837;&#x65E5;&#x5FD7;&#x4F1A;&#x88AB;&#x5B58;&#x50A8;&#x5728;&#x6307;&#x5B9A;&#x7684;&#x6587;&#x4EF6;&#x4E2D;&#x3002;</li>
+<li>filemode&#xFF1A;&#x6587;&#x4EF6;&#x6253;&#x5F00;&#x65B9;&#x5F0F;&#xFF0C;&#x5728;&#x6307;&#x5B9A;&#x4E86;filename&#x65F6;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;&#x201C;a&#x201D;&#x8FD8;&#x53EF;&#x6307;&#x5B9A;&#x4E3A;&#x201C;w&#x201D;&#x3002;</li>
+<li>format&#xFF1A;&#x6307;&#x5B9A;handler&#x4F7F;&#x7528;&#x7684;&#x65E5;&#x5FD7;&#x663E;&#x793A;&#x683C;&#x5F0F;&#x3002;</li>
+<li>datefmt&#xFF1A;&#x6307;&#x5B9A;&#x65E5;&#x671F;&#x65F6;&#x95F4;&#x683C;&#x5F0F;&#x3002;</li>
+<li>level&#xFF1A;&#x8BBE;&#x7F6E;rootlogger&#xFF08;&#x540E;&#x8FB9;&#x4F1A;&#x8BB2;&#x89E3;&#x5177;&#x4F53;&#x6982;&#x5FF5;&#xFF09;&#x7684;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;</li>
+<li>stream&#xFF1A;&#x7528;&#x6307;&#x5B9A;&#x7684;stream&#x521B;&#x5EFA;StreamHandler&#x3002;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x8F93;&#x51FA;&#x5230;sys.stderr,sys.stdout&#x6216;&#x8005;&#x6587;&#x4EF6;(f=open- (&#x2018;test.log&#x2019;,&#x2019;w&#x2019;))&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;sys.stderr&#x3002;&#x82E5;&#x540C;&#x65F6;&#x5217;&#x51FA;&#x4E86;filename&#x548C;stream&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x5219;stream&#x53C2;&#x6570;&#x4F1A;&#x88AB;&#x5FFD;&#x7565;&#x3002;</li>
+<li>format&#x53C2;&#x6570;&#x4E2D;&#x53EF;&#x80FD;&#x7528;&#x5230;&#x7684;&#x683C;&#x5F0F;&#x5316;&#x4E32;&#xFF1A;<pre><code class="language-py">%(name)s Logger&#x7684;&#x540D;&#x5B57;
+%(levelno)s &#x6570;&#x5B57;&#x5F62;&#x5F0F;&#x7684;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;
+%(levelname)s &#x6587;&#x672C;&#x5F62;&#x5F0F;&#x7684;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;
+%(pathname)s &#x8C03;&#x7528;&#x65E5;&#x5FD7;&#x8F93;&#x51FA;&#x51FD;&#x6570;&#x7684;&#x6A21;&#x5757;&#x7684;&#x5B8C;&#x6574;&#x8DEF;&#x5F84;&#x540D;&#xFF0C;&#x53EF;&#x80FD;&#x6CA1;&#x6709;
+%(filename)s &#x8C03;&#x7528;&#x65E5;&#x5FD7;&#x8F93;&#x51FA;&#x51FD;&#x6570;&#x7684;&#x6A21;&#x5757;&#x7684;&#x6587;&#x4EF6;&#x540D;
+%(module)s &#x8C03;&#x7528;&#x65E5;&#x5FD7;&#x8F93;&#x51FA;&#x51FD;&#x6570;&#x7684;&#x6A21;&#x5757;&#x540D;
+%(funcName)s &#x8C03;&#x7528;&#x65E5;&#x5FD7;&#x8F93;&#x51FA;&#x51FD;&#x6570;&#x7684;&#x51FD;&#x6570;&#x540D;
+%(lineno)d &#x8C03;&#x7528;&#x65E5;&#x5FD7;&#x8F93;&#x51FA;&#x51FD;&#x6570;&#x7684;&#x8BED;&#x53E5;&#x6240;&#x5728;&#x7684;&#x4EE3;&#x7801;&#x884C;
+%(created)f &#x5F53;&#x524D;&#x65F6;&#x95F4;&#xFF0C;&#x7528;UNIX&#x6807;&#x51C6;&#x7684;&#x8868;&#x793A;&#x65F6;&#x95F4;&#x7684;&#x6D6E; &#x70B9;&#x6570;&#x8868;&#x793A;
+%(relativeCreated)d &#x8F93;&#x51FA;&#x65E5;&#x5FD7;&#x4FE1;&#x606F;&#x65F6;&#x7684;&#xFF0C;&#x81EA;Logger&#x521B;&#x5EFA;&#x4EE5; &#x6765;&#x7684;&#x6BEB;&#x79D2;&#x6570;
+%(asctime)s &#x5B57;&#x7B26;&#x4E32;&#x5F62;&#x5F0F;&#x7684;&#x5F53;&#x524D;&#x65F6;&#x95F4;&#x3002;&#x9ED8;&#x8BA4;&#x683C;&#x5F0F;&#x662F; &#x201C;2003-07-08 16:49:45,896&#x201D;&#x3002;&#x9017;&#x53F7;&#x540E;&#x9762;&#x7684;&#x662F;&#x6BEB;&#x79D2;
+%(thread)d &#x7EBF;&#x7A0B;ID&#x3002;&#x53EF;&#x80FD;&#x6CA1;&#x6709;
+%(threadName)s &#x7EBF;&#x7A0B;&#x540D;&#x3002;&#x53EF;&#x80FD;&#x6CA1;&#x6709;
+%(process)d &#x8FDB;&#x7A0B;ID&#x3002;&#x53EF;&#x80FD;&#x6CA1;&#x6709;
+%(message)s&#x7528;&#x6237;&#x8F93;&#x51FA;&#x7684;&#x6D88;&#x606F;</code></pre>
+</li>
+</ol>
+</li>
+<li><p>logger&#x5BF9;&#x8C61;&#x8BBE;&#x7F6E;</p>
+<pre><code class="language-py">import logging
+#
+logger = logging.getLogger()
+# &#x521B;&#x5EFA;&#x4E00;&#x4E2A;handler&#xFF0C;&#x7528;&#x4E8E;&#x5199;&#x5165;&#x65E5;&#x5FD7;&#x6587;&#x4EF6;
+fh = logging.FileHandler(&apos;test.log&apos;,encoding=&apos;utf-8&apos;)
+#
+# &#x518D;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;handler&#xFF0C;&#x7528;&#x4E8E;&#x8F93;&#x51FA;&#x5230;&#x63A7;&#x5236;&#x53F0;
+ch = logging.StreamHandler()
+formatter = logging.Formatter(&apos;%(asctime)s - %(name)s - %(levelname)s - %(message)s&apos;)
+fh.setLevel(logging.DEBUG)
+#
+fh.setFormatter(formatter)
+ch.setFormatter(formatter)
+logger.addHandler(fh) #logger&#x5BF9;&#x8C61;&#x53EF;&#x4EE5;&#x6DFB;&#x52A0;&#x591A;&#x4E2A;fh&#x548C;ch&#x5BF9;&#x8C61;
+logger.addHandler(ch)</code></pre>
+</li>
+</ol>
+<h3 id="collections-">collections&#x6A21;&#x5757;</h3>
+<ol>
+<li>&#x5728;&#x5185;&#x7F6E;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF08;dict&#x3001;list&#x3001;set&#x3001;tuple&#xFF09;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#xFF0C;collections&#x6A21;&#x5757;&#x8FD8;&#x63D0;&#x4F9B;&#x4E86;&#x51E0;&#x4E2A;&#x989D;&#x5916;&#x7684;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF1A;Counter&#x3001;deque&#x3001;defaultdict&#x3001;namedtuple&#x548C;OrderedDict&#x7B49;<ol>
+<li>namedtuple: &#x751F;&#x6210;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x540D;&#x5B57;&#x6765;&#x8BBF;&#x95EE;&#x5143;&#x7D20;&#x5185;&#x5BB9;&#x7684;tuple</li>
+<li>deque: &#x53CC;&#x7AEF;&#x961F;&#x5217;&#xFF0C;&#x53EF;&#x4EE5;&#x5FEB;&#x901F;&#x7684;&#x4ECE;&#x53E6;&#x5916;&#x4E00;&#x4FA7;&#x8FFD;&#x52A0;&#x548C;&#x63A8;&#x51FA;&#x5BF9;&#x8C61;</li>
+<li>Counter: &#x8BA1;&#x6570;&#x5668;&#xFF0C;&#x4E3B;&#x8981;&#x7528;&#x6765;&#x8BA1;&#x6570;</li>
+<li>OrderedDict: &#x6709;&#x5E8F;&#x5B57;&#x5178;</li>
+<li>defaultdict: &#x5E26;&#x6709;&#x9ED8;&#x8BA4;&#x503C;&#x7684;&#x5B57;&#x5178;</li>
+</ol>
+</li>
+<li>namedtuple<pre><code class="language-py">from collections import namedtuple
+point = namedtuple(&apos;point&apos;,[&apos;x&apos;,&apos;y&apos;])
+p = point(1,2)
+print(p.x)  </code></pre>
+</li>
+<li><p>deque</p>
+<pre><code class="language-py">from collections import deque
+
+q = deque([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;])
+q.append(&apos;x&apos;)
+q.appendleft(&apos;y&apos;)
+
+print(q)</code></pre>
+</li>
+<li><p>OrderedDict</p>
+<pre><code class="language-py">from collections import OrderedDict
+
+d = dict([(&apos;a&apos;,1),(&apos;b&apos;,2),(&apos;c&apos;,3)])
+print(d)
+
+od = OrderedDict([(&apos;a&apos;,1),(&apos;b&apos;,2),(&apos;c&apos;,3)])
+print(od)</code></pre>
+</li>
+<li><p>defaultdict</p>
+<pre><code class="language-py">from collections import defaultdict
+
+li = [11,22,33,44,55,77,88,99,90]
+result=defaultdict(list)
+
+for row in li:
+    if row &gt; 66:
+        result[&apos;key1&apos;].append(row)
+    else:
+        result[&apos;key2&apos;].append(row)
+
+print(result)</code></pre>
+</li>
+<li><p>counter</p>
+<pre><code class="language-py">from collections import Counter
+
+c = Counter(&apos;qazxswqazxswqazxswsxaqwsxaqws&apos;)
+print(c)</code></pre>
+</li>
+</ol>
+<h3 id="-">&#x65F6;&#x95F4;&#x6A21;&#x5757;</h3>
+<ol>
+<li>time.sleep(secs)&#xFF1A;(&#x7EBF;&#x7A0B;)&#x63A8;&#x8FDF;&#x6307;&#x5B9A;&#x7684;&#x65F6;&#x95F4;&#x8FD0;&#x884C;&#x3002;&#x5355;&#x4F4D;&#x4E3A;&#x79D2;&#x3002;</li>
+<li>time.time()&#xFF1A;&#x83B7;&#x53D6;&#x5F53;&#x524D;&#x65F6;&#x95F4;&#x6233;</li>
+<li>&#x683C;&#x5F0F;&#xFF1A;&#x65F6;&#x95F4;&#x6233;&#x3001;&#x5143;&#x7956;&#x3001;&#x683C;&#x5F0F;&#x5316;&#x663E;&#x793A;</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>&#x683C;&#x5F0F;&#x5316;</th>
+<th>&#x89E3;&#x91CA;</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%y</td>
+<td>&#x4E24;&#x4F4D;&#x6570;&#x7684;&#x5E74;&#x4EFD;&#x8868;&#x793A;&#xFF08;00-99&#xFF09;</td>
+</tr>
+<tr>
+<td>%Y</td>
+<td>&#x56DB;&#x4F4D;&#x6570;&#x7684;&#x5E74;&#x4EFD;&#x8868;&#x793A;&#xFF08;000-9999&#xFF09;</td>
+</tr>
+<tr>
+<td>%m</td>
+<td>&#x6708;&#x4EFD;&#xFF08;01-12&#xFF09;</td>
+</tr>
+<tr>
+<td>%d</td>
+<td>&#x6708;&#x5185;&#x4E2D;&#x7684;&#x4E00;&#x5929;&#xFF08;0-31&#xFF09;</td>
+</tr>
+<tr>
+<td>%H</td>
+<td>24&#x5C0F;&#x65F6;&#x5236;&#x5C0F;&#x65F6;&#x6570;&#xFF08;0-23&#xFF09;</td>
+</tr>
+<tr>
+<td>%I</td>
+<td>12&#x5C0F;&#x65F6;&#x5236;&#x5C0F;&#x65F6;&#x6570;&#xFF08;01-12&#xFF09;</td>
+</tr>
+<tr>
+<td>%M</td>
+<td>&#x5206;&#x949F;&#x6570;&#xFF08;00=59&#xFF09;</td>
+</tr>
+<tr>
+<td>%S</td>
+<td>&#x79D2;&#xFF08;00-59&#xFF09;</td>
+</tr>
+</tbody></table>
+<ol start="4">
+<li><p>&#x65F6;&#x95F4;&#x8F6C;&#x6362;</p>
+<pre><code class="language-py">import time
+
+# &#x683C;&#x5F0F;&#x5316;&#x65F6;&#x95F4; ----&gt;  &#x7ED3;&#x6784;&#x5316;&#x65F6;&#x95F4;
+ft = time.strftime(&apos;%Y/%m/%d %H:%M:%S&apos;)
+st = time.strptime(ft,&apos;%Y/%m/%d %H:%M:%S&apos;)
+print(st)
+# &#x7ED3;&#x6784;&#x5316;&#x65F6;&#x95F4; ---&gt; &#x65F6;&#x95F4;&#x6233;
+t = time.mktime(st)
+print(t)
+
+# &#x65F6;&#x95F4;&#x6233; ----&gt; &#x7ED3;&#x6784;&#x5316;&#x65F6;&#x95F4;
+t = time.time()
+st = time.localtime(t)
+print(st)
+# &#x7ED3;&#x6784;&#x5316;&#x65F6;&#x95F4; ---&gt; &#x683C;&#x5F0F;&#x5316;&#x65F6;&#x95F4;
+ft = time.strftime(&apos;%Y/%m/%d %H:%M:%S&apos;,st)
+print(ft)</code></pre>
+</li>
+</ol>
+<h3 id="random-">random&#x6A21;&#x5757;</h3>
+<ol>
+<li>&#x968F;&#x673A;&#x6A21;&#x5757;<pre><code class="language-py">random.randint(m, n)&#xFF1A;m&#x3001;n&#x4E4B;&#x95F4;&#x7684;&#x968F;&#x673A;&#x6570;
+random.randrange(m, n, s)&#xFF1A;m&#x3001;n&#x4E4B;&#x95F4;&#x7684;&#x968F;&#x673A;&#x6570;&#xFF0C;&#x6B65;&#x957F;s
+random.choice(argv)&#xFF1A;&#x4ECE;argv&#x4E2D;&#x968F;&#x673A;&#x9009;&#x62E9;&#x5176;&#x4E2D;&#x7684;&#x6570;&#x636E;</code></pre>
+</li>
+</ol>
+<h3 id="os-">OS&#x6A21;&#x5757;</h3>
+<ol>
+<li>os&#x6A21;&#x5757;&#x662F;&#x4E0E;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4EA4;&#x4E92;&#x7684;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;</li>
+</ol>
+<h3 id="sys-">sys&#x6A21;&#x5757;</h3>
+<ol>
+<li>sys&#x6A21;&#x5757;&#x662F;&#x4E0E;python&#x89E3;&#x91CA;&#x5668;&#x4EA4;&#x4E92;&#x7684;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;</li>
+</ol>
+<h3 id="re-">re&#x6B63;&#x5219;&#x6A21;&#x5757;</h3>
+<ol>
+<li>re.match(pattern, string, flags=0)&#xFF1A;re.match &#x5C1D;&#x8BD5;&#x4ECE;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x8D77;&#x59CB;&#x4F4D;&#x7F6E;&#x5339;&#x914D;&#x4E00;&#x4E2A;&#x6A21;&#x5F0F;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x662F;&#x8D77;&#x59CB;&#x4F4D;&#x7F6E;&#x5339;&#x914D;&#x6210;&#x529F;&#x7684;&#x8BDD;&#xFF0C;match()&#x5C31;&#x8FD4;&#x56DE;none&#x3002;</li>
+<li>re.search(pattern, string, flags=0)&#xFF1A;&#x626B;&#x63CF;&#x6574;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x5E76;&#x8FD4;&#x56DE;&#x7B2C;&#x4E00;&#x4E2A;&#x6210;&#x529F;&#x7684;&#x5339;&#x914D;</li>
+<li>findall(string[, pos[, endpos]])&#xFF1A;&#x5728;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x627E;&#x5230;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x6240;&#x5339;&#x914D;&#x7684;&#x6240;&#x6709;&#x5B50;&#x4E32;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5217;&#x8868;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x627E;&#x5230;&#x5339;&#x914D;&#x7684;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;&#x7A7A;&#x5217;&#x8868;&#xFF1B;<strong>match &#x548C; search &#x662F;&#x5339;&#x914D;&#x4E00;&#x6B21; findall &#x5339;&#x914D;&#x6240;&#x6709;&#x3002;</strong></li>
+</ol>
 <h2 id="-">&#x5F02;&#x5E38;&#x5904;&#x7406;</h2>
 <ol>
 <li>&#x4E3A;&#x6BCF;&#x4E00;&#x79CD;&#x5F02;&#x5E38;&#x5B9A;&#x5236;&#x4E86;&#x4E00;&#x4E2A;&#x7C7B;&#x578B;&#xFF0C;&#x7136;&#x540E;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x79CD;&#x7279;&#x5B9A;&#x7684;&#x8BED;&#x6CD5;&#x7ED3;&#x6784;&#x7528;&#x6765;&#x8FDB;&#x884C;&#x5F02;&#x5E38;&#x5904;&#x7406;</li>

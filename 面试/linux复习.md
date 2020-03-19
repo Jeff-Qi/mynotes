@@ -1,16 +1,84 @@
-## Day 1
+<!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
+- [Day 1](#day-1)
+  - [进程/线程/协程是什么](#进程线程协程是什么)
+  - [进程和程序之前的关系](#进程和程序之前的关系)
+  - [进程和线程通信机制](#进程和线程通信机制)
+  - [进程类型](#进程类型)
+  - [进程调度](#进程调度)
+  - [Linux网络IO模型](#linux网络io模型)
+  - [select/poll/epoll](#selectpollepoll)
+  - [COW技术](#cow技术)
+- [Day 2](#day-2)
+  - [文件操作](#文件操作)
+  - [时间](#时间)
+  - [权限管理](#权限管理)
+  - [文件系统](#文件系统)
+  - [计划任务](#计划任务)
+  - [文本三剑客 grep、sed、awk](#文本三剑客-grepsedawk)
+    - [grep](#grep)
+    - [sed](#sed)
+    - [awk](#awk)
+    - [其他](#其他)
+  - [启动流程](#启动流程)
+- [Day 3](#day-3)
+  - [selinux](#selinux)
+  - [iptables](#iptables)
+  - [ﬁrewalld](#ﬁrewalld)
+  - [SSL/TLS](#ssltls)
+  - [对称和非对称加密](#对称和非对称加密)
+- [Day 3](#day-3-1)
+  - [内存](#内存)
+  - [CPU](#cpu)
+  - [进程](#进程)
+  - [网络](#网络)
+  - [磁盘](#磁盘)
+- [Day 4](#day-4)
+  - [shell脚本](#shell脚本)
+    - [基础、调试](#基础调试)
+    - [变量和表达式](#变量和表达式)
+    - [条件测试](#条件测试)
+    - [控制分支](#控制分支)
+    - [函数](#函数)
+  - [服务相关](#服务相关)
+    - [FTP服务原理（20（数据）、21（命令））](#ftp服务原理20数据21命令)
+    - [DNS服务原理（53）](#dns服务原理53)
+    - [DHCP服务原理（67接收、68发送）](#dhcp服务原理67接收68发送)
+    - [NFS服务原理](#nfs服务原理)
+- [Day 5](#day-5)
+  - [MySQL](#mysql)
+- [Day 6 7](#day-6-7)
+  - [Redis](#redis)
+- [Day 8 9](#day-8-9)
+  - [http/https（请求流程/头部信息/状态码/1.1和2.0）](#httphttps请求流程头部信息状态码11和20)
+  - [Apache](#apache)
+  - [Nginx](#nginx)
+    - [反向代理](#反向代理)
+  - [vrrp](#vrrp)
+  - [Keepalived](#keepalived)
+  - [heartbeat](#heartbeat)
+    - [keepalived与heartbeat的异同](#keepalived与heartbeat的异同)
+  - [负载均衡](#负载均衡)
+    - [Nginx](#nginx-1)
+    - [Haproxy（软负载均衡器）](#haproxy软负载均衡器)
+    - [LVS](#lvs)
+- [Day 10](#day-10)
+  - [ansible](#ansible)
+  - [zabbix](#zabbix)
+<!-- TOC END -->
 
-### 进程/线程/协程是什么
+# Day 1
+
+## 进程/线程/协程是什么
 1.  进程：程序在自身的虚拟地址空间中的一次执行活动；在内存中形成一个自己的内存体，有自己的地址空间和栈；是计算机分配资源的最小单位；
 2.  线程：线程是资源利用的最小单位；
 3.  协程：协程是一种用户态的线程；有程序来决定；运行于一个线程中，没有协程切换的开销；在子程序运行的过程中可以中断去做其他的子程序；
 
-### 进程和程序之前的关系  
+## 进程和程序之前的关系
 1.  程序与进程：程序是静态的指令+数据的集合；进程是一个动态的执行果过程，具有生命周期；
 2.  进程能够申请、调度和独立运行；程序不能调用资源，也不能被系统调用；
 3.  程序与进程无一一对应关系；程序能够被多个进程公用，一个进程也能顺序运行多个程序；
 
-### 进程和线程通信机制
+## 进程和线程通信机制
 1.  进程间通信：
     1.  管道：半双工通信，管道通信允许具有亲缘关系的进程之间进行通信
     2.  命名管道：允许没有亲缘关系的进程间通信
@@ -25,21 +93,28 @@
     3.  信号量：有名信号量和无名信号量；实质是一个计数器，通过计数来标识该资源是否可被使用，如果为0则资源当前不可用；
     4.  条件变量 + 互斥锁来控制资源的访问；以原子的方式阻塞线程，知道条件为真为止
 
-### 进程类型
+## 进程类型
+1. R运行(正在运行或在运行队列中等待)
+2. S中断(休眠中, 受阻, 在等待某个条件的形成或接受到信号)
+3. D不可中断(收到信号不唤醒和不可运行, 进程必须等待直到有中断发生)
+4. Z僵死(进程已终止, 但进程描述符存在, 直到父进程调用wait4()系统调用后释放)
+5. S停止(进程收到SIGSTOP, SIGSTP, SIGTIN, SIGTOU信号后停止运行运行)
+6. X死亡
+7. t停止追踪
 
-### 进程调度
+## 进程调度
 
-### Linux网络IO模型
+## Linux网络IO模型
 
-### select/poll/epoll
+## select/poll/epoll
 
-### COW技术
+## COW技术
 - 写时复制
 - fork 父进程会复制一份完整的父进程的数据来创建一个新的子进程，但是这种做法可能造成系统的资源浪费；父子进程的数据不能共享；而且，如果子进程马上做出了改动，则刚刚的复制就失去了作用；COW 技术是为了推迟甚至免除复制数据；当 fork 父进程进程时，不会产生复制一份数据来创建子进程，而是通过让父子进程以只读的形式来共享一份数据拷贝，只有在父子进程进行exec操作的时候才会进程一次完整的数据拷贝，是父子进程独立；这样就能减少资源的浪费
 
-## Day 2
+# Day 2
 
-### 文件操作
+## 文件操作
 1.  目录和文件权限
     - 权限：r（4）、w（2）、x（1）
         - 目录的 x 权限是可以进入这个目录；文件的 x 权限是让文件可执行让文件可以被运行
@@ -53,13 +128,18 @@
   - 硬链接：创建一个硬链接时，只在文件目录的 block 中记录链接的档名，直接指向源文件的 inode；通过原文件的 inode 的链接计数来确定文件的可用性，删除时硬链接更安全，当 inode 的连接数为 0 时删除这个文件；不会占用新的 inode 和 block；但是不能跨文件系统或者对目录创建硬链接
   - 软连接：创建一个软连接时，需要占用创建一个新的 inode 和 block，block中记录的是源文件的档名，指向该档名的所在的 inode；符号链接更加灵活，能够链接目录和跨文件创建；删除软连接不会影响源文件；源文件删除或文件的位置发生改动，软连接记录的位置不变导致链接失效
 
-### 权限管理
+## 时间
+1.  atime	access time	访问时间	文件中的数据库最后被访问的时间
+2.  mtime	modify time	修改时间	文件内容被修改的最后时间
+3.  ctime	change time	变化时间	文件的元数据发生变化。比如权限，所有者等
+
+## 权限管理
 1.  文件修改：
     1.  chmod
     2.  chown
     3.  chgrp
 2.  unmask
-    - 默认权限掩码；告诉系统生成文件时不应该给那些权限  
+    - 默认权限掩码；告诉系统生成文件时不应该给那些权限
 3.  特殊权限：SUID、SGID、STID
     1.  SUID（需要有 x 权限，变为 s）
         - 文件：使用所属用户的权限来运行
@@ -75,7 +155,7 @@
         2.  避免用户对文件使用 777 权限带来的风险
     - getfacl、setfacl
 
-### 文件系统
+## 文件系统
 1.  存储设备上的组织文件的方法；在告知系统分区所在的起始与结束柱面后，需要将分区格式化为操作系统能够识别的文件系统，之后操作系统才能使用这个文件系统；Linux 文件系统通常将文件的权限和属性放置到 inode 节点中，将实际的数据放置到 block；inode 和 block 块都有自己的编号
 2.  超级块：
     - 记录整个文件系统的整体信息包括 inode 与 block 的总量、使用数量和余量等
@@ -106,14 +186,14 @@
 10. linux分区
     - 3 + 1：三个主分区 + 一个扩展分区（可有多个逻辑分区）
 
-### 计划任务
+## 计划任务
 1.  at：一次性计划任务，在指定时间完成一次操作
 2.  crontab：周期性计划任务，周期性执行
     - 格式：分 + 时 + 日 + 月 + 星期 + 命令
 
-### 文本三剑客 grep、sed、awk
+## 文本三剑客 grep、sed、awk
 
-#### grep
+### grep
 1.  文本过滤工具，打印匹配的行；可使用正则表达式
 1.  参数：
     ```
@@ -168,7 +248,7 @@ $ | 锚定行位
 \< | 锚定词首
 \> | 锚定词尾
 
-#### sed
+### sed
 1.  行编辑器，sed是一种流编辑器
 2.  参数
 
@@ -200,13 +280,13 @@ $ | 最后一行
 \#,+# | 第#行到第 # + # 行
 ~ | 步进 1~2 奇数行；2~2 偶数行
 
-#### awk
+### awk
 1.  分析工具
-2.  
+2.
 
 ### 其他
 
-####  启动流程
+##  启动流程
 1.  加电 BIOS 自检
 2.  选择启动设备，加载 MBR 加载 bootloader
     1.  stage 1：加载 MBR 的前 446 bytes，用于加载 stage 1.5
@@ -228,9 +308,9 @@ $ | 最后一行
 
 - 接电 BIOS 自检---加载MBR---加载 /boot---加载内核并初始化---设置运行等级---系统初始化---初始化终端---等待用户操作
 
-## Day 3
+# Day 3
 
-### selinux
+## selinux
 1.  selinux作为内核型的加强性防火墙，提高对系统的安全保护，通过selinux对系统中的文件和资源添加标签，从而提高安全性；
 2.  运行级别：enforcing(强制不可以访问)、permissive(警告但可以访问)、disabled( 不警告不拒绝)
 3.  安全上下文
@@ -240,7 +320,7 @@ $ | 最后一行
     2.  布尔型规则 getsebool、setsebool
     3.  添加目录的默认安全上下文：semanage fcontext -a -t；添加端口 semanage port -a -t
 
-### iptables
+## iptables
 1.  Netfilter是一种内核中用于扩展各种网络功能的结构化底层构架，由内核提供，无需守护进程
 1.  专表专用
     1.  filter：专门用于过滤数据
@@ -263,18 +343,18 @@ $ | 最后一行
         2.  出站流量：output、postrouting
         3.  转发流量：prerouting、forward、postrouting
 
-### ﬁrewalld
+## ﬁrewalld
 1.  centos 和 rhel提供了一个firewalld的动态管理的防火墙；firewalld将所有网络流量分为多个区域进行管理
 2.  将流量根据数据包的源IP地址或传入网络接口等条件，流量将转入相应区域的防火墙规则，对于流入系统的每个数据包，将首先检查其源地址；特定区域、指定网络接口的区域、默认区域
 
-### SSL/TLS
+## SSL/TLS
 1.  SSL 安全套接字
     1.  位于可靠的面向连接的网络层协议和应用层协议之间的一种协议层。SSL通过互相认证、使用数字签名确保完整性、使用加密确保私密性，以实现客户端和服务器之间的安全通讯
 2.  TLS 传输层安全协议
     1.  用于在两个通信应用程序之间提供保密性和数据完整性是 SSL 的升级版
 3.  SSL/TLS 的握手过程
 
-### 对称和非对称加密
+## 对称和非对称加密
 1.  对称加密：通信的双方采用同样的秘钥进行加密解密
     1.  优点：秘钥较短，方便简单，加密速度快
     2.  缺点：秘钥的传输不安全，可能存在秘钥泄露
@@ -284,18 +364,18 @@ $ | 最后一行
     2.  缺点：加密更加消耗资源
     3.  常见 RSA
 
-## Day 3
+# Day 3
 
-### 内存
+## 内存
 1.  free：显示系统内存的使用  -mgs
 2.  vmstat：报告虚拟内存的统计信息
 
-### CPU
+## CPU
 1.  uptime：显示系统平均负
 2.  top：动态显示系统进程任务
 3.  mpstat：输出CPU的各种统计信息
 
-### 进程
+## 进程
 1.  进程的管理和查看
     1.  ps、top、pstree
     2.  kill、killall、pkill
@@ -307,7 +387,7 @@ $ | 最后一行
             5.  （18）sigcont 继续运行
             6.  （19）sigstop 暂停运行
 
-### 网络
+## 网络
 1.  临时性网络配置，直接通过修改当前内核参数；永久修改，需要修改配置文件，然后重启网络接口
 2.  管理以太网接口
     1.  ifconfig：ifup、ifdown
@@ -325,10 +405,10 @@ $ | 最后一行
     1.  netstat、lsof
     2.  ping、traceroute
     3.  dig、nslookup
-    4.  
+    4.
 6.  wget -hbqOaortc --user --passoword
 
-### 磁盘
+## 磁盘
 1.  fdisk：磁盘分区工具；parted：动态交互分区
 2.  lvm：逻辑盘卷管理（Logical Volume Manager）的简称，它是Linux 环境下对卷进行方便操作的抽象层
     1.  是磁盘和分区上的一层逻辑结构，对文件系统屏蔽了下层磁盘的分区布局；可以组织不同磁盘的分区来组装成一个新的逻辑上的分区，这样就可以在逻辑上将多个磁盘合并成一个块更大的磁盘
@@ -362,11 +442,11 @@ $ | 最后一行
     3.  mdadm -Cv name -n -l -x -f -a -r
 8.  常用命令 df -ahiT
 
-## Day 4
+# Day 4
 
-### shell脚本
+## shell脚本
 
-#### 基础、调试
+### 基础、调试
 1.  标注使用的解释器
 2.  脚本调试：
     1.  bash [-x] [-n] [-v] scriptName
@@ -378,7 +458,7 @@ $ | 最后一行
         2.  参数和 bash 相似
     3.  shell 各种功能、监控功能、文本编辑功能、正则表达式
 
-#### 变量和表达式
+### 变量和表达式
 1.  输入
     1.  赋值
         ```shell
@@ -444,7 +524,23 @@ $ | 最后一行
     2.  let 命令：算数运算：let "num2=4 + 1"
     3.  expr 命令：通用的表达式计算命令：表达式中参数与操作符必须以空格分开。表达式中的运算可以是 **算术运算，比较运算，字符串运算和逻辑运算**
 
-#### 条件测试
+### 条件测试
+```sql
+select * into outfile '/tmp/kill.sql'
+from
+  (
+    select concat('kill ',id,';')
+    from information_schema.processlist
+    where
+      command='sleep'
+    union all
+      select 'set global read_only=OFF;'
+    union all
+      select 'stop slave;'
+    union all
+      select 'reset slave all;'
+  ) t;
+```
 
 1.  文件 **条件判断一定要加空格在两端**
     ```shell
@@ -495,7 +591,7 @@ $ | 最后一行
     [[ ! pattern ]] 逻辑非
     ```
 
-#### 控制分支
+### 控制分支
 1.  if
     ```shell
     if [[ condition ]]; then
@@ -529,7 +625,7 @@ $ | 最后一行
     ```
 
 
-- **提供 continue 和 break 来跳过当前循环和结束循环**  
+- **提供 continue 和 break 来跳过当前循环和结束循环**
 
 
 4.  while、until
@@ -544,7 +640,7 @@ $ | 最后一行
     ```
 5.  **如果需要后台执行就在 done 后加 & == done &**
 
-#### 函数
+### 函数
 1.  结构
     ```shell
     function name(parameter) {
@@ -567,9 +663,9 @@ $ | 最后一行
         1.  exit 将中断当前函数及当前Shell的执行
         2.  可以使用N 指定返回值
 
-### 服务相关
+## 服务相关
 
-#### FTP服务原理（20（数据）、21（命令））
+### FTP服务原理（20（数据）、21（命令））
 1.  FTP：文件传输协议，用于两端设备在网络中传输数据的协议
 2.  两种模式：
     1.  主动链接：客户端告诉服务器端口，服务端链接客户端（为主）
@@ -579,10 +675,10 @@ $ | 最后一行
     2.  本地用户
     3.  虚拟用户
         1.  主机需要虚拟用户映射，需要指定家目录，/etc/vftpd/虚拟用户表（使用hash加密）
-        2.  pam文件虚拟用户认证文件：  
+        2.  pam文件虚拟用户认证文件：
             1.  PAM是一组安全机制的模块（插件），系统管理员可以用来轻易地调整服务程序的认证方式，而不必对应用程序进行过多修改
         3.  /etc/vftpd/虚拟用户权限表
-#### DNS服务原理（53）
+### DNS服务原理（53）
 1.  配置文件：/etc/hosts、/etc/host.conf、/etc/resolv.conf
 1.  用于管理和解析域名与IP地址对应关系的技术；将域名解析为IP地址（正向解析），或将IP地址解析为域名（反向解析）
 2.  DNS 分层结构：DNS域名解析服务采用了类似目录树的层次结构来记录域名与IP地址之间的对应关系，从而形成了一个分布式的数据库系统
@@ -608,7 +704,7 @@ $ | 最后一行
 7.  DNS分离解析功能
     1.  可让位于不同地理范围内的读者通过访问相同的网址，而从不同的服务器获取到相同的数据；以便使用最近的服务器来提供服务
 
-#### DHCP服务原理（67接收、68发送）
+### DHCP服务原理（67接收、68发送）
 1.  动态主机协议，为局域网的网络协议使用 UDP
 2.  为内部网络配置 IP 地址，便于内部管理员对计算机做中央管理；有效地提升IP地址的利用率，提高配置效率，并降低管理与维护成本
 3.  手动更新：
@@ -616,20 +712,20 @@ $ | 最后一行
     2.  dhclient -r
 4.  DHCP中继：在大型网络中在多接口设置多个作用域，使用超级作用域来管理多个作用域，设置DHCP中继；
 
-#### NFS服务原理
+### NFS服务原理
 1.  NFS（网络文件系统）服务可以将远程Linux系统上的文件共享资源挂载到本地主机的目录上，从而使得本地主机（Linux客户端）基于TCP/IP协议，像使用本地主机上的资源那样读写远程Linux系统上的共享文件
 2.  /etc/exports，nfs配置文件
 3.  rw，ro，sync，async，root_squash
 4.  autofs 自动挂载器
     1.  自动挂载，只有在用户需要访问的时候才将文件系统挂载上去
     2.  /etc/auto.master：主配置文件
-        1.  挂载目录 + 挂载配置.misc  
+        1.  挂载目录 + 挂载配置.misc
             1.  挂载配置
                 1.  挂载目录 + 文件系统类型，读写模式等权限参数 ： 挂载的文件系统
 
-## Day 5
+# Day 5
 
-### MySQL
+## MySQL
 1.  工作流程
 2.  ACID
 3.  查询类型
@@ -678,9 +774,9 @@ $ | 最后一行
             3.  垂直分库：以表为依据，按照业务归属不同，将不同的表拆分到不同的库中；系统绝对并发量上来了，并且可以抽象出单独的业务模块
             4.  垂直分表：以字段为依据，按照字段的活跃性，将表中字段拆到不同的表（主表和扩展表）中；系统绝对并发量并没有上来，表的记录并不多，但是字段多，并且热点数据和非热点数据在一起，单行数据所需的存储空间较大。以至于数据库缓存的数据行减少，查询时会去读磁盘数据产生大量的随机读IO，产生IO瓶颈
 
-## Day 6 7
+# Day 6 7
 
-### Redis
+## Redis
     5大基本数据类型
     持久化存储机制
     内存管理
@@ -690,18 +786,164 @@ $ | 最后一行
     高可用方案
     优化方案
 
-## Day 8 9
-### http/https（请求流程/头部信息/状态码/1.1和2.0）
-### Apache
-### Nginx
-#### 反向代理
-### vrrp
-### Keepalived
-1.  Keepalived的作用是检测服务器的状态，如果有一台web服务器宕机，或工作出现故障，Keepalived将检测到，并将有故障的服务器从系统中剔除，同时使用其他服务器代替该服务器的工作，当服务器工作正常后Keepalived自动将服务器加入到服务器群中，这些工作全部自动完成，不需要人工干涉，需要人工做的只是修复故障的服务器。
-2.  keepalived分别安装在主机A和备机B上,双方启动以后,主机A就会向局域网内发送arp响应包,该arp响应包的ip地址被设为vip,mac地址被设为macA,所有接收的此报文的电脑就会将这个对应关系写入自己的ARP缓存表中,下次访问vip时,就会根据对应的mac地址访问到主机A当备机B监听到主机A挂了的时候,就会向局域网内发送arp响应包,并将arp响应包的ip地址设为vip,mac地址设为macB,所有接收的此报文的电脑就会将这个对应关系写入自己的ARP缓存表中,下次访问vip时,就会根据对应的mac地址访问到备机B这样就实现了高可用；主机A和备机B之间通过VRRP协议实现监听和选举
+# Day 8 9
+## http/https（请求流程/头部信息/状态码/1.1和2.0）
+## Apache
+## Nginx
 
-### 负载均衡
-#### Nginx
+### 反向代理
+1.  用户的请求全部发给反向代理服务器，反向代理服务器将请求发送给后端的服务器，处理完成后再返回客户端，这样对于用户来说是透明的，同时影藏了后端的服务器集群，保障了服务器的安全；也可以实现动静分离
+2.  nginx_http_proxy_module：反向代理模块
+    1.  **代理相关配置**
+    1.  proxy_pass：指定将请求代理至server的URL路径；
+    2.  proxy_set_header：将发送至server的报文的某首部进行重写；
+    3.  proxy_send_timeout：设置将请求传输到代理服务器的超时。仅在两次连续写入操作之间设置超时，而不是为整个请求的传输。
+    4.  proxy_read_timeout：定义从代理服务器读取响应的超时。仅在两个连续的读操作之间设置超时
+    5.  proxy_connect_timeout：定义与代理服务器建立连接的超时
+    6.  **缓存相关设置**
+    7.  proxy_cache_path：定义可用于proxy功能的缓存
+    8.  proxy_cache zone：指明要调用的缓存，或关闭缓存机制
+    9.  proxy_cache_valid：定义对特定响应码的响应内容的缓存时长；
+    10. proxy_cache_use_stale
+    11. proxy_cache_methods
+    12. proxy_hide_header
+3.  反向代理配置
+```sh
+location / { 
+  proxy_pass  http://192.168.10.20; 
+  proxy_set_header X‐Real‐IP  $remote_addr; 
+  proxy_send_timeout 75s; # 默认60s 
+  proxy_read_timeout 75s; # 默认60s 
+  proxy_connect_timeout   75; # 默认60s 
+  proxy_cache pxycache; 
+  proxy_cache_key $request_uri; 
+  proxy_cache_valid 200 302 301 1h; 
+  proxy_cache_valid any 1m; 
+} 
+```
+
+4.  ngx_http_fastcgi_module：代理缓存模块
+    1.  **代理相关配置**
+    2.  fastcgi_pass address：定义fastcgi server的地址
+    3.  fastcgi_index name：定义fastcgi默认的主页资源
+    4.  fastcgi_param：设置应传递给FastCGI服务器的参数
+    5.  **缓存相关配置**
+    6.  fastcgi_cache_path
+    7.  fastcgi_cache
+    8.  fastcgi_cache_key
+    9.  fastcgi_cache_methods
+    10. fastcgi_cache_min_uses
+    11. fastcgi_cache_valid
+    12. fastcgi_keep_conn
+5.  缓存代理模块配置
+```sh
+# 主配置文件
+http{ 
+    ... 
+    fastcgi_cache_path /var/cache/nginx/fastcgi_cache levels=1:2:1 keys_zone=fcgi:20m 
+inactive=120s; 
+}
+###
+# 独立配置文件
+location / { 
+  proxy_pass http://192.168.10.20; 
+} 
+# 实现动静分离 
+location ~ .*\.(html|txt)$ {
+  root /usr/share/nginx/html/; 
+} 
+# 缓存相关配置 
+location ~* \.php$ { 
+  fastcgi_cache fcgi; 
+  fastcgi_cache_key $request_uri; 
+  fastcgi_cache_valid 200 302 10m; 
+  fastcgi_cache_valid 301 1h; 
+  fastcgi_cache_valid any 1m; 
+}
+```
+
+## vrrp
+1.  通过对于网关进行冗余处理，防止因为网络的单点故障导致的服务不可用问题。keepalived利用vrrp进行工作。
+
+## Keepalived
+1.  Keepalived的作用是检测服务器的状态，如果有一台web服务器宕机，或工作出现故障，Keepalived将检测到，并将有故障的服务器从系统中剔除，同时使用其他服务器代替该服务器的工作，当服务器工作正常后Keepalived自动将服务器加入到服务器群中，这些工作全部自动完成，不需要人工干涉，需要人工做的只是修复故障的服务器。
+2.  **keepalived可提供vrrp以及health-check功能，可以只用它提供双机浮动的vip（vrrp虚拟路由功能），这样可以简单实现一个双机热备高可用功能；**
+2.  工作工程：keepalived分别安装在主机A和备机B上,双方启动以后,主机A就会向局域网内发送arp响应包,该arp响应包的ip地址被设为vip,mac地址被设为macA,所有接收的此报文的电脑就会将这个对应关系写入自己的ARP缓存表中,下次访问vip时,就会根据对应的mac地址访问到主机A当备机B监听到主机A挂了的时候,就会向局域网内发送arp响应包,并将arp响应包的ip地址设为vip,mac地址设为macB,所有接收的此报文的电脑就会将这个对应关系写入自己的ARP缓存表中,下次访问vip时,就会根据对应的mac地址访问到备机B这样就实现了高可用；主机A和备机B之间通过VRRP协议实现监听和选举
+4.  模块化设计：core模块、check模块、vrrp模块
+    1.  core模块：核心模块，负责主进程的启动维护和全局配置文件的加载 和读取
+    2.  check模块：健康检查模块
+    3.  vrrp模块：负责vrrp协议的运行
+    4.  system call：系统调用
+    5.  watchdog：看么狗，监控check和vrrp进程
+5.  简单配置
+```sh
+global_defs { 
+   router_id node1 # 全局唯一
+} 
+# 定义script 
+vrrp_script chk_http_port { 
+    script "/usr/local/src/check_nginx_pid.sh"  # 检查脚本路径
+    interval 1    # 健康检查间隔
+    weight ‐2 # 优先级‐2 
+} 
+vrrp_instance VI_1 { 
+    state MASTER    # 模式主
+    interface ens33   # 网卡
+    virtual_router_id 10  # vrrp的routeid
+    priority 100  # 优先级
+    advert_int 1 
+    authentication {  # 通信认证
+        auth_type PASS 
+        auth_pass 1111 
+    } 
+    # 调用script脚本 
+    track_script { 
+        chk_http_port  
+    } 
+    virtual_ipaddress {     # vip
+    192.168.10.100 
+    } 
+}
+```
+
+## heartbeat
+1.  工作原理：通过修改配置文件，让一台服务器变为主服务器，其他的会自动变成热备服务器；
+热备服务器守护进程会持续监听主服务器的心跳。如果一段时间内未监听到心跳，就会启动故障转移，获取主服务器上的相关资源的所有权，保证服务的高可用
+2.  上述为主备模式，同时也可以是主主模式
+3.  切换时机
+    1.  服务器宕机
+    2.  heartbeat挂掉
+    3.  网络通信故障
+    4.  **如果是应用服务挂掉不会切换**
+4.  脑裂现象
+    1.  因为一些原因无法监听到心跳，导致两台服务器相互竞争资源
+    2.  解决方案
+        1.  服务器之间的通信线路采用冗余配置，如以太网采用多条线路连接
+        2.  如果发生了脑裂，通过通知运维人员进行即使的抢修
+        3.  延迟接管服务，通知运维人员
+        4.  增加仲裁机制：如ip，如果没有心跳了，就同时ping一下ip地址，如果不能ping通则是自己出问题了，主动放弃竞争
+5.  信息类型
+    1.  心跳信息
+        1.  通过控制心跳频率来定时发送信条信息，及出现故障后多久开始转移
+    2.  集群转移信息
+        1.  如果主服务器上线，通过ip-request消息是要求备机释放主服务器失败时备服务器取得的的资源，然后备服务器关闭是仿主服务器失败时取得的资源及服务备服务器释放主服务器失败时取得的资源以及服务后，就会通过ip-request-resp消息通知主服务器它不在拥有该资源以及服务，主服务器收到来自备节点的ip-request-resp消息通知后，启动失败时释放的资源以及服务，并开始提供正常的访问服务
+    3.  重传信息请求
+6.  Heartbeat是通过IP地址接管和ARP广播进行故障转移的
+    1.  arp强制刷新客户端的ip地址的mac地址
+    2.  vip与管理ip
+
+### keepalived与heartbeat的异同
+1.  Keepalived和Heartbeat。两者都很流行，将资源（ip以及程序服务等资源）从一台已经故障的计算机快速转移到另一台正常运转的机器上继续提供服务
+2.  区别
+    1.  keepalived配置相对比较简单，从安装配置维护都比heartbeat简单
+    2.  heartbeat采用的是心跳检测，进行通信和选举，通过网络和串口通信，比较可靠；keepalived采用vrrp协议进行选举和通信
+    3.  Heartbeat功能更强大：Heartbeat虽然复杂，但功能更强大，配套工具更全，适合做大型集群管理，而Keepalived主要用于集群倒换，基本没有管理功能；
+
+
+## 负载均衡
+1.  负载均衡就是将大量的请求按照一定的策略均匀的分配到后端的服务器集群中进行处理；降低单个服务器的压力，为用户提供更好的服务体验和质量；同时也能够避免单点故障带来的影响服务不可用
+
+### Nginx
 1.  特点
     1.  工作在网络的 7 层之上，可以针对 http 应用做一些分流的策略，比如针对域名、目录结构；
     2.  Nginx 安装和配置比较简单，测试起来比较方便；
@@ -711,7 +953,57 @@ $ | 最后一行
     6.  Nginx 能支持 http 和 Email，这样就在适用范围上面小很多；
     6.  默认有三种调度算法: 轮询、weight 以及 ip_hash（可以解决会话保持的问题），还可以支持第三方的 fair 和 url_hash 等调度算法；
 
-#### Haproxy（软负载均衡器）
+#### ngx_http_upstream_module：负载均衡模块
+1.  参数
+    1.  upstream：定义后端服务器组
+        1.  server：后接服务器ip地址
+            1.  weight=x：权重
+            2.  max_fails=x：最大失败次数，操作最大次数后标记不可用
+            3.  fail_timeout=x：超时时间，设置服务器不可用的时间
+            4.  backup：将服务器标记为备用，组中所有的server都不可用是，使用这个server
+            5.  down：将服务器标记为down
+        2.  负载均衡算法
+            1.  轮询
+            2.  加权轮询
+            3.  最少连接
+            4.  ip_hash
+        3.  keepalive connections：每个work进程保留的对大空闲场长连接数
+2.  七层代理（包含在http中）
+```sh
+stream {
+  upstream servers{
+    server xxx weight 2 max_fails 3 fail_timeout 10;
+    server xxx weight 1;
+    server xxx backup;
+    xxx（负载均衡策略）
+  }
+  server {
+    listen xxxx:80;
+    localtion / {
+      proxy_pass http://servers;
+    }
+  }
+}
+```
+
+3.  四层代理（主配置文件）
+```py
+upstream servers{
+  server xxx weight 2 max_fails 3 fail_timeout 10;
+  server xxx weight 1;
+  server xxx backup;
+  xxx（负载均衡策略）
+}
+server {
+  listen xxxx:80;
+  proxy_pass servers;
+}
+```
+4.  七层代理和四层代理的区别
+    1.  四层SLB：配置负载均衡设备上服务类型为tcp/udp，负载均衡设备将只解析到4层，负载均衡设备与client三次握手之后就会和RS建立连接；
+    2.  七层SLB：配置负载均衡设备服务类型为http/ftp/https等，负载均衡设备将解析报文到7层，在负载均衡设备与client三次握手之后，只有收到对应七层报文，才会跟RS建立连接
+
+### Haproxy（软负载均衡器）
 1.  免费开源
 2.  负载均衡：最大并发量能达到5w
 3.  支持多种负载均衡算法，同时支持session保持：haproxy 将WEB服务端返回给客户端的cookie中插入haproxy中特定的字符串(或添加前缀)在后端的服务器COOKIE ID
@@ -727,12 +1019,48 @@ $ | 最后一行
     5.  支持的负载均衡算法：动态加权轮循(Dynamic Round Robin)，加权源地址哈希(Weighted Source Hash)，加权 URL 哈希和加权参数哈希(Weighted Parameter Hash)
     6.  单纯从效率上来讲 HAProxy 更会比 Nginx 有更出色的负载均衡速度；
     7.  HAProxy 可以对 Mysql 进行负载均衡，对后端的 DB 节点进行检测和负载均衡。
+9.  简单配置
+```sh
+global 
+    log         127.0.0.1 local2 
+    chroot      /var/lib/haproxy 
+    pidfile     /var/run/haproxy.pid 
+    maxconn     4000 
+    user        haproxy 
+    group       haproxy 
+    daemon 
+    stats socket /var/lib/haproxy/stats 
+listen mysql_proxy 
+    bind    0.0.0.0:3306 
+    mode    tcp 
+    balance source 
+    server  mysqldb1    192.168.10.30:3306  weight  1   check 
+    server  mysqldb2    192.168.10.40:3306  weight  2   check 
+listen stats 
+    mode http 
+    bind    0.0.0.0:8080 
+    stats   enable 
+    stats   uri /dbs 
+    stats   realm   haproxy\    statistics 
+    stats   auth    admin:admin 
+```
 
-#### LVS
-1.  Nat 模式：相当于一个前端的反向代理；当用户发送请求时，会发送个DS的VIP，DS收到后，会选择一个后端的服务器来处理，将数据包的目的地址改为后端RS的RIP，然后发送给后端的服务器处理，服务器处理完成后发送给网关（DS）；DS会将源地址转换为客户端的IP地址发送回去；
+### LVS
+1.  Nat 模式：相当于一个前端的反向代理；当用户发送请求时，会发送个DS的VIP，DS收到后，会选择一个后端的服务器来处理，将数据包的目的地址改为后端RS的RIP，然后发送给后端的服务器处理，服务器处理完成后发送给网关（DS）；DS会将源地址转换为虚拟服务的IP地址发送回去；
     1.  该方案实现比较简单，所有的RS网关指向DS即可，但是DS会成为整个集群的性能瓶颈，性能伸缩性不够好
 2.  DR 模式：前端DS在收到用户的数据包后，从后端选择一个服务器来服务，将源MAC地址改为内网网卡的MAC地址，目的地址改为内网真实服务器RIP的MAC地址，服务器收到数据包后，发现目的MAC地址是自己，于是接收并处理数据包，处理完成后，直接从本机将数据包回给客户端，不需要经过DS，数据包的源地址为VIP目的地址为CIP；
     1.  该方案是三种模式中最好的，他没有nat模式的DS性能瓶颈，也没有tun模式的隧道开销，所需要的就是DS和RS之间有一块网卡绑定在同一个局域网中，以便能够通过MAC地址进行同信传输数据；还需要保证只有DS的VIP能够响应ARP解析，这样才能够让客户端请求的报文通过DS而不是发送到RS上；
+    ```sh
+    vip="192.168.10.99" 
+    mask="255.255.255.255" 
+    ifconfig lo:0 $vip broadcast $vip netmask $mask up   # 将虚拟ip绑定到真是网卡上
+    route add ‐host $vip lo:0    # 添加路由规则走lo：0网卡
+    echo "1" >/proc/sys/net/ipv4/conf/lo/arp_ignore   # 忽略对于vip地址的arp请求
+    echo "2" >/proc/sys/net/ipv4/conf/lo/arp_announce   # 发送arp请求时选择网卡本身的ip地址作为源地址
+    echo "1" >/proc/sys/net/ipv4/conf/all/arp_ignore    # 全局配置
+    echo "2" >/proc/sys/net/ipv4/conf/all/arp_announce  # 全局配置
+    echo "1" >/proc/sys/net/ipv4/ip_forward
+    ```
 3.  Tun 模式：用户发送请求报文到DS，DS收到后发现请求时VIP地址，于是选取一台后端服务器，将数据包在封装上一层IP报文，源IP为DIP，目的IP为RIP，然后通过隧道传输；RS收到后拆开外层数据包，发现内层还有IP报文，且目的IP地址是自己的VIP于是接收处理报文，处理完成后直接冲本地发送数据包给客户端
     1.  该方案需要支持tun隧道技术
 4.  调度算法
@@ -743,6 +1071,8 @@ $ | 最后一行
     3.  应用范围比较广，不仅仅对 web 服务做负载均衡，还可以对其他应用（mysql）做负载均衡；
     4.  LVS 架构中存在一个虚拟 IP 的概念，需要向 IDC 多申请一个 IP 来做虚拟 IP。
 
-## Day 10
-    ansible
-    zabbix
+# Day 10
+
+## ansible
+
+## zabbix
