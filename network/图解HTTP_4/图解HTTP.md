@@ -1,5 +1,5 @@
 ---
-title: 图解HTTP_4
+title: HTTP首部学习
 date: 2019-08-16 0:15：00
 categories: Network
 ---

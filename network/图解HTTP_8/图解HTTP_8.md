@@ -1,5 +1,5 @@
 ---
-title: 图解HTTP_8
+title: HTTP认证
 date: 2019-08-30 0:15：00
 categories: Network
 ---
