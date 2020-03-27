@@ -1,13 +1,26 @@
 ---
 title: HTML5基础
 date: 2019-11-20 20:27:00
-tags: 前端
 categories: HTML5
 ---
+<!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
+- [HTML5基础](#html5基础)
+  - [HTML格式与部分元素](#html格式与部分元素)
+  - [HTML元素](#html元素)
+  - [HTML属性](#html属性)
+  - [HTML格式化](#html格式化)
+  - [HTML列表](#html列表)
+    - [HTML块](#html块)
+  - [HTML样式](#html样式)
+  - [HTML布局](#html布局)
+  - [HTML链接属性](#html链接属性)
+    - [HTML表单](#html表单)
+<!-- TOC END -->
+<!--more-->
 
-## HTML5基础
+# HTML5基础
 
-### HTML格式与部分元素
+## HTML格式与部分元素
   ```html
   <!-- 文档类型说明 -->
   <!Doctype html>
@@ -84,7 +97,7 @@ categories: HTML5
   <img src="local">
   ```
 
-### HTML元素
+## HTML元素
 1. 元素
   - 元素是指开始标签从开始到结束标签的所有代码
   ```html
@@ -96,7 +109,7 @@ categories: HTML5
   1. 空元素在开始标签中结束关闭
   2. 大多数HTML元素可以嵌套
 
-### HTML属性
+## HTML属性
 1. 标签可以拥有属性为元素提供更多信息
 2. 属性以键值对形式出现
 3. 常用标签
@@ -123,16 +136,16 @@ categories: HTML5
   3. style：规定元素的样式
   4. title：元素额外信息
 
-### HTML格式化
+## HTML格式化
 ![](格式化.png)
 
-### HTML列表
+## HTML列表
 ![](HTML列表.png)
 
-#### HTML块
+### HTML块
 ![](HTML块.png)
 
-### HTML样式
+## HTML样式
 1. 标签
   - \<style>：样式定义
   - \<link>：资源引用
@@ -160,11 +173,11 @@ categories: HTML5
   <p style="color:red">
   ```
 
-### HTML布局
+## HTML布局
 - div布局
 - table布局
 
-### HTML链接属性
+## HTML链接属性
 1. 链接数据：
   - 文本链接
   - 图片链接

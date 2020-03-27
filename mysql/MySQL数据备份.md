@@ -3,22 +3,33 @@ title: MySQL数据备份
 date: 2019-11-26 19:00:00
 categories: MySQL
 ---
+<!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
+- [MySQL备份](#mysql备份)
+  - [物理备份](#物理备份)
+    - [备份方式](#备份方式)
+    - [热备份](#热备份)
+    - [冷备份](#冷备份)
+  - [逻辑备份](#逻辑备份)
+    - [mysqldump备份与还原数据](#mysqldump备份与还原数据)
+    - [利用mysqlbinlog备份数据](#利用mysqlbinlog备份数据)
+<!-- TOC END -->
+<!--more-->
 
-## MySQL备份
+# MySQL备份
 
-### 物理备份
+## 物理备份
 
-#### 备份方式
+### 备份方式
 - 全量备份
 - 增量备份
 
-#### 热备份
+### 热备份
 
-#### 冷备份
+### 冷备份
 
-### 逻辑备份
+## 逻辑备份
 
-#### mysqldump备份与还原数据
+### mysqldump备份与还原数据
 1. 备份单/多库保留建库语句
   ```sql
   mysqldump -uroot -p --databases database_1_name [database_2_name] > /some/path/to/save
@@ -32,7 +43,7 @@ categories: MySQL
   mysql -uroot -p < /file/to/return
   ```
 
-#### 利用mysqlbinlog备份数据
+### 利用mysqlbinlog备份数据
 1. 查看二进制日志文件
   ```sql
   mysqlbinlog /binary/log

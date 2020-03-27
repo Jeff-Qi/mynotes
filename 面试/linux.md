@@ -24,6 +24,7 @@
     - [为什么 Nginx 不使用多线程?](#为什么-nginx-不使用多线程)
     - [Nginx常见的优化配置有哪些?](#nginx常见的优化配置有哪些)
     - [负载均衡算法](#负载均衡算法)
+- [select、poll、epoll](#selectpollepoll)
 <!-- TOC END -->
 
 # 软硬链接的区别
@@ -162,3 +163,44 @@ ip_hash：每个请求按访问IP的哈希结果分配，使来自同一个IP的
 3.  fair：比weight、ip_hash更加智能的负载均衡算法，fair算法可以根据页面大小和加载时间长短智能地进行负载均
 衡，也就是根据后端服务器的响应时间来分配请求，响应时间短的优先分配。Nginx本身不支持fair，如果需要这种调度算法，则必须安装upstream_fair模块。
 4.  url_hash：按访问的URL的哈希结果来分配请求，使每个URL定向到一台后端服务器，可以进一步提高后端缓存服务器的效率。Nginx本身不支持url_hash，如果需要这种调度算法，则必须安装Nginx的hash软件包。
+
+# select、poll、epoll
+1.  select：select 函数监视的文件描述符分3类，分别是writefds、readfds、和exceptfds；调用后select函数会阻塞，直到有描述副就绪（有数据 可读、可写、或者有except），或者超时（timeout指定等待时间，如果立即返回设为null即可），函数返回。当select函数返回后，可以 通过遍历fdset，来找到就绪的描述符。
+    ```c
+    int select (int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);
+    ```
+    1.  有点：跨平台
+    2.  监听的数量有限1024个
+2.  poll：不同与select使用三个位图来表示三个fdset的方式，poll使用一个 pollfd的指针实现。pollfd结构包含了要监视的event和发生的event，不再使用select“参数-值”传递的方式。同时，pollfd并没有最大数量限制（但是数量过大后性能也是会下降）。 和select函数一样，poll返回后，需要轮询pollfd来获取就绪的描述符。
+    ```c
+    int poll (struct pollfd *fds, unsigned int nfds, int timeout);
+    ```
+
+    ```c
+    struct pollfd {
+        int fd; /* file descriptor \*/
+        short events; /* requested events to watch \*/
+        short revents; /* returned events witnessed \*/
+    };
+    ```
+
+3.  epoll:epoll更加灵活，没有描述符限制。epoll使用一个文件描述符管理多个描述符，将用户关系的文件描述符的事件存放到内核的一个事件表中，这样在用户空间和内核空间的copy只需一次。
+    1.  三个接口
+        ```c
+        int epoll_create(int size)；//创建一个epoll的句柄，size用来告诉内核这个监听的数目一共有多大
+        int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)；
+        // - epfd：是epoll_create()的返回值。
+        // - op：表示op操作，用三个宏来表示：添加EPOLL_CTL_ADD，删除EPOLL_CTL_DEL,修改EPOLL_CTL_MOD。分别添加、删除和修改对fd的监听事件。
+        // - fd：是需要监听的fd（文件描述符）
+        // - epoll_event：是告诉内核需要监听什么事，struct epoll_event结构如下：
+              // EPOLLIN ：表示对应的文件描述符可以读（包括对端SOCKET正常关闭）；
+              // EPOLLOUT：表示对应的文件描述符可以写；
+              // EPOLLPRI：表示对应的文件描述符有紧急的数据可读（这里应该表示有带外数据到来）；
+              // EPOLLERR：表示对应的文件描述符发生错误；
+              // EPOLLHUP：表示对应的文件描述符被挂断；
+        int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout);
+        // 等待epfd上的io事件，最多返回maxevents个事件。
+        ```
+    2.  工作模式
+        1.  LT模式：当epoll_wait检测到描述符事件发生并将此事件通知应用程序，应用程序可以不立即处理该事件。下次调用epoll_wait时，会再次响应应用程序并通知此事件。
+        2.  ET模式：当epoll_wait检测到描述符事件发生并将此事件通知应用程序，应用程序 必须立即处理该事件。如果不处理，下次调用epoll_wait时，不会再次响应应用程序并通知此事件。

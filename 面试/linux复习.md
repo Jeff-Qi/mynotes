@@ -6,6 +6,7 @@
   - [进程类型](#进程类型)
   - [进程调度](#进程调度)
   - [Linux网络IO模型](#linux网络io模型)
+  - [文件描述符](#文件描述符)
   - [select/poll/epoll](#selectpollepoll)
   - [COW技术](#cow技术)
 - [Day 2](#day-2)
@@ -105,8 +106,56 @@
 ## 进程调度
 
 ## Linux网络IO模型
+1.  阻塞io：当进程发起调用后，系统没有将资源准备好，进程就会一直等待系统回复信号，等待系统将数据从硬件设备拷贝到内核空间，然后拷贝数据到用户空间，完成后系统才会返回信号；进程继续执行；此期间，该进程一直被挂起，不能做任何事情
+2.  非阻塞io：当系统发起调用后，系统没有将资源准备好，但是会立即回复error，进程收到后知道数据没有准备好，于是会不断的询问，但是系统不会被阻塞，资源准备好后会将资源拷贝到用户空间；但会造成cpu空轮询，造成资源浪费；这时候一个进程可以处理多个连接请求；
+3.  io多路复用：进程发起调用后，会将一个fd注册过到select/poll中进程会阻塞在这个调用上；但是这一个进程可以同时处理多个连接请求，只需要经fd注册到select/poll中；不同于空轮询
+；io多路复用中内核会监控每一个fd的准备状态，任何一个准备好后，select/poll就会立即返回；然后轮询注册的fd，找到准备好的哪一个，然后将资源复制到用户空间；这样做避免了空轮询，但是每次都需要遍历所有的fd，找到准备好的fd，开销较大；而epoll就能避免遍历，当有fd准备好后，会直接返回这一个fd，进程直接就能知道是那个fd准备好时间复杂度为O(1)；节省了资源
+4.  信号io：调用后，系统立刻放回，不会阻塞进程；在资源准备好后，发送信号通知进程回调，将数据拷贝到用户空间
+5.  异步io：发起调用后，立即返回，当资源拷贝到内核空间后，发送信号告诉进程资源已经在用户空间可以使用了
+
+## 文件描述符
+1.  它是一个索引值，指向内核为每一个进程所维护的该进程打开文件的记录表。当程序打开一个现有文件或者创建一个新文件时，内核向进程返回一个文件描述符
 
 ## select/poll/epoll
+1.  select：select 函数监视的文件描述符分3类，分别是writefds、readfds、和exceptfds；调用后select函数会阻塞，直到有描述副就绪（有数据 可读、可写、或者有except），或者超时（timeout指定等待时间，如果立即返回设为null即可），函数返回。当select函数返回后，可以 通过遍历fdset，来找到就绪的描述符。
+    ```c
+    int select (int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);
+    ```
+    1.  有点：跨平台
+    2.  监听的数量有限1024个
+2.  poll：不同与select使用三个位图来表示三个fdset的方式，poll使用一个 pollfd的指针实现。pollfd结构包含了要监视的event和发生的event，不再使用select“参数-值”传递的方式。同时，pollfd并没有最大数量限制（但是数量过大后性能也是会下降）。 和select函数一样，poll返回后，需要轮询pollfd来获取就绪的描述符。
+    ```c
+    int poll (struct pollfd *fds, unsigned int nfds, int timeout);
+    ```
+
+    ```c
+    struct pollfd {
+        int fd; /* file descriptor \*/
+        short events; /* requested events to watch \*/
+        short revents; /* returned events witnessed \*/
+    };
+    ```
+
+3.  epoll:epoll更加灵活，没有描述符限制。epoll使用一个文件描述符管理多个描述符，将用户关系的文件描述符的事件存放到内核的一个事件表中，这样在用户空间和内核空间的copy只需一次。
+    1.  三个接口
+        ```c
+        int epoll_create(int size)；//创建一个epoll的句柄，size用来告诉内核这个监听的数目一共有多大
+        int epoll_ctl(int epfd, int op, int fd, struct epoll_event *event)；
+        // - epfd：是epoll_create()的返回值。
+        // - op：表示op操作，用三个宏来表示：添加EPOLL_CTL_ADD，删除EPOLL_CTL_DEL,修改EPOLL_CTL_MOD。分别添加、删除和修改对fd的监听事件。
+        // - fd：是需要监听的fd（文件描述符）
+        // - epoll_event：是告诉内核需要监听什么事，struct epoll_event结构如下：
+              // EPOLLIN ：表示对应的文件描述符可以读（包括对端SOCKET正常关闭）；
+              // EPOLLOUT：表示对应的文件描述符可以写；
+              // EPOLLPRI：表示对应的文件描述符有紧急的数据可读（这里应该表示有带外数据到来）；
+              // EPOLLERR：表示对应的文件描述符发生错误；
+              // EPOLLHUP：表示对应的文件描述符被挂断；
+        int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout);
+        // 等待epfd上的io事件，最多返回maxevents个事件。
+        ```
+    2.  工作模式
+        1.  LT模式：当epoll_wait检测到描述符事件发生并将此事件通知应用程序，应用程序可以不立即处理该事件。下次调用epoll_wait时，会再次响应应用程序并通知此事件。
+        2.  ET模式：当epoll_wait检测到描述符事件发生并将此事件通知应用程序，应用程序 必须立即处理该事件。如果不处理，下次调用epoll_wait时，不会再次响应应用程序并通知此事件。
 
 ## COW技术
 - 写时复制
@@ -177,9 +226,13 @@
 8.  查看文件系统
     ```shell
     ls -l /lib/modules/$(uname -r)/fs
-
     ls /proc/filesystems
+    df -T
+    lsblk -f
+    file -s
+    dumpe2fs -h
     ```
+
 9.  常见的文件系统
     1.  xfs
     2.  ext2/3/4
@@ -282,7 +335,32 @@ $ | 最后一行
 
 ### awk
 1.  分析工具
-2.
+```sh
+[root@redis-server1 ~]# cat a
+1
+2
+3
+4
+5
+2333
+
+0) 求和
+[root@redis-server1 ~]# awk '{a+=$1}END{print a}' a
+2348
+
+1) 求最大值
+[root@redis-server1 ~]# awk '$0>a{a=$0}END{print a}' a
+2333
+
+2) 求最小值（思路：先定义一个最大值）
+[root@redis-server1 ~]# awk 'BEGIN{a=9999999}{if($1<a) a=$1 fi}END{print a}' a
+1
+
+3)求平均值
+第一种方法：在上面求和的基础上，除以参数个数
+[root@redis-server1 ~]# awk '{a+=$1}END{print a/NR}' a
+391.333
+```
 
 ### 其他
 
@@ -678,6 +756,7 @@ from
         2.  pam文件虚拟用户认证文件：
             1.  PAM是一组安全机制的模块（插件），系统管理员可以用来轻易地调整服务程序的认证方式，而不必对应用程序进行过多修改
         3.  /etc/vftpd/虚拟用户权限表
+
 ### DNS服务原理（53）
 1.  配置文件：/etc/hosts、/etc/host.conf、/etc/resolv.conf
 1.  用于管理和解析域名与IP地址对应关系的技术；将域名解析为IP地址（正向解析），或将IP地址解析为域名（反向解析）
@@ -1074,5 +1153,105 @@ listen stats 
 # Day 10
 
 ## ansible
+1.  五大组件
+    1. Ansible：核心程序
+    2. Modules：包括Ansible自带的核心模块及自定义模块
+    3. Plugins：完成模块功能的补充，包括连接插件、邮箱插件
+    4. Playbooks：剧本；定义Ansible多任务配置文件，由Ansible自动执行
+    5. Inventory：定义Ansible管理主机的清单
+    6. Connection Plugins：负责和被监控端实现通信
+2.  优点
+    1.  无服务端，无需守护进程运行，无需安装客户端
+    2.  基于模块化工作，支持各种语言开发的第三方模块
+    3.  基于ssh工作
+    4.  可以实现多级操作
+    5.  等幂性：每次执行的结果都一样，更加安全
+3.  常用模块，user，group，command，shell，file，service，yum
+4.  执行过程
+    1.  加载自己的配置文件默认/etc/ansible/ansible.cfg
+    2.  加载自己对应的模块文件，如command
+    3.  通过ansible将模块或命令生成对应的临时py文件，并将该文件传输至远程服务器的
+    4.  对应执行用户的家目录的.ansible/tmp/XXX/XXX.PY文件。
+    5.  给文件+x执行
+    6.  执行并返回结果删除临时py文件，sleep 0 退出
+5.  playbook
+    1.  Hosts:执行的远程主机列表
+    2.  Tasks：任务，由模块定义的操作的列表；
+    3.  Varniables:内置变量或自定义变量在playbook中调用
+    4.  Templates：模板，即使用了模板语法的文本文件；
+    5.  Handlers：和nogity结合使用，为条件触发操作，满足条件方才执行，否则不执行；
+    6.  Roles：角色；
+    ```ymal
+    ‐ hosts: webservers 
+      vars: 
+        http_port: 80 
+        max_clients: 200 
+      remote_user: root 
+      tasks: 
+      ‐ name: ensure apache is at the latest version 
+        yum: 
+          name: httpd 
+          state: latest 
+      ‐ name: write the apache config file 
+        template: 
+          src: /srv/httpd.j2 
+          dest: /etc/httpd.conf 
+        notify: 
+        ‐ restart apache 
+      ‐ name: ensure apache is running 
+        service: 
+          name: httpd 
+          state: started 
+      handlers: 
+        ‐ name: restart apache 
+          service: 
+            name: httpd 
+            state: restarted
+    ```
+    7.  运行时
+        1.  --check 检查剧本运行情况，不会真正影响主机；--syntax-check 检查语法
+        2.  ‐t Tag 指定运行特定的任务 
+        3.  ‐‐skip‐tags=SKIP_TAGS  跳过指定的标签 
+        4.  ‐‐start‐at‐task=START_AT 从哪个任务后执行
+6.  变量
+    1.  命令行额外参数
+    2.  host单主机参数
+    3.  host主机群参数
+    4.  playbooks内置参数
+    5.  远程主机参数facts
+7.  角色
+    1.  role文件加结构
+    ```sh
+    [root@node1 ansible]# tree roles/ 
+    roles/ 
+    ├── http 
+    │   ├── defaults   # 默认变量
+    │   │   └── main.yaml  
+    │   ├── files     # 需要调用的文件或者脚本
+    │   │   └── index.html 
+    │   ├── headlers  # 和notify触发操作配合使用
+    │   │   └── main.yaml 
+    │   ├── meta      # 一些特定的依赖
+    │   │   └── main.yaml 
+    │   ├── tasks     # 一些类任务
+    │   │   └── main.yaml 
+    │   ├── templates # 配置模板
+    │   │   └── httpd.conf.j2 
+    │   └── vars      # 变量
+    │       └── main.yaml 
+    └── site.yaml     # 通过写role来调用的playbook，调用 roles： - xxx
+    ```
 
 ## zabbix
+1.  Zabbix可以存储数据方便地画图，并且支持查询历史数据和自定义监控项；可以监控cpu，磁盘，网络，内存等参数
+2.  是一款优秀的分布式开源监控系统；具有事件邮箱通知的功能；同时对于数据具有可视化的功能；支持主动轮询和被动拉取，的方式获取数据；
+3.  组件结构
+    1.  Zabbix_Server：整个监控体系中最核心的组件，它负责接收客户端发送的报告信息，所有配置、统计数据及操作数据都由它组织。
+    2.  Zabbix_Agent：zabbix-agent为客户端软件，用于采集各监控项目的数据，并把采集的数据传输给zabbixproxy或zabbix-server
+    3.  Zabbix_Proxy（可选）：用于监控节点非常多的分布式环境中，它可以代理zabbix-server的功能，减轻zabbixserver的压力。
+        1.  监控远程区域设备
+        2.  监控本地网络不稳定区域
+        3.  当Zabbix 监控上千设备时，使用它来减轻Server 的压力
+        4.  简化Zabbix 的维护
+    4.  数据库存储：所有配置信息和Zabbix收集到的数据都被存储在数据库中。
+    5.  Web界面：为了从任何地方和任何平台都可以轻松的访问Zabbix, 我们提供基于Web的Zabbix界面。该界面是Zabbix Server的一部分，通常跟Zabbix Server运行在同一台物理机器上（！如果使用SQLite,Zabbix Web界面必须要跟Zabbix Server运行在同一台物理机器上。）

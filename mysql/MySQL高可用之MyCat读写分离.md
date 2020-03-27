@@ -1,16 +1,26 @@
 ---
-titl: MySQL高可用之MyCat读写分离搭建
+title: MySQL高可用之MyCat读写分离搭建
 date: 2020-02-25 22:15:00
 categories: MySQL
 ---
+<!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
+- [MyCat](#mycat)
+  - [简介](#简介)
+  - [安装使用](#安装使用)
+  - [MyCat 配置文件](#mycat-配置文件)
+    - [配置：](#配置)
+    - [三大组件](#三大组件)
+    - [实验配置](#实验配置)
+<!-- TOC END -->
+<!--more-->
 
-## MyCat
+# MyCat
 
-### 简介
+## 简介
 - mycat是一个数据库中间件，也可以理解为是数据库代理。在架构体系中是位于数据库和应用层之间的一个组件，并且对于应用层是透明的，即数据库感受不到mycat的存在，认为是直接连接的mysql数据库（实际上是连接的mycat,mycat实现了mysql的原生协议）
 - mycat的三大功能：分表、读写分离、主从切换
 
-### 安装使用
+## 安装使用
 1.  下载安装 Java jdk
     - 网址：https://www.oracle.com/java/technologies/javase-jdk8-downloads.html
     - 解压，添加环境变量/etc/profile
@@ -38,9 +48,9 @@ categories: MySQL
         ```
     - 测试连接---Mycat连接测试：测试mycat与测试mysql完全一致
 
-### MyCat 配置文件
+## MyCat 配置文件
 
-#### 配置：
+### 配置：
 ```
 --bin 启动目录
 --conf 配置文件存放配置文件：
@@ -53,7 +63,7 @@ categories: MySQL
   --logs        MyCAT日志的存放目录。日志存放在logs/log中，每天一个文件
 ```
 
-#### 三大组件
+### 三大组件
 1.  server.xml
     - 添加两个mycat逻辑库：user,pay: system 参数是所有的mycat参数配置，比如添加解析器：defaultSqlParser，其他类推 user 是用户参数。
       ```xml
@@ -102,7 +112,7 @@ categories: MySQL
       </mycat:rule>
       ```
 
-#### 实验配置
+### 实验配置
 - server.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

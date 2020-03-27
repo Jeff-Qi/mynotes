@@ -1,4 +1,15 @@
-##  阿里云 epel 源安装
+---
+title: 阿里yum-epel源替换
+data: 2019-10-12 21:22:00
+categories: Linux
+---
+<!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
+- [阿里云 epel 源安装](#阿里云-epel-源安装)
+- [阿里 yum 源](#阿里-yum-源)
+<!-- TOC END -->
+<!--more-->
+
+#  阿里云 epel 源安装
 ```
 1. 备份
 mv /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo.backup
@@ -15,7 +26,7 @@ yum clean all
 yum makecache
 ```
 
-##  阿里 yum 源
+#  阿里 yum 源
 ```
 1. 备份
 mv /etc/yum.repos.d/CentOS-Base.repo{,.bak}

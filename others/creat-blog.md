@@ -1,18 +1,30 @@
 ---
 title: hexo+github快速搭建博客
 date: 2019-10-09 19:52:01
-tags:
+categories: Others
 ---
+<!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
+- [hexo + Github 快速搭建博客（基于 centos 7）](#hexo--github-快速搭建博客基于-centos-7)
+  - [流程](#流程)
+    - [node.js 安装](#nodejs-安装)
+    - [git 安装](#git-安装)
+    - [hexo 安装](#hexo-安装)
+    - [github 仓库建立](#github-仓库建立)
+    - [hexo 与 github 的连接](#hexo-与-github-的连接)
+    - [最后的最后](#最后的最后)
+    - [访问博客](#访问博客)
+- [借鉴](#借鉴)
+<!-- TOC END -->
 
-## hexo + Github 快速搭建博客（基于 centos 7）
+# hexo + Github 快速搭建博客（基于 centos 7）
 
-### 流程
+## 流程
 1. node.js 安装
 2. git 安装
 3. hexo 安装并设置
 4. github 仓库建立和设置
 
-#### node.js 安装
+### node.js 安装
 1. node.js 官网下载二进制压缩包: https://nodejs.org/en/
 ```
 [root@aliyun ~]# wget https://nodejs.org/dist/v10.16.3/node-v10.16.3-linux-x64.tar.xz
@@ -42,7 +54,7 @@ tags:
   v10.16.3
   ```
 
-#### git 安装
+### git 安装
 1.  git 安装: https://git-scm.com
 ```
 [root@aliyun ~]# yum install -y git-core
@@ -53,7 +65,7 @@ tags:
 [root@aliyun ~]# git config --global user.email "your email address"
 ```
 
-#### hexo 安装
+### hexo 安装
 1. hexo 安装: https://hexo.io
 ```
 [root@aliyun ~]# npm install -g hexo-cli
@@ -67,7 +79,7 @@ tags:
 [root@aliyun blog_file]# npm install hexo-deployer-git --save
 ```
 
-#### github 仓库建立
+### github 仓库建立
 1. 新建一个仓库
 2. 命名时需要注意，命名规则
 ```
@@ -85,7 +97,7 @@ tags:
 ```
 5. 在 github 上添加刚刚复制的 ssh 密钥: https://github.com/settings/ssh
 
-#### hexo 与 github 的连接
+### hexo 与 github 的连接
 1. 修改 hexo 的配置文件（注意：配置文件在冒号后需要有一个空格不让会报错）
 
 ```
@@ -177,7 +189,7 @@ deploy:
   banch: master
 ```
 
-#### 最后的最后
+### 最后的最后
 1. 编译静态资源，更新到 github
 
 ```
@@ -186,14 +198,14 @@ deploy:
 [root@aliyun blog_file]# hexo d
 ```
 
-#### 访问博客
+### 访问博客
 1. 通过设置的 github 的仓库名就能访问了
 
 ```
 jeff.github.io
 ```
 
-#### 借鉴
+# 借鉴
 
 ```
 https://www.jianshu.com/p/0823e387c019

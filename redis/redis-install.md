@@ -1,10 +1,14 @@
 ---
 title: redis 安装
 data: 2020-02-22 22:48:00
-categories: redis
+categories: Redis
 ---
+<!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
+- [install redis on centos7](#install-redis-on-centos7)
+<!-- TOC END -->
+<!--more-->
 
-## install redis on centos7
+# install redis on centos7
 
 1.  下载安装包
     ```

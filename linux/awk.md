@@ -1,8 +1,15 @@
 ---
 title: awk
 date: 2019-10-11 19:46:07
-tags: Linux
+categories: Linux
 ---
+<!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
+- [简介](#简介)
+- [使用](#使用)
+  - [简单实践](#简单实践)
+    - [例子](#例子)
+<!-- TOC END -->
+<!--more-->
 
 # 简介
 - Awk是一种小巧的编程语言及命令行工具。（其名称得自于它的创始人Alfred Aho、Peter Weinberger 和 Brian Kernighan姓氏的首个字母）。它非常适合服务器上的日志处理，主要是因为Awk可以对文件进行操作，通常以可读文本构建行

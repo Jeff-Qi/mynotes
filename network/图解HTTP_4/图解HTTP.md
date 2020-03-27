@@ -1,35 +1,46 @@
 ---
-title: HTTP首部
-date: 2019-11-15 16:01:00
-tags: Others
-categories: HTTP
+title: 图解HTTP_4
+date: 2019-08-16 0:15：00
+categories: Network
 ---
+<!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
+- [HTTP首部](#http首部)
+  - [HTTP报文首部](#http报文首部)
+    - [请求报文](#请求报文)
+    - [响应报文](#响应报文)
+  - [HTTP首部字段](#http首部字段)
+    - [4类HTTP首部字段类型](#4类http首部字段类型)
+    - [非HTTP/1.1首部字段](#非http11首部字段)
+  - [通用首部字段](#通用首部字段)
+    - [Cache-control](#cache-control)
+<!-- TOC END -->
+<!--more-->
 
-## HTTP首部
+# HTTP首部
 
-### HTTP报文首部
-#### 请求报文
+## HTTP报文首部
+### 请求报文
 1. 组成：方法、URI、HTTP 版本、HTTP 首部字段等
 
-#### 响应报文
+### 响应报文
 1. 组成：HTTP 版本、状态码（数字和原因短语）、HTTP 首部字段
 
-### HTTP首部字段
-#### 4类HTTP首部字段类型
+## HTTP首部字段
+### 4类HTTP首部字段类型
 1. 通用首部字段
 2. 请求首部字段
 3. 响应首部字段
 4. 实体首部字段
 
-#### 非HTTP/1.1首部字段
+### 非HTTP/1.1首部字段
 1. 端到端首部（End-to-end Header）
   - 首部会转发给请求/ 响应对应的最终接收目标，且必须保存在由缓存生成的响应中，另外规定必须被转发
 2. 逐跳首部（Hop-by-hop Header）
   - 首部只对单次转发有效，会因通过缓存或代理而不再转发
   - 使用hop-by-hop 首部，需提供Connection 首部字段
 
-### 通用首部字段
-#### Cache-control
+## 通用首部字段
+### Cache-control
 - 作用：通过指定首部字段Cache-Control 的指令，操作缓存的工作
 
 - 缓存指令：

@@ -3,8 +3,12 @@ title: MySQL高可用之主从复制搭建
 date: 2019-11-07 18:21:07
 categories: MySQL
 ---
+<!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
+- [配置主服务器](#配置主服务器)
+<!-- TOC END -->
+<!--more-->
 
-## 配置主服务器
+# 配置主服务器
 1. 修改master配置文件
 
   ```

@@ -3,10 +3,19 @@ title: docker compose
 date: 2020-02-23 11:04:00
 categories: Docker
 ---
+<!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
+- [docker compose](#docker-compose)
+  - [简介](#简介)
+  - [安装](#安装)
+  - [文件及目录创建](#文件及目录创建)
+    - [项目目录](#项目目录)
+- [测试](#测试)
+<!-- TOC END -->
+<!--more-->
 
-## docker compose
+# docker compose
 
-### 简介
+## 简介
 - 负责实现对Docker 容器集群的快速编排
 - 允许用户通过一个单独的docker-compose.yml 模板文件（YAML 格式）来定义一组相关联的应用容器为一个项目（project）
 - compose 中有两个重要的概念：
@@ -16,16 +25,16 @@ categories: Docker
 
 -   Compose 掌管运行时的编排能力。使用Compose模板文件，用户可以编写包括若干服务的一个模板文件快速启动服务栈；分发给他人，也可快速创建一套相同的服务栈。
 
-### 安装
+## 安装
 - pip安装
     ```
     pip install -U docker-compose
     docker-compose version
     ```
 
-### 文件及目录创建
+## 文件及目录创建
 
-#### 项目目录
+### 项目目录
 
 1. 编写 docker-compose.yml 文件
 ```
@@ -94,7 +103,7 @@ docker_mysql
     └── init.sql
 ```
 
-## 测试
+# 测试
 1. 下拉镜像
     ```
     docker-compose pull

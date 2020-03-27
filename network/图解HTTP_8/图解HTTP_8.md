@@ -1,16 +1,19 @@
 ---
-title: 身份认证
-data: 2019-11-25 20:36:00
-tags: Networks
-categories: HTTP
+title: 图解HTTP_8
+date: 2019-08-30 0:15：00
+categories: Network
 ---
+<!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
+- [确认访问用户身份的认证](#确认访问用户身份的认证)
+  - [http认证方式](#http认证方式)
+<!-- TOC END -->
+<!--more-->
 
-## 确认访问用户身份的认证
+# 确认访问用户身份的认证
 - 计算机不能判断使用者的具体身份，需要认证使用
 
-### http认证方式
-
-#### BASIC认证（基本认证）
+## http认证方式
+1. BASIC认证（基本认证）
 - 认证过程
   ![basic](8.1.png)
 - 非加密处理
