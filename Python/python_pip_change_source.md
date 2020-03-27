@@ -1,6 +1,6 @@
 ---
 title: 替换PIP国内下载源
-date: 2020-03-37 10:05:00
+date: 2020-03-27 10:05:00
 categories: Python
 ---
 <!-- TOC START min:1 max:3 link:true asterisk:false update:true -->

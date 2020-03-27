@@ -27,7 +27,6 @@ date: 2019-11-26 19:00:00</p>
 <h2 id="categories-mysql">categories: MySQL</h2>
 <!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
 <ul>
-<li><a href="#mysql%E5%A4%87%E4%BB%BD">MySQL&#x5907;&#x4EFD;</a><ul>
 <li><a href="#%E7%89%A9%E7%90%86%E5%A4%87%E4%BB%BD">&#x7269;&#x7406;&#x5907;&#x4EFD;</a><ul>
 <li><a href="#%E5%A4%87%E4%BB%BD%E6%96%B9%E5%BC%8F">&#x5907;&#x4EFD;&#x65B9;&#x5F0F;</a></li>
 <li><a href="#%E7%83%AD%E5%A4%87%E4%BB%BD">&#x70ED;&#x5907;&#x4EFD;</a></li>
@@ -43,19 +42,19 @@ date: 2019-11-26 19:00:00</p>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<h1 id="mysql-">MySQL&#x5907;&#x4EFD;</h1>
-<h2 id="-">&#x7269;&#x7406;&#x5907;&#x4EFD;</h2>
-<h3 id="-">&#x5907;&#x4EFD;&#x65B9;&#x5F0F;</h3>
+<h1 id="-">&#x7269;&#x7406;&#x5907;&#x4EFD;</h1>
+<h2 id="-">&#x5907;&#x4EFD;&#x65B9;&#x5F0F;</h2>
 <ul>
 <li>&#x5168;&#x91CF;&#x5907;&#x4EFD;</li>
 <li>&#x589E;&#x91CF;&#x5907;&#x4EFD;</li>
 </ul>
-<h3 id="-">&#x70ED;&#x5907;&#x4EFD;</h3>
-<h3 id="-">&#x51B7;&#x5907;&#x4EFD;</h3>
-<h2 id="-">&#x903B;&#x8F91;&#x5907;&#x4EFD;</h2>
-<h3 id="mysqldump-">mysqldump&#x5907;&#x4EFD;&#x4E0E;&#x8FD8;&#x539F;&#x6570;&#x636E;</h3>
+<h2 id="-">&#x70ED;&#x5907;&#x4EFD;</h2>
+<h2 id="-">&#x51B7;&#x5907;&#x4EFD;</h2>
+<ul>
+<li>&#x5C06;&#x670D;&#x52A1;&#x5668;&#x5173;&#x673A;&#xFF0C;&#x5C06;&#x6570;&#x636E;&#x590D;&#x5236;&#x5230;&#x4ECE;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x3002;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x91CD;&#x542F;&#x65F6;&#x4F1A;&#x4EA7;&#x751F;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x3002;change master to &#x8FD9;&#x4E2A;&#x4E8C;&#x8FDB;&#x5236;&#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x3002;<strong>&#x660E;&#x663E;&#x7684;&#x7F3A;&#x70B9;&#xFF0C;&#x5173;&#x673A;&#x671F;&#x95F4;&#x670D;&#x52A1;&#x4E0D;&#x53EF;&#x7528;</strong>&#x3002;</li>
+</ul>
+<h1 id="-">&#x903B;&#x8F91;&#x5907;&#x4EFD;</h1>
+<h2 id="mysqldump-">mysqldump&#x5907;&#x4EFD;&#x4E0E;&#x8FD8;&#x539F;&#x6570;&#x636E;</h2>
 <ol>
 <li>&#x5907;&#x4EFD;&#x5355;/&#x591A;&#x5E93;&#x4FDD;&#x7559;&#x5EFA;&#x5E93;&#x8BED;&#x53E5;<pre><code class="language-sql">mysqldump -uroot -p --databases database_1_name [database_2_name] &gt; /some/path/to/save</code></pre>
 </li>
@@ -64,7 +63,7 @@ date: 2019-11-26 19:00:00</p>
 <li>&#x8FD8;&#x539F;&#x6570;&#x636E;&#x5E93;<pre><code class="language-sql">mysql -uroot -p &lt; /file/to/return</code></pre>
 </li>
 </ol>
-<h3 id="-mysqlbinlog-">&#x5229;&#x7528;mysqlbinlog&#x5907;&#x4EFD;&#x6570;&#x636E;</h3>
+<h2 id="-mysqlbinlog-">&#x5229;&#x7528;mysqlbinlog&#x5907;&#x4EFD;&#x6570;&#x636E;</h2>
 <ol>
 <li><p>&#x67E5;&#x770B;&#x4E8C;&#x8FDB;&#x5236;&#x65E5;&#x5FD7;&#x6587;&#x4EF6;</p>
 <pre><code class="language-sql">mysqlbinlog /binary/log
@@ -77,6 +76,8 @@ mysqlbinlog --base64-output=decode-rows --verbose /binary/log/path</code></pre>
 <pre><code class="language-sql">mysqlbinlog --stop-positon=&apos;point(at_point)&apos; /binary/log/path</code></pre>
 </li>
 </ol>
+<h1 id="-">&#x5F00;&#x6E90;&#x70ED;&#x5907;&#x5DE5;&#x5177;</h1>
+<h2 id="percona-xtrabakup">percona xtrabakup</h2>
 </article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
   <svg t="1533629773982" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1035" xlink="http://www.w3.org/1999/xlink" width="40" height="40"><defs><style type="text/css">@font-face { font-family: uc-nexus-iconfont; src: url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff") format("woff"), url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf") format("truetype"); }
   </style></defs><path d="M536.255427 195.182354c-7.804756-7.804756-17.966187-11.615549-28.311813-11.615549-9.43693 0-18.874883 3.449565-26.496467 10.163477-2.360767 1.452071-4.356214 3.267417-6.352685 5.262864L218.47792 455.611735c-15.607466 15.60542-15.607466 40.834011 0 56.43943 15.607466 15.607466 41.558511 15.607466 57.167001 0l193.46013-192.733583 0 600.526219c0 22.1423 17.787108 39.927361 39.927361 39.927361 22.140253 0 39.927361-17.785062 39.927361-39.927361L548.959773 319.317583 737.15704 508.422522c15.607466 15.607466 40.469714 15.607466 56.078203 0 15.607466-15.607466 15.425318-40.834011-0.182149-56.441477L536.255427 195.182354 536.255427 195.182354z" p-id="1036" fill="#333"/><path d="M101.784174 143.097092l816.674071 0c22.140253 0 39.925315-17.785062 39.925315-39.927361 0-22.140253-17.784038-39.925315-39.925315-39.925315L101.784174 63.244416c-22.140253 0-39.927361 17.785062-39.927361 39.925315C61.856813 125.31203 79.643921 143.097092 101.784174 143.097092L101.784174 143.097092z" p-id="1037" fill="#333"/></svg>

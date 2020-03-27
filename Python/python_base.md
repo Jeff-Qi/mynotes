@@ -12,6 +12,26 @@ categories: Python
 - [迭代器生成器](#迭代器生成器)
 - [推导式](#推导式)
 - [内置函数和匿名函数](#内置函数和匿名函数)
+- [模块和包](#模块和包)
+- [常用的模块](#常用的模块)
+  - [json模块](#json模块)
+  - [pickle模块](#pickle模块)
+  - [hashlib模块](#hashlib模块)
+  - [logging模块](#logging模块)
+  - [collections模块](#collections模块)
+  - [时间模块](#时间模块)
+  - [random模块](#random模块)
+  - [os模块](#os模块)
+  - [sys模块](#sys模块)
+  - [re正则模块](#re正则模块)
+- [异常处理](#异常处理)
+- [面向对象编程](#面向对象编程)
+- [类空间问题以及类之间的关系](#类空间问题以及类之间的关系)
+- [继承](#继承)
+- [面向对象编程特性：继承，封装，多态](#面向对象编程特性继承封装多态)
+- [类的成员](#类的成员)
+- [对象反射](#对象反射)
+- [序列化](#序列化)
 <!-- TOC END -->
 <!--more-->
 
@@ -272,14 +292,16 @@ a+b	| 写读【可写，可读】
         ret = eval('2 + 2')
         print(ret)
         ```
+
     - exec：执行字符串代码；可以执行多行代码，但是拿不到结果
         ```py
         s = '''
         for i in range(5):
             print(i)
         '''
-        exec(s
+        exec(s)
         ```
+
     - complie：:将字符串类型的代码编译。代码对象能够通过exec语句来执行或者eval()进行求值
         1.  数source：字符串。即需要动态执行的代码段。
         2.  参数 filename：代码文件名称，如果不是从文件读取代码则传递一些可辨认的值。当传入了source参数时，filename参数传入空字符即可。
@@ -631,19 +653,39 @@ logger.addHandler(ch)
     random.choice(argv)：从argv中随机选择其中的数据
     ```
 
-## OS模块
+## os模块
 1.  os模块是与操作系统交互的一个接口
+    ```py
+    os.remove() 删除文件
+    os.rename() 重命名文件
+    os.listdir() 列出指定目录下所有文件
+    os.chdir() 改变当前工作目录
+    os.getcwd() 获取当前文件路径
+    os.mkdir() 新建目录
+    os.rmdir() 删除空目录(删除非空目录, 使用shutil.rmtree())
+    os.makedirs() 创建多级目录
+    os.removedirs() 删除多级目录
+    os.wait() 暂时未知
+    os.path模块：
+    os.path.split(filename) 将文件路径和文件名分割(会将最后一个目录作为文件名而分离)
+    os.path.dirname(filename) 返回文件路径的目录部分
+    os.path.basename(filename) 返回文件路径的文件名部分
+    ```
 
 ## sys模块
 1.  sys模块是与python解释器交互的一个接口
+    ```py
+    sys.argv：命令行参数类似shell的参数
+    sys.exit(n)：退出程序返回一个字节码
+    sys.version：python解释器信息
+    sys.path：模块搜索路径
+    sys.platfrom：平台信息
+    ```
 
 ## re正则模块
 1.  re.match(pattern, string, flags=0)：re.match 尝试从字符串的起始位置匹配一个模式，如果不是起始位置匹配成功的话，match()就返回none。
 2.  re.search(pattern, string, flags=0)：扫描整个字符串并返回第一个成功的匹配
 3.  findall(string[, pos[, endpos]])：在字符串中找到正则表达式所匹配的所有子串，并返回一个列表，如果没有找到匹配的，则返回空列表；**match 和 search 是匹配一次 findall 匹配所有。**
-
-
-
 
 # 异常处理
 1.  为每一种异常定制了一个类型，然后提供了一种特定的语法结构用来进行异常处理

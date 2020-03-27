@@ -4,32 +4,31 @@ date: 2019-11-26 19:00:00
 categories: MySQL
 ---
 <!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
-- [MySQL备份](#mysql备份)
-  - [物理备份](#物理备份)
-    - [备份方式](#备份方式)
-    - [热备份](#热备份)
-    - [冷备份](#冷备份)
-  - [逻辑备份](#逻辑备份)
-    - [mysqldump备份与还原数据](#mysqldump备份与还原数据)
-    - [利用mysqlbinlog备份数据](#利用mysqlbinlog备份数据)
+- [物理备份](#物理备份)
+  - [备份方式](#备份方式)
+  - [热备份](#热备份)
+  - [冷备份](#冷备份)
+- [逻辑备份](#逻辑备份)
+  - [mysqldump备份与还原数据](#mysqldump备份与还原数据)
+  - [利用mysqlbinlog备份数据](#利用mysqlbinlog备份数据)
 <!-- TOC END -->
 <!--more-->
 
-# MySQL备份
+# 物理备份
 
-## 物理备份
-
-### 备份方式
+## 备份方式
 - 全量备份
 - 增量备份
 
-### 热备份
+## 热备份
 
-### 冷备份
+## 冷备份
+- 将服务器关机，将数据复制到从服务器上。主服务器重启时会产生一个新的二进制日志文件。change master to 这个二进制日志文件。**明显的缺点，关机期间服务不可用**。
 
-## 逻辑备份
 
-### mysqldump备份与还原数据
+# 逻辑备份
+
+## mysqldump备份与还原数据
 1. 备份单/多库保留建库语句
   ```sql
   mysqldump -uroot -p --databases database_1_name [database_2_name] > /some/path/to/save
@@ -43,7 +42,7 @@ categories: MySQL
   mysql -uroot -p < /file/to/return
   ```
 
-### 利用mysqlbinlog备份数据
+## 利用mysqlbinlog备份数据
 1. 查看二进制日志文件
   ```sql
   mysqlbinlog /binary/log
@@ -55,3 +54,7 @@ categories: MySQL
   ```sql
   mysqlbinlog --stop-positon='point(at_point)' /binary/log/path
   ```
+
+# 开源热备工具
+
+## percona xtrabakup
