@@ -53,15 +53,17 @@ date: 2020-03-28 17:33:44</p>
 <li><p>GTID&#x96C6;&#x662F;&#x5305;&#x62EC;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x5355;&#x4E2A;GTID&#x6216;&#x4E00;&#x7CFB;&#x5217;GTID&#x7684;&#x96C6;</p>
 </li>
 <li><p>MySQL&#x7CFB;&#x7EDF;&#x8868; mysql.gtid_executed &#x7528;&#x4E8E;&#x4FDD;&#x7559;MySQL&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x5E94;&#x7528;&#x7684;&#x6240;&#x6709;&#x4E8B;&#x52A1;&#x7684;&#x5DF2;&#x5206;&#x914D;GTID&#xFF0C;&#x4F46;&#x5B58;&#x50A8;&#x5728;&#x5F53;&#x524D;&#x6D3B;&#x52A8;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x65E5;&#x5FD7;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x4E8B;&#x52A1;&#x9664;&#x5916;&#xFF1B;&#x8BE5;&#x8868;&#x8BB0;&#x5F55;&#x548C;GTID&#x7684;&#x72B6;&#x6001;&#x3002;&#x4FDD;&#x8BC1;GTID&#x7684;&#x503C;&#x8BB0;&#x5F55;&#x3002;&#x4F7F;&#x7528; reset master &#x4F1A;&#x6E05;&#x7A7A;&#x8BE5;&#x8868;</p>
-<p>  <img src alt="gtid_executed"></p>
+<p>  <img src="http://study.jeffqi.cn/mysql/gtid_executed.jpg" alt="gtid_executed"></p>
 </li>
 </ul>
 <h1 id="gtid-">gtid&#x4E3B;&#x4ECE;&#x81EA;&#x52A8;&#x5B9A;&#x4F4D;</h1>
 <ul>
-<li>&#x5728;&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x4E2D;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;gtid&#x6765;&#x8FDB;&#x884C;&#x65E5;&#x5FD7;&#x7684;&#x81EA;&#x52A8;&#x5B9A;&#x4F4D;&#xFF1B;&#x65E0;&#x9700;&#x518D;&#x6307;&#x5B9A;&#x65E5;&#x5FD7;&#x7684;&#x504F;&#x79FB;&#x91CF;<pre><code class="language-sql">  change master to
+<li><p>&#x5728;&#x4E3B;&#x4ECE;&#x590D;&#x5236;&#x4E2D;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;gtid&#x6765;&#x8FDB;&#x884C;&#x65E5;&#x5FD7;&#x7684;&#x81EA;&#x52A8;&#x5B9A;&#x4F4D;&#xFF1B;&#x65E0;&#x9700;&#x518D;&#x6307;&#x5B9A;&#x65E5;&#x5FD7;&#x7684;&#x504F;&#x79FB;&#x91CF;</p>
+<pre><code class="language-sql">  change master to
     ...
     master_auto_position
     ...</code></pre>
+<p>  <img src="http://study.jeffqi.cn/mysql/gtid_in_binlog.jpg" alt="gtid_in_binlog"></p>
 </li>
 </ul>
 <h1 id="-gtid-">&#x57FA;&#x4E8E;gtid&#x7684;&#x4E3B;&#x4ECE;&#x590D;&#x5236;</h1>
@@ -106,7 +108,6 @@ SET GTID_NEXT=&apos;AUTOMATIC&apos;;</code></pre>
 <li><p>&#x8DF3;&#x8FC7;&#x4EA4;&#x6613;&#xFF1A;sql_slave_skip_counter&#x4F7F;&#x7528;GTID&#x65F6;&#x4E0D;&#x652F;&#x6301;&#x3002;&#x5982;&#x679C;&#x9700;&#x8981;&#x8DF3;&#x8FC7;&#x4E8B;&#x52A1;&#xFF0C;&#x8BF7;&#x6539;&#x7528;master gtid_executed&#x53D8;&#x91CF;&#x7684;&#x503C; &#x3002;&#x8DF3;&#x8FC7;&#x7A7A;&#x4E8B;&#x52A1;</p>
 </li>
 </ul>
-<p>-</p>
 </article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
   <svg t="1533629773982" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1035" xlink="http://www.w3.org/1999/xlink" width="40" height="40"><defs><style type="text/css">@font-face { font-family: uc-nexus-iconfont; src: url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff") format("woff"), url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf") format("truetype"); }
   </style></defs><path d="M536.255427 195.182354c-7.804756-7.804756-17.966187-11.615549-28.311813-11.615549-9.43693 0-18.874883 3.449565-26.496467 10.163477-2.360767 1.452071-4.356214 3.267417-6.352685 5.262864L218.47792 455.611735c-15.607466 15.60542-15.607466 40.834011 0 56.43943 15.607466 15.607466 41.558511 15.607466 57.167001 0l193.46013-192.733583 0 600.526219c0 22.1423 17.787108 39.927361 39.927361 39.927361 22.140253 0 39.927361-17.785062 39.927361-39.927361L548.959773 319.317583 737.15704 508.422522c15.607466 15.607466 40.469714 15.607466 56.078203 0 15.607466-15.607466 15.425318-40.834011-0.182149-56.441477L536.255427 195.182354 536.255427 195.182354z" p-id="1036" fill="#333"/><path d="M101.784174 143.097092l816.674071 0c22.140253 0 39.925315-17.785062 39.925315-39.927361 0-22.140253-17.784038-39.925315-39.925315-39.925315L101.784174 63.244416c-22.140253 0-39.927361 17.785062-39.927361 39.925315C61.856813 125.31203 79.643921 143.097092 101.784174 143.097092L101.784174 143.097092z" p-id="1037" fill="#333"/></svg>

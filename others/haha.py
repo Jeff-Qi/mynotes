@@ -51,3 +51,11 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted unive
 deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
 
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+
+
+import sys
+from PyQt5 import QtWidgets
+app = QtWidgets.QApplication(sys.argv)
+button = QtWidgets.QPushButton("Hello, World!")
+button.setFixedSize(100, 50)
+button.show()

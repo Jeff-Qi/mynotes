@@ -29,7 +29,7 @@ categories: MySQL
 
 - MySQL系统表 mysql.gtid_executed 用于保留MySQL服务器上应用的所有事务的已分配GTID，但存储在当前活动的二进制日志文件中的事务除外；该表记录和GTID的状态。保证GTID的值记录。使用 reset master 会清空该表
 
-    ![gtid_executed]()
+    ![gtid_executed](http://study.jeffqi.cn/mysql/gtid_executed.jpg)
 
 # gtid主从自动定位
 - 在主从复制中可以通过gtid来进行日志的自动定位；无需再指定日志的偏移量
@@ -39,6 +39,8 @@ categories: MySQL
       master_auto_position
       ...
     ```
+
+    ![gtid_in_binlog](http://study.jeffqi.cn/mysql/gtid_in_binlog.jpg)
 
 # 基于gtid的主从复制
 1.  同时开启只读模式，让从库追上主库
@@ -89,5 +91,3 @@ categories: MySQL
 - 临时表：使用GTID（即，将系统变量设置为）时，事务，过程，函数和触发器内部不支持CREATE TEMPORARY TABLEand DROP TEMPORARY TABLE语句 。
 
 - 跳过交易：sql_slave_skip_counter使用GTID时不支持。如果需要跳过事务，请改用master gtid_executed变量的值 。跳过空事务
-
--
