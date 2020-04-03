@@ -14,6 +14,15 @@ categories: Python
   - [散列表](#散列表)
   - [堆](#堆)
   - [图](#图)
+- [基础算法](#基础算法)
+  - [冒泡排序](#冒泡排序)
+  - [插入排序](#插入排序)
+  - [选择排序](#选择排序)
+  - [归并排序](#归并排序)
+  - [快速排序](#快速排序)
+  - [扩展排序](#扩展排序)
+  - [二分查找](#二分查找)
+  - [树的遍历](#树的遍历)
 <!-- TOC END -->
 <!--more-->
 
@@ -67,3 +76,178 @@ categories: Python
 ## 图
 1.  图由节点的又穷集合和边的集合组成
 2.  图是一种比较复杂的数据结构，在存储数据上有着比较复杂和高效的算法
+
+# 基础算法
+
+## 冒泡排序
+
+```py
+def bubble(li: List, le: int):
+    if le <= 1:
+        return
+    for i in range(le):
+        flag = False
+        for j in range(0, le - i - 1):
+            if li[j] > li[j + 1]:
+                li[j], li[j + 1] = li[j + 1], li[j]
+                flag = True
+        if not flag:
+            break
+```
+
+## 插入排序
+
+```py
+def insert(li: List, le: int):
+    for i in range(1, le):
+        j, tmp = i - 1, li[i]
+        while j >= 0 and li[j] > tmp:
+            li[j + 1] = li[j]
+            j -= 1
+        li[j + 1] = tmp
+```
+
+## 选择排序
+
+```py
+def select(li: List, le: int):
+    for i in range(le):
+        min_index, min_value = i, li[i]
+        for j in range(i, le):
+            if li[j] < min_value:
+                min_value, min_index = li[j], j
+        li[i], li[min_index] = li[min_index], li[i]
+```
+
+## 归并排序
+
+```py
+def gb(li, low, high):
+    if low >= high:
+        return
+    mid = low + (high - low) // 2
+    gb(li, low, mid)
+    gb(li, mid + 1, high)
+    merger(li, low, mid, high)
+
+
+def merger(li, low, mid, high):
+    i, j = low, mid + 1
+    tmp = []
+    while i <= mid and j <= high:
+        if li[i] <= li[j]:
+            tmp.append(li[i])
+            i += 1
+        else:
+            tmp.append(li[j])
+            j += 1
+    start = i if i <= mid else j
+    end = mid if i <= mid else high
+    tmp.extend(li[start: end + 1])
+    li[low: high + 1] = tmp
+```
+
+## 快速排序
+
+- ### 基本实现
+    ```py
+    def fast(li, low, high):
+    if low >= high:
+        return
+    number = random.randrange(low, high)
+    li[high], li[number] = li[number], li[high]
+    p = partition(li, low, high)
+    fast(li, low, p - 1)
+    fast(li, p + 1, high)
+
+
+    def partition(li, low, high):
+        i, value = low, li[high]
+        for j in range(low, high):
+            if li[j] <= value:
+                li[i], li[j] = li[j], li[i]
+                i += 1
+        li[i], li[high] = li[high], li[i]
+        return i
+    ```
+
+- ### 双路排序
+
+## 扩展排序
+
+- ### 桶排序
+
+- ### 计数排序
+
+- ### 基数排序
+
+## 二分查找
+
+- ### 基本实现
+    ```py
+    def half(li, low, high, value):
+    while low <= high:
+        mid = low + (high - low) // 2
+        if li[mid] < value:
+            low = mid + 1
+        elif li[mid] > value:
+            high = mid - 1
+        else:
+            return mid
+    return -1
+    ```
+    
+- ### 扩展二分
+
+## 树的遍历
+
+```py
+class TreeNode(object):
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+```
+
+- ### 前序遍历
+    ```py
+    def pre_order(root: TreeNode):
+        if root:
+            print(root.value)
+            pre_order(root.left)
+            pre_order(root.right)
+    ```
+
+- ### 中序遍历
+    ```py
+    def in_order(root: TreeNode):
+        if root:
+            in_order(root.left)
+            print(root.value)
+            in_order(root.right)
+    ```
+
+- ### 后续遍历
+    ```py
+    def post_order(root: TreeNode):
+        if root:
+            post_order(root.left)
+            post_order(root.right)
+            print(root.value)
+    ```
+
+- ### 层次遍历
+    ```py
+    def level_order(root: TreeNode):
+        if not root:
+            return
+        else:
+            queue = [root]
+        while queue:
+            current = queue.pop(0)
+            print(current.value)
+            if current.left:
+                queue.append(current.left)
+            if current.right:
+                queue.append(current.right)
+    ```
