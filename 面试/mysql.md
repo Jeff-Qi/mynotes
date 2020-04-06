@@ -1,3 +1,23 @@
+---
+title: mysql问题
+date: 2020-03-20 20:00:00
+categories: MySQL
+---
+<!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
+- [mysql执行过程](#mysql执行过程)
+- [两个日志](#两个日志)
+- [讲讲mysql的mvcc并发控制](#讲讲mysql的mvcc并发控制)
+- [mysql 的 myisam 引擎和 innodb 引擎的不同应该如何选择](#mysql-的-myisam-引擎和-innodb-引擎的不同应该如何选择)
+- [主备切换](#主备切换)
+- [并行复制](#并行复制)
+- [判断主库是否出问题](#判断主库是否出问题)
+- [数据库操作](#数据库操作)
+  - [修改库表编码](#修改库表编码)
+  - [索引添加](#索引添加)
+  - [数据库备份操作及mysqldump使用](#数据库备份操作及mysqldump使用)
+<!-- TOC END -->
+<!--more-->
+
 # mysql执行过程
 1.  客户端与连接器简历建立连接，连接器会查询mysql库进行一个权限的验证。通过之后会建立连接。发送一条sql语句后，会首先查询缓存，缓存命中则会检验对于这样表是否有权限进行读取操作的权限；如果没有缓存那么就走普通的逻辑；先通过分析器，进行一个词法语法的分析。然后就会识别名称判断表是否存在。接下来，会到优化器，在优化器中，数据库会决定使用那些索引，或者怎么对表进行连接；最后会到达执行器，执行器执行sql语句之前会验证数据库和表的权限。然后调用相应的数据库引擎进行读取数据，返回客户端
 
@@ -53,5 +73,71 @@
 3.  更新法：通过更新一个表的数据来检查数据库是否还活着；但是判断慢，如果数据库服务器压力大，写入得数据一直多，就会造成数据库的磁盘io被占满，从而导致判断出现失误
 4.  根据内部的performance_schema的相关表来进行查询
 
-# 半同步复制
-1.  
+# 数据库操作
+
+##  修改库表编码
+1.  修改某一个库
+    ```sql
+    # 数据库中所有表被改动
+    alter database db_name default character set charset_name collate charset_name;
+
+    # 创建库时指定
+    create database db_name default character set charset_name collate charset_name;
+    ```
+
+2. 修改某个表
+    ```sql
+    # 把表默认的字符集和所有字符列（CHAR,VARCHAR,TEXT）改为新的字符集
+    alter table t_name convert to character set charset_name collate charset_name;
+
+    # 只修改表的默认字符集
+    alter table t_name default character set charset_name collate charset_name;
+    ```
+
+3.  修改某个列
+    ```sql
+    alter table t_name change column_name column_name 类型（必须字符类型） character set charset_name collate charset_name;
+    ```
+
+4.  查看字符集
+    ```sql
+    show create database db_name;
+    show create table table_name;
+    show full columns from table_name;
+    ```
+
+## 索引添加
+1.  create table
+    ```sql
+    create table TABLE_NAME
+      (
+        COLUMN_NAME type
+        index index_name (COLUMN_NAME)
+      )engine=xx default charset=xxx;
+    ```
+
+2. create index
+    ```sql
+    create index index_name on TABLE_NAME(COLUMN_NAME);（无法创建唯一索引）
+    drop index index_name on TABLE_NAME;
+    ```
+
+3.  alter table
+    ```sql
+    alter table table_name add primary key/fulltext/unique/index/ index_name (COLUMN_NAME);
+    alter table table_name drop index index_name;
+    ```
+
+## 数据库备份操作及mysqldump使用
+1.  数据导出
+    ```sql
+    # 直接导出数据
+    select * from table_name
+    into outfile '/path/to/some/file';
+
+    # 导出文件使用分隔符
+    select * from table_name
+    into outfile '/path/to/some/file'
+    fields terminated by ',' optionally enclosed by ''''
+    lines terminated by '\n';
+    ```

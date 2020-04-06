@@ -7,6 +7,7 @@ categories: Linux
 - [cpu使用率高居不下，如何排查](#cpu使用率高居不下如何排查)
   - [查看cpu使用率](#查看cpu使用率)
   - [排查进程中占用cpu的函数](#排查进程中占用cpu的函数)
+- [cpu高占用，却看不到高cpu引用](#cpu高占用却看不到高cpu引用)
 - [参考文档](#参考文档)
 <!-- TOC END -->
 <!--more-->
@@ -67,5 +68,9 @@ categories: Linux
 - **使用perf top和perf record时配合使用 -g 参数，可以获取调用关系**
     ![per_top_g](http://study.jeffqi.cn/linux/per_top_g.jpg)
 
+# cpu高占用，却看不到高cpu引用
+
+
 # 参考文档
-- [极客时间](https://time.geekbang.org/column/article/70476)
+- [CPU占用率搞](https://time.geekbang.org/column/article/70476)
+- [CPU占用率高，却找不高CPU应用](https://time.geekbang.org/column/article/70822)

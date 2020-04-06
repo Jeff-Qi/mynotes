@@ -18,6 +18,7 @@ categories: Python
 - [同步与阻塞](#同步与阻塞)
 - [self](#self)
 <!-- TOC END -->
+<!--more-->
 
 # python垃圾回收算法
 - 引用技术为主，分带回收为辅助；

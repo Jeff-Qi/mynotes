@@ -21,7 +21,30 @@
   }
 </style>
 </head>
-<body><div id="readme" class="container"><article class="markdown-body entry-content"><h1 id="mysql-">mysql&#x6267;&#x884C;&#x8FC7;&#x7A0B;</h1>
+<body><div id="readme" class="container"><article class="markdown-body entry-content"><hr>
+<p>title: mysql&#x95EE;&#x9898;
+date: 2020-03-20 20:00:00</p>
+<h2 id="categories-mysql">categories: MySQL</h2>
+<!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
+<ul>
+<li><a href="#mysql%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B">mysql&#x6267;&#x884C;&#x8FC7;&#x7A0B;</a></li>
+<li><a href="#%E4%B8%A4%E4%B8%AA%E6%97%A5%E5%BF%97">&#x4E24;&#x4E2A;&#x65E5;&#x5FD7;</a></li>
+<li><a href="#%E8%AE%B2%E8%AE%B2mysql%E7%9A%84mvcc%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6">&#x8BB2;&#x8BB2;mysql&#x7684;mvcc&#x5E76;&#x53D1;&#x63A7;&#x5236;</a></li>
+<li><a href="#mysql-%E7%9A%84-myisam-%E5%BC%95%E6%93%8E%E5%92%8C-innodb-%E5%BC%95%E6%93%8E%E7%9A%84%E4%B8%8D%E5%90%8C%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9">mysql &#x7684; myisam &#x5F15;&#x64CE;&#x548C; innodb &#x5F15;&#x64CE;&#x7684;&#x4E0D;&#x540C;&#x5E94;&#x8BE5;&#x5982;&#x4F55;&#x9009;&#x62E9;</a></li>
+<li><a href="#%E4%B8%BB%E5%A4%87%E5%88%87%E6%8D%A2">&#x4E3B;&#x5907;&#x5207;&#x6362;</a></li>
+<li><a href="#%E5%B9%B6%E8%A1%8C%E5%A4%8D%E5%88%B6">&#x5E76;&#x884C;&#x590D;&#x5236;</a></li>
+<li><a href="#%E5%88%A4%E6%96%AD%E4%B8%BB%E5%BA%93%E6%98%AF%E5%90%A6%E5%87%BA%E9%97%AE%E9%A2%98">&#x5224;&#x65AD;&#x4E3B;&#x5E93;&#x662F;&#x5426;&#x51FA;&#x95EE;&#x9898;</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C">&#x6570;&#x636E;&#x5E93;&#x64CD;&#x4F5C;</a><ul>
+<li><a href="#%E4%BF%AE%E6%94%B9%E5%BA%93%E8%A1%A8%E7%BC%96%E7%A0%81">&#x4FEE;&#x6539;&#x5E93;&#x8868;&#x7F16;&#x7801;</a></li>
+<li><a href="#%E7%B4%A2%E5%BC%95%E6%B7%BB%E5%8A%A0">&#x7D22;&#x5F15;&#x6DFB;&#x52A0;</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD%E6%93%8D%E4%BD%9C%E5%8F%8Amysqldump%E4%BD%BF%E7%94%A8">&#x6570;&#x636E;&#x5E93;&#x5907;&#x4EFD;&#x64CD;&#x4F5C;&#x53CA;mysqldump&#x4F7F;&#x7528;</a><!-- TOC END -->
+<!--more-->
+
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="mysql-">mysql&#x6267;&#x884C;&#x8FC7;&#x7A0B;</h1>
 <ol>
 <li>&#x5BA2;&#x6237;&#x7AEF;&#x4E0E;&#x8FDE;&#x63A5;&#x5668;&#x7B80;&#x5386;&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;&#xFF0C;&#x8FDE;&#x63A5;&#x5668;&#x4F1A;&#x67E5;&#x8BE2;mysql&#x5E93;&#x8FDB;&#x884C;&#x4E00;&#x4E2A;&#x6743;&#x9650;&#x7684;&#x9A8C;&#x8BC1;&#x3002;&#x901A;&#x8FC7;&#x4E4B;&#x540E;&#x4F1A;&#x5EFA;&#x7ACB;&#x8FDE;&#x63A5;&#x3002;&#x53D1;&#x9001;&#x4E00;&#x6761;sql&#x8BED;&#x53E5;&#x540E;&#xFF0C;&#x4F1A;&#x9996;&#x5148;&#x67E5;&#x8BE2;&#x7F13;&#x5B58;&#xFF0C;&#x7F13;&#x5B58;&#x547D;&#x4E2D;&#x5219;&#x4F1A;&#x68C0;&#x9A8C;&#x5BF9;&#x4E8E;&#x8FD9;&#x6837;&#x8868;&#x662F;&#x5426;&#x6709;&#x6743;&#x9650;&#x8FDB;&#x884C;&#x8BFB;&#x53D6;&#x64CD;&#x4F5C;&#x7684;&#x6743;&#x9650;&#xFF1B;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x7F13;&#x5B58;&#x90A3;&#x4E48;&#x5C31;&#x8D70;&#x666E;&#x901A;&#x7684;&#x903B;&#x8F91;&#xFF1B;&#x5148;&#x901A;&#x8FC7;&#x5206;&#x6790;&#x5668;&#xFF0C;&#x8FDB;&#x884C;&#x4E00;&#x4E2A;&#x8BCD;&#x6CD5;&#x8BED;&#x6CD5;&#x7684;&#x5206;&#x6790;&#x3002;&#x7136;&#x540E;&#x5C31;&#x4F1A;&#x8BC6;&#x522B;&#x540D;&#x79F0;&#x5224;&#x65AD;&#x8868;&#x662F;&#x5426;&#x5B58;&#x5728;&#x3002;&#x63A5;&#x4E0B;&#x6765;&#xFF0C;&#x4F1A;&#x5230;&#x4F18;&#x5316;&#x5668;&#xFF0C;&#x5728;&#x4F18;&#x5316;&#x5668;&#x4E2D;&#xFF0C;&#x6570;&#x636E;&#x5E93;&#x4F1A;&#x51B3;&#x5B9A;&#x4F7F;&#x7528;&#x90A3;&#x4E9B;&#x7D22;&#x5F15;&#xFF0C;&#x6216;&#x8005;&#x600E;&#x4E48;&#x5BF9;&#x8868;&#x8FDB;&#x884C;&#x8FDE;&#x63A5;&#xFF1B;&#x6700;&#x540E;&#x4F1A;&#x5230;&#x8FBE;&#x6267;&#x884C;&#x5668;&#xFF0C;&#x6267;&#x884C;&#x5668;&#x6267;&#x884C;sql&#x8BED;&#x53E5;&#x4E4B;&#x524D;&#x4F1A;&#x9A8C;&#x8BC1;&#x6570;&#x636E;&#x5E93;&#x548C;&#x8868;&#x7684;&#x6743;&#x9650;&#x3002;&#x7136;&#x540E;&#x8C03;&#x7528;&#x76F8;&#x5E94;&#x7684;&#x6570;&#x636E;&#x5E93;&#x5F15;&#x64CE;&#x8FDB;&#x884C;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#xFF0C;&#x8FD4;&#x56DE;&#x5BA2;&#x6237;&#x7AEF;</li>
 </ol>
@@ -97,9 +120,63 @@
 <li>&#x66F4;&#x65B0;&#x6CD5;&#xFF1A;&#x901A;&#x8FC7;&#x66F4;&#x65B0;&#x4E00;&#x4E2A;&#x8868;&#x7684;&#x6570;&#x636E;&#x6765;&#x68C0;&#x67E5;&#x6570;&#x636E;&#x5E93;&#x662F;&#x5426;&#x8FD8;&#x6D3B;&#x7740;&#xFF1B;&#x4F46;&#x662F;&#x5224;&#x65AD;&#x6162;&#xFF0C;&#x5982;&#x679C;&#x6570;&#x636E;&#x5E93;&#x670D;&#x52A1;&#x5668;&#x538B;&#x529B;&#x5927;&#xFF0C;&#x5199;&#x5165;&#x5F97;&#x6570;&#x636E;&#x4E00;&#x76F4;&#x591A;&#xFF0C;&#x5C31;&#x4F1A;&#x9020;&#x6210;&#x6570;&#x636E;&#x5E93;&#x7684;&#x78C1;&#x76D8;io&#x88AB;&#x5360;&#x6EE1;&#xFF0C;&#x4ECE;&#x800C;&#x5BFC;&#x81F4;&#x5224;&#x65AD;&#x51FA;&#x73B0;&#x5931;&#x8BEF;</li>
 <li>&#x6839;&#x636E;&#x5185;&#x90E8;&#x7684;performance_schema&#x7684;&#x76F8;&#x5173;&#x8868;&#x6765;&#x8FDB;&#x884C;&#x67E5;&#x8BE2;</li>
 </ol>
-<h1 id="-">&#x534A;&#x540C;&#x6B65;&#x590D;&#x5236;</h1>
+<h1 id="-">&#x6570;&#x636E;&#x5E93;&#x64CD;&#x4F5C;</h1>
+<h2 id="-">&#x4FEE;&#x6539;&#x5E93;&#x8868;&#x7F16;&#x7801;</h2>
 <ol>
-<li></li>
+<li><p>&#x4FEE;&#x6539;&#x67D0;&#x4E00;&#x4E2A;&#x5E93;</p>
+<pre><code class="language-sql"># &#x6570;&#x636E;&#x5E93;&#x4E2D;&#x6240;&#x6709;&#x8868;&#x88AB;&#x6539;&#x52A8;
+alter database db_name default character set charset_name collate charset_name;
+
+# &#x521B;&#x5EFA;&#x5E93;&#x65F6;&#x6307;&#x5B9A;
+create database db_name default character set charset_name collate charset_name;</code></pre>
+</li>
+<li><p>&#x4FEE;&#x6539;&#x67D0;&#x4E2A;&#x8868;</p>
+<pre><code class="language-sql"> # &#x628A;&#x8868;&#x9ED8;&#x8BA4;&#x7684;&#x5B57;&#x7B26;&#x96C6;&#x548C;&#x6240;&#x6709;&#x5B57;&#x7B26;&#x5217;&#xFF08;CHAR,VARCHAR,TEXT&#xFF09;&#x6539;&#x4E3A;&#x65B0;&#x7684;&#x5B57;&#x7B26;&#x96C6;
+ alter table t_name convert to character set charset_name collate charset_name;
+
+ # &#x53EA;&#x4FEE;&#x6539;&#x8868;&#x7684;&#x9ED8;&#x8BA4;&#x5B57;&#x7B26;&#x96C6;
+ alter table t_name default character set charset_name collate charset_name;</code></pre>
+</li>
+<li><p>&#x4FEE;&#x6539;&#x67D0;&#x4E2A;&#x5217;</p>
+<pre><code class="language-sql">alter table t_name change column_name column_name &#x7C7B;&#x578B;&#xFF08;&#x5FC5;&#x987B;&#x5B57;&#x7B26;&#x7C7B;&#x578B;&#xFF09; character set charset_name collate charset_name;</code></pre>
+</li>
+<li><p>&#x67E5;&#x770B;&#x5B57;&#x7B26;&#x96C6;</p>
+<pre><code class="language-sql">show create database db_name;
+show create table table_name;
+show full columns from table_name;</code></pre>
+</li>
+</ol>
+<h2 id="-">&#x7D22;&#x5F15;&#x6DFB;&#x52A0;</h2>
+<ol>
+<li><p>create table</p>
+<pre><code class="language-sql">create table TABLE_NAME
+  (
+    COLUMN_NAME type
+    index index_name (COLUMN_NAME)
+  )engine=xx default charset=xxx;</code></pre>
+</li>
+<li><p>create index</p>
+<pre><code class="language-sql"> create index index_name on TABLE_NAME(COLUMN_NAME);&#xFF08;&#x65E0;&#x6CD5;&#x521B;&#x5EFA;&#x552F;&#x4E00;&#x7D22;&#x5F15;&#xFF09;
+ drop index index_name on TABLE_NAME;</code></pre>
+</li>
+<li><p>alter table</p>
+<pre><code class="language-sql">alter table table_name add primary key/fulltext/unique/index/ index_name (COLUMN_NAME);
+alter table table_name drop index index_name;</code></pre>
+</li>
+</ol>
+<h2 id="-mysqldump-">&#x6570;&#x636E;&#x5E93;&#x5907;&#x4EFD;&#x64CD;&#x4F5C;&#x53CA;mysqldump&#x4F7F;&#x7528;</h2>
+<ol>
+<li><p>&#x6570;&#x636E;&#x5BFC;&#x51FA;</p>
+<pre><code class="language-sql"># &#x76F4;&#x63A5;&#x5BFC;&#x51FA;&#x6570;&#x636E;
+select * from table_name
+into outfile &apos;/path/to/some/file&apos;;
+
+# &#x5BFC;&#x51FA;&#x6587;&#x4EF6;&#x4F7F;&#x7528;&#x5206;&#x9694;&#x7B26;
+select * from table_name
+into outfile &apos;/path/to/some/file&apos;
+fields terminated by &apos;,&apos; optionally enclosed by &apos;&apos;&apos;&apos;
+lines terminated by &apos;\n&apos;;</code></pre>
+</li>
 </ol>
 </article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
   <svg t="1533629773982" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1035" xlink="http://www.w3.org/1999/xlink" width="40" height="40"><defs><style type="text/css">@font-face { font-family: uc-nexus-iconfont; src: url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff") format("woff"), url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf") format("truetype"); }
