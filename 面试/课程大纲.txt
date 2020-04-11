@@ -1,0 +1,137 @@
+云计算课表
+Openstack发展及架构介绍
+    - 云管理平台出现的原理
+    - 云管理平台的分类
+    - Openstack简单介绍
+    - Openstack核心架构
+Openstack安装部署
+    - 基础服务环境部署
+    - 认证服务Keystone部署
+    - 镜像服务Glance部署
+    - 计算服务Nove部署
+    - 网络服务Neutron部署
+    - Dashboard服务部署
+    - 块存储服务Cinder部署
+    - 对象存储服务Swift部署
+认证服务Keystone原理
+    - Keystone基本概念
+    - Keystone案例说明
+镜像服务Glance原理
+    - 为什么要使用Image
+    - 理解Glance服务架构
+    - 创建Image
+    - 如何使用CLI
+计算服务Nove原理
+    - 理解Nove服务架构
+    - Nove各组件详解
+    - 虚拟机声明周期管理场景
+    - 看懂Openstack日志
+网络服务Neutron原理
+    - Neutron服务概述
+    - Neutron服务架构
+    - 底层基本设施讲解
+    - Linux Bridge
+块存储服务Cinder原理
+    - Cinder服务概述
+    - Cinder各组件详解
+    - 通过场景学习Cinder
+对象存储服务Swift原理
+    - Swift服务概述
+    - Swift服务架构
+分布式文件系统Ceph原理
+    - Ceph介绍
+    - Ceph应用场景
+    - Ceph系统层次结构
+    - Ceph寻址流程
+    - Openstack对接Ceph实验
+Dokcer简介
+    - Docker发展历史
+    - 比较传统虚拟化方式
+    - 容器解决的问题
+    - Docker的特性和优势
+Docker基本概念及部署
+    - 三大概念（镜像、容器、仓库）
+    - Docker基础环境安装
+Docker镜像使用
+    - 镜像基本操作
+    - 利用commit理解镜像构成
+    - Dockerfile构建镜像
+Docker访问仓库
+    - 仓库基本概念
+    - 公共仓库
+    - 私有仓库
+Docker操作容器
+    - 容器生命周期
+    - 使用CLI操作容器
+Docker网络管理
+    - 使用网络
+    - 高级网络配置
+    - 分析网络转发原理
+Docker数据管理
+    - 数据卷
+    - 主机目录
+    - 数据共享
+    - 生命周期管理
+Docker底层原理
+    - 资源限制Cgroup
+    - 资源隔离Namespace
+    - Cgroup和Namespace实战
+Docker编排工具
+    - 简介及安装使用
+    - Compose模版文件
+    - Compose实战
+Docker集群管理
+    - Swarm集群基础概念介绍
+    - Swarm集群service伸缩
+    - Swarm集群overlay网络
+Kubernetes与云原生
+    - 云原生发展
+    - Kubernetes与云原生关系
+    - Kubernetes的云原生之路
+Kubernetes架构介绍
+    - Borg简介
+    - Kubernetes架构
+    - Kubernetes设计理念
+Kubernetes核心技术概念
+    - API对象介绍
+    - 最小调度单位Pod介绍
+    - 控制器介绍
+    - Service介绍
+    - 服务网络介绍
+Kubernetes集群部署
+    - 使用kubeadm快速部署学习环境
+    - 使用CLI操作资源对象
+Kubernetes运行应用
+    - Deployment原理介绍及实践
+    - DaemonSet原理介绍及实践
+    - Job&CronJob原理介绍及实践
+Kubernetes访问应用
+    - 通过Service访问Pod
+    - Rolling Update
+Kubernetes健康检查
+    - 默认健康检查
+    - Liveness机制
+    - Readiness机制
+Kubernetes数据管理
+    - 基本数据管理
+    - PV&PVC管理
+    - 实践MySQL
+Kubernetes配置信息
+    - Secret原理介绍及实践
+    - ConfigMap原理介绍及实践
+Kubernetes包管理器
+    - Helm部署及模版介绍
+    - 实践Chart
+Kubernetes网络模型
+    - 各种网络方案介绍
+    - Network Policy
+    - 实践Network Policy
+Kubernetes集群监控
+    - Weave scope
+    - Heapster
+    - Prometheurs
+Kubernetes日志管理
+    - 基础环境准备
+    - 安装部署ELK
+    - 验证访问测试
+ 

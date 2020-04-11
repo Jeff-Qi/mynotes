@@ -29,13 +29,15 @@ date: 2020-03-19 22:15</p>
 <ul>
 <li><a href="#%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86%E7%82%B9">&#x96F6;&#x788E;&#x77E5;&#x8BC6;&#x70B9;</a><ul>
 <li><a href="#%E7%BD%91%E7%BB%9C%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0">&#x7F51;&#x7EDC;&#x5185;&#x6838;&#x53C2;&#x6570;</a><ul>
-<li><a href="#arp_ignore%E4%B8%8Earp_announce">arp_ignore&#x4E0E;arp_announce</a><!-- TOC END -->
+<li><a href="#arp_ignore%E4%B8%8Earp_announce">arp_ignore&#x4E0E;arp_announce</a></li>
+<li><a href="#%E5%85%B3%E4%BA%8E%E8%BF%87%E5%A4%9Atime-wait%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98">&#x5173;&#x4E8E;&#x8FC7;&#x591A;time-wait&#x53C2;&#x6570;&#x8C03;&#x4F18;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3">&#x53C2;&#x8003;&#x6587;&#x6863;</a><!-- TOC END -->
 <!--more-->
 
-</li>
-</ul>
-</li>
-</ul>
 </li>
 </ul>
 <h1 id="-">&#x96F6;&#x788E;&#x77E5;&#x8BC6;&#x70B9;</h1>
@@ -106,9 +108,30 @@ date: 2020-03-19 22:15</p>
 <td>&#x5FFD;&#x7565;IP&#x6570;&#x636E;&#x5305;&#x7684;&#x6E90;IP&#x5730;&#x5740;&#xFF0C;&#x9009;&#x62E9;&#x8BE5;&#x53D1;&#x9001;&#x7F51;&#x5361;&#x4E0A;&#x6700;&#x5408;&#x9002;&#x7684;&#x672C;&#x5730;&#x5730;&#x5740;&#x4F5C;&#x4E3A;arp&#x8BF7;&#x6C42;&#x7684;&#x6E90;IP&#x5730;&#x5740;&#x3002;</td>
 </tr>
 </tbody></table>
-<ol start="3">
-<li>&#x53C2;&#x8003;&#x7F51;&#x5740;&#xFF1A;<a href="https://www.cnblogs.com/lipengxiang2009/p/7451050.html">https://www.cnblogs.com/lipengxiang2009/p/7451050.html</a></li>
-</ol>
+<h3 id="-time-wait-">&#x5173;&#x4E8E;&#x8FC7;&#x591A;time-wait&#x53C2;&#x6570;&#x8C03;&#x4F18;</h3>
+<ul>
+<li><p>net.ipv4.tcp_syncookies = 1 &#x8868;&#x793A;&#x5F00;&#x542F;SYN Cookies&#x3002;&#x5F53;&#x51FA;&#x73B0;SYN&#x7B49;&#x5F85;&#x961F;&#x5217;&#x6EA2;&#x51FA;&#x65F6;&#xFF0C;&#x542F;&#x7528;cookies&#x6765;&#x5904;&#x7406;&#xFF0C;&#x53EF;&#x9632;&#x8303;&#x5C11;&#x91CF;SYN&#x653B;&#x51FB;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;0&#xFF0C;&#x8868;&#x793A;&#x5173;&#x95ED;&#xFF1B;</p>
+</li>
+<li><p>net.ipv4.tcp_tw_reuse = 1 &#x8868;&#x793A;&#x5F00;&#x542F;&#x91CD;&#x7528;&#x3002;&#x5141;&#x8BB8;&#x5C06;TIME-WAIT sockets&#x91CD;&#x65B0;&#x7528;&#x4E8E;&#x65B0;&#x7684;TCP&#x8FDE;&#x63A5;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;0&#xFF0C;&#x8868;&#x793A;&#x5173;&#x95ED;&#xFF1B;</p>
+</li>
+<li><p>net.ipv4.tcp_tw_recycle = 1 &#x8868;&#x793A;&#x5F00;&#x542F;TCP&#x8FDE;&#x63A5;&#x4E2D;TIME-WAIT sockets&#x7684;&#x5FEB;&#x901F;&#x56DE;&#x6536;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;0&#xFF0C;&#x8868;&#x793A;&#x5173;&#x95ED;&#x3002;</p>
+</li>
+<li><p>net.ipv4.tcp_fin_timeout &#x4FEE;&#x6539;&#x7CFB;&#x9ED8;&#x8BA4;&#x7684; TIMEOUT &#x65F6;&#x95F4;</p>
+</li>
+<li><p>net.ipv4.tcp_keepalive_time = 1200 &#x8868;&#x793A;&#x5F53;keepalive&#x8D77;&#x7528;&#x7684;&#x65F6;&#x5019;&#xFF0C;TCP&#x53D1;&#x9001;keepalive&#x6D88;&#x606F;&#x7684;&#x9891;&#x5EA6;&#x3002;&#x7F3A;&#x7701;&#x662F;2&#x5C0F;&#x65F6;&#xFF0C;&#x6539;&#x4E3A;20&#x5206;&#x949F;&#x3002;</p>
+</li>
+<li><p>net.ipv4.ip_local_port_range = 1024 65000 &#x8868;&#x793A;&#x7528;&#x4E8E;&#x5411;&#x5916;&#x8FDE;&#x63A5;&#x7684;&#x7AEF;&#x53E3;&#x8303;&#x56F4;&#x3002;&#x7F3A;&#x7701;&#x60C5;&#x51B5;&#x4E0B;&#x5F88;&#x5C0F;&#xFF1A;32768&#x5230;61000&#xFF0C;&#x6539;&#x4E3A;1024&#x5230;65000&#x3002;</p>
+</li>
+<li><p>net.ipv4.tcp_max_syn_backlog = 8192 &#x8868;&#x793A;SYN&#x961F;&#x5217;&#x7684;&#x957F;&#x5EA6;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;1024&#xFF0C;&#x52A0;&#x5927;&#x961F;&#x5217;&#x957F;&#x5EA6;&#x4E3A;8192&#xFF0C;&#x53EF;&#x4EE5;&#x5BB9;&#x7EB3;&#x66F4;&#x591A;&#x7B49;&#x5F85;&#x8FDE;&#x63A5;&#x7684;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;&#x6570;&#x3002;</p>
+</li>
+<li><p>net.ipv4.tcp_max_tw_buckets = 5000 &#x8868;&#x793A;&#x7CFB;&#x7EDF;&#x540C;&#x65F6;&#x4FDD;&#x6301;TIME_WAIT&#x5957;&#x63A5;&#x5B57;&#x7684;&#x6700;&#x5927;&#x6570;&#x91CF;&#xFF0C;&#x5982;&#x679C;&#x8D85;&#x8FC7;&#x8FD9;&#x4E2A;&#x6570;&#x5B57;&#xFF0C;TIME_WAIT&#x5957;&#x63A5;&#x5B57;&#x5C06;&#x7ACB;&#x523B;&#x88AB;&#x6E05;&#x9664;&#x5E76;&#x6253;&#x5370;&#x8B66;&#x544A;&#x4FE1;&#x606F;&#x3002;&#x9ED8;&#x8BA4;&#x4E3A;180000&#xFF0C;&#x6539;&#x4E3A;5000&#x3002;&#x5BF9;&#x4E8E;Apache&#x3001;Nginx&#x7B49;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x4E0A;&#x51E0;&#x884C;&#x7684;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x5F88;&#x597D;&#x5730;&#x51CF;&#x5C11;TIME_WAIT&#x5957;&#x63A5;&#x5B57;&#x6570;&#x91CF;&#xFF0C;&#x4F46;&#x662F;&#x5BF9;&#x4E8E; Squid&#xFF0C;&#x6548;&#x679C;&#x5374;&#x4E0D;&#x5927;&#x3002;&#x6B64;&#x9879;&#x53C2;&#x6570;&#x53EF;&#x4EE5;&#x63A7;&#x5236;TIME_WAIT&#x5957;&#x63A5;&#x5B57;&#x7684;&#x6700;&#x5927;&#x6570;&#x91CF;&#xFF0C;&#x907F;&#x514D;Squid&#x670D;&#x52A1;&#x5668;&#x88AB;&#x5927;&#x91CF;&#x7684;TIME_WAIT&#x5957;&#x63A5;&#x5B57;&#x62D6;&#x6B7B;&#x3002;</p>
+</li>
+</ul>
+<h1 id="-">&#x53C2;&#x8003;&#x6587;&#x6863;</h1>
+<ul>
+<li><a href="https://www.cnblogs.com/lipengxiang2009/p/7451050.html">lvs&#x4E2D;&#x7F51;&#x7EDC;&#x53C2;&#x6570;</a></li>
+<li><a href="https://blog.csdn.net/zhangjunli/article/details/89321202">timewait&#x8FC7;&#x591A;</a></li>
+</ul>
 </article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
   <svg t="1533629773982" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1035" xlink="http://www.w3.org/1999/xlink" width="40" height="40"><defs><style type="text/css">@font-face { font-family: uc-nexus-iconfont; src: url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff") format("woff"), url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf") format("truetype"); }
   </style></defs><path d="M536.255427 195.182354c-7.804756-7.804756-17.966187-11.615549-28.311813-11.615549-9.43693 0-18.874883 3.449565-26.496467 10.163477-2.360767 1.452071-4.356214 3.267417-6.352685 5.262864L218.47792 455.611735c-15.607466 15.60542-15.607466 40.834011 0 56.43943 15.607466 15.607466 41.558511 15.607466 57.167001 0l193.46013-192.733583 0 600.526219c0 22.1423 17.787108 39.927361 39.927361 39.927361 22.140253 0 39.927361-17.785062 39.927361-39.927361L548.959773 319.317583 737.15704 508.422522c15.607466 15.607466 40.469714 15.607466 56.078203 0 15.607466-15.607466 15.425318-40.834011-0.182149-56.441477L536.255427 195.182354 536.255427 195.182354z" p-id="1036" fill="#333"/><path d="M101.784174 143.097092l816.674071 0c22.140253 0 39.925315-17.785062 39.925315-39.927361 0-22.140253-17.784038-39.925315-39.925315-39.925315L101.784174 63.244416c-22.140253 0-39.927361 17.785062-39.927361 39.925315C61.856813 125.31203 79.643921 143.097092 101.784174 143.097092L101.784174 143.097092z" p-id="1037" fill="#333"/></svg>

@@ -241,3 +241,10 @@ public static void verifyStoragePermissions(Activity activity) {
   onBind()：使用bindService()方式启动服务调用的方法。
   onUnbind()：解除绑定时调用的方法。
   ```
+
+
+echo -n | openssl s_client -connect smtp.qq.com:465 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > /etc/pki/nssdb/qq.crt  
+certutil -A -n "GeoTrust SSL CA" -t "C,," -d /etc/pki/nssdb/ -i /etc/pki/nssdb/qq.crt  
+certutil -A -n "GeoTrust Global CA" -t "C,," -d /etc/pki/nssdb/ -i /etc/pki/nssdb/qq.crt  
+certutil -L -d /etc/pki/nssdb/
+certutil -A -n "GeoTrust SSL CA - G3" -t "Pu,Pu,Pu"  -d ./ -i qq.crt

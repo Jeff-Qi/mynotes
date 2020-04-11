@@ -577,6 +577,7 @@ RD、RT
             sys.version：python解释器信息
             sys.path：模块搜索路径
             sys.platfrom：平台信息
+            sys.getsizeof()：获取对象大小
             ```
         3.  random模块：随机数模块
             ```py

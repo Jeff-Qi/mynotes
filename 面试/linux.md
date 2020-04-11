@@ -24,7 +24,10 @@ categories: Linux
 - [Nginx](#nginx)
   - [模块](#模块)
     - [ngx_http_headers_module：向由代理服务器响应给客户端的响应报文添加自定义首部，或修改指定首部的值](#ngx_http_headers_module向由代理服务器响应给客户端的响应报文添加自定义首部或修改指定首部的值)
+    - [限制模块](#限制模块)
   - [面试题](#面试题)
+    - [如何设置访问评率](#如何设置访问评率)
+    - [nginx url 重写功能](#nginx-url-重写功能)
     - [nginx如何实现高并发](#nginx如何实现高并发)
     - [为什么 Nginx 不使用多线程?](#为什么-nginx-不使用多线程)
     - [Nginx常见的优化配置有哪些?](#nginx常见的优化配置有哪些)
@@ -41,6 +44,7 @@ categories: Linux
     - [优点](#优点-2)
     - [缺点](#缺点-2)
   - [nginx与lvs对比](#nginx与lvs对比)
+    - [使用场景](#使用场景)
 <!-- TOC END -->
 <!--more-->
 
@@ -135,7 +139,173 @@ categories: Linux
 1.  add_header name：添加自定义首部
 2.  expires：用于定义Expire或Cache-Control首部的值
 
+### 限制模块
+- [相关链接](https://www.jb51.net/article/137262.htm)
+
+- ngx_http_limit_req_module ：用来限制单位时间内的请求数，即速率限制,采用的漏桶算法 “leaky bucket”
+
+- ngx_http_limit_conn_module ：用来限制同一时间连接数，即并发限制
+
+- limit_rate和limit_rate_after ：下载速度设置
+
+- 并发数控制
+    ```
+    http {
+      limit_conn_log_level error;
+      limit_conn_zone $binary_remote_addr zone=addr:10m;
+      limit_conn_status 503;
+      server {
+        location /download/ {
+          limit_conn addr 1; 单个客户端IP限制为1
+        }
+    }
+    ```
+    ```
+    http{
+    limit_conn_zone $binary_remote_addr zone=perip:10m;
+    limit_conn_zone $server_name zone=perserver:10m;       
+      server {
+        limit_conn perip 10;  #单个客户端ip与服务器的连接数
+        limit_conn perserver 100; #限制与服务器的总连接数
+      }
+    }
+    ```
+
+- 限制下载和速度
+    ```
+    location /download {
+      limit_rate 128k;
+    }
+    #如果想设置用户下载文件的前10m大小时不限速，大于10m后再以128kb/s限速可以增加以下配内容
+    location /download {
+      limit_rate_after 10m;
+      limit_rate 128k;
+    }
+    ```
+
 ## 面试题
+
+### 如何设置访问评率
+- 修改配置文件利用限制模块
+    ```
+    http {
+      limit_req_status 599;
+      limit_req_zone $clientRealIp zone=allips:70m rate=5r/s;
+    }
+
+    server {
+      limit_req zone=allips burst=5 nodelay;
+    }
+    ```
+
+### nginx url 重写功能
+- ## 重写rewrite
+    url重写是指通过配置conf文件，以让网站的url中达到某种状态时则定向/跳转到某个规则，比如常见的伪静态、301重定向、浏览器定向等
+
+    | rewrite | \<regex> | \<replacement> | [flag] |
+    |---|---|---|---|
+    | 关键字 | 正则 | 替代内容 | flag标记 |
+
+    - 关键字：**其中关键字error_log不能改变**
+
+    - 正则表达式匹配：perl兼容正则表达式语句进行规则匹配
+
+    - 替换内容：将正则匹配的内容替换成replacement
+
+    - flag：rewrite支持的flag标记
+        - last ---> 本条规则匹配完成后，继续向下匹配新的location URI规则, 浏览器地址栏URL地址不变
+        - break ---> 本条规则匹配完成即终止，不再匹配后面的任何规则, 浏览器地址栏URL地址不变
+        - redirect ---> 返回302临时重定向，浏览器地址会显示跳转后的URL地址
+        - permanent ---> 返回301永久重定向，浏览器地址栏会显示跳转后的URL地址
+
+    ```
+    server {
+        # 访问 /last.html 的时候，页面内容重写到 /index.html 中
+        rewrite /last.html /index.html last;
+
+        # 访问 /break.html 的时候，页面内容重写到 /index.html 中，并停止后续的匹配
+        rewrite /break.html /index.html break;
+
+        # 访问 /redirect.html 的时候，页面直接302定向到 /index.html中
+        rewrite /redirect.html /index.html redirect;
+
+        # 访问 /permanent.html 的时候，页面直接301定向到 /index.html中
+        rewrite /permanent.html /index.html permanent;
+
+        # 把 /html/*.html => /post/*.html ，301定向
+        rewrite ^/html/(.+?).html$ /post/$1.html permanent;
+
+        # 把 /search/key => /search.html?keyword=key
+        rewrite ^/search\/([^\/]+?)(\/|$) /search.html?keyword=$1 permanent;
+    }
+    ```
+
+- ## if判断
+    - 语法
+        ```
+        if (表达式) {
+           ... ...
+        }
+        ```
+
+    - 注意
+        - 当表达式只是一个变量时，如果值为空或任何以0开头的字符串都会当做false
+        - 直接比较变量和内容时，使用=或!=
+        - 正则表达式匹配，\*不区分大小写的匹配，!~区分大小写的不匹配
+
+    - 判断条件
+
+    | 判断符 | 解释 |
+    |---|---|
+    -f 和 !-f | 用来判断是否存在文件
+    -d 和 !-d | 用来判断是否存在目录
+    -e 和 !-e | 用来判断是否存在文件或目录
+    -x 和 !-x | 用来判断文件是否可执行
+
+    - 内置变量
+        ```
+        $content_length ： 请求头中的Content-length字段。
+        $content_type ： 请求头中的Content-Type字段。
+        $document_root ： 当前请求在root指令中指定的值。
+        $host ： 请求主机头字段，否则为服务器名称。
+        $http_user_agent ： 客户端agent信息
+        $http_cookie ： 客户端cookie信息
+        $limit_rate ： 这个变量可以限制连接速率。
+        $request_method： 客户端请求的动作，通常为GET或POST。
+        $remote_addr： 客户端的IP地址。
+        $remote_port： 客户端的端口。
+        $remote_user： 已经经过Auth Basic Module验证的用户名。
+        $request_filename： 当前请求的文件路径，由root或alias指令与URI请求生成。
+        $scheme： HTTP方法（如http，https）。
+        $server_protocol： 请求使用的协议，通常是HTTP/1.0或HTTP/1.1。
+        $server_addr： 服务器地址，在完成一次系统调用后可以确定这个值。
+        $server_name： 服务器名称。
+        $server_port： 请求到达服务器的端口号。
+        $request_uri： 包含请求参数的原始URI，不包含主机名，如：”/foo/bar.php?arg=baz”。
+        uri：不包含主机名，如”/foo/bar.html”。
+        ```
+
+    - 小实例
+        ```
+        server {
+            # 如果文件不存在则返回400
+            if (!-f $request_filename) {
+                return 400;
+            }
+            # 如果host不是xuexb.com，则301到xuexb.com中
+            if ( $host != "xuexb.com" ){
+                rewrite ^/(.*)$ https://xuexb.com/$1 permanent;
+            }            
+            # 如果请求类型不是POST则返回405
+            if ($request_method = POST) {
+                return 405;
+            }            
+            # 如果参数中有 a=1 则301到指定域名
+            if ($args ~ a=1) {
+                rewrite ^ http://example.com/ permanent;
+            }
+        }
+        ```
 
 ### nginx如何实现高并发
 1.  异步，非阻塞，使用了epoll 和大量的底层代码优化。（餐厅服务员服务客服案例）
@@ -273,3 +443,20 @@ ip_hash：每个请求按访问IP的哈希结果分配，使来自同一个IP的
     4.  成本低
     5.  支持重写功能，更具域名和url分配服务器
     6.  节省带宽，可以对数据进行压缩
+
+### 使用场景
+1.  抗负载能力
+    1.  lvs抗负载能力最强，因为仅作分发不处理请求，相当于只作转发不做进一步处理直接在内核中完成，对系统资源消耗低（LVS DR模式）；
+
+    2.  nginx和haproxy相对来说会弱，但是日PV2000万也没什么问题，因为不仅接受客户端请求，还与后端upstream节点进行请求并获取响应，再把响应返回给客户端，对系统资源和网络资源消耗高；
+
+2.  功能性
+    1.  lvs仅支持4层tcp负载均衡，haproxy可以支持4层tcp和7层http负载均衡，nginx可以支持7层http负载均衡（新版本也支持4层负载均衡）；
+
+    2.  nginx功能强大，配置灵活，可做web静态站点，静态缓存加速，动静分离，并支持域名，正则表达式，Location匹配，rewrite跳转，配置简单直观明了，还可以结合etc或consule做发布自动化上下线等等；
+
+    3.  haproxy相对nginx的7层负载均衡会弱一些，灵活性不足，个人建议一般用haproxy做TCP负载均衡更合适一些；
+
+3.  运维复杂度
+    1.  lvs相对来说部署架构更复杂一些，lvs对网络是有要求，lvs必须与real server在同一个网段，也更费资源，需要多2台服务器成本；
+    2.  nginx和haproxy部署架构更简单，对网络也没要求，更便于后续维护；
