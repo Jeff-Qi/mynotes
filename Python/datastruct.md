@@ -23,6 +23,7 @@ categories: Python
   - [扩展排序](#扩展排序)
   - [二分查找](#二分查找)
   - [树的遍历](#树的遍历)
+  - [单链表翻转](#单链表翻转)
 <!-- TOC END -->
 <!--more-->
 
@@ -152,13 +153,13 @@ def merger(li, low, mid, high):
 - ### 基本实现
     ```py
     def fast(li, low, high):
-    if low >= high:
-        return
-    number = random.randrange(low, high)
-    li[high], li[number] = li[number], li[high]
-    p = partition(li, low, high)
-    fast(li, low, p - 1)
-    fast(li, p + 1, high)
+        if low >= high:
+            return
+        number = random.randrange(low, high)
+        li[high], li[number] = li[number], li[high]
+        p = partition(li, low, high)
+        fast(li, low, p - 1)
+        fast(li, p + 1, high)
 
 
     def partition(li, low, high):
@@ -186,17 +187,17 @@ def merger(li, low, mid, high):
 - ### 基本实现
     ```py
     def half(li, low, high, value):
-    while low <= high:
-        mid = low + (high - low) // 2
-        if li[mid] < value:
-            low = mid + 1
-        elif li[mid] > value:
-            high = mid - 1
-        else:
-            return mid
-    return -1
+        while low <= high:
+            mid = low + (high - low) // 2
+            if li[mid] < value:
+                low = mid + 1
+            elif li[mid] > value:
+                high = mid - 1
+            else:
+                return mid
+        return -1
     ```
-    
+
 - ### 扩展二分
 
 ## 树的遍历
@@ -211,29 +212,74 @@ class TreeNode(object):
 
 - ### 前序遍历
     ```py
+    # 递归实现
     def pre_order(root: TreeNode):
         if root:
             print(root.value)
             pre_order(root.left)
             pre_order(root.right)
+    # 非递归实现
+    def pre_order_no(root: TreeNode):
+        p = root
+        stack = [p]
+        while len(stack) > 0:
+            print(p.value)
+            if p.right:
+                stack.append(p.right)
+            if p.left:
+                stack.append(p.left)
+            p = stack.pop()
     ```
 
 - ### 中序遍历
     ```py
+    # 递归实现
     def in_order(root: TreeNode):
         if root:
             in_order(root.left)
             print(root.value)
             in_order(root.right)
+    # 非递归实现
+    def in_order(root: TreeNode):
+        p = root
+        stack = []
+        while p or len(stack) > 0:
+            if p:
+                stack.append(p)
+                p = p.left
+            else:
+                p = stack.pop()
+                print(p.value)
+                p = p.right
     ```
 
 - ### 后续遍历
     ```py
+    # 递归实现
     def post_order(root: TreeNode):
         if root:
             post_order(root.left)
             post_order(root.right)
             print(root.value)
+    # 非递归实现
+    # 后序打印二叉树（非递归）
+    # 使用两个栈结构
+    # 第一个栈进栈顺序：左节点->右节点->跟节点
+    # 第一个栈弹出顺序： 跟节点->右节点->左节点(先序遍历栈弹出顺序：跟->左->右)
+    # 第二个栈存储为第一个栈的每个弹出依次进栈
+    # 最后第二个栈依次出栈
+    def post_order_no(node: TreeNode):
+        stack = [node]
+        stack2 = []
+        while len(stack) > 0:
+            node = stack.pop()
+            stack2.append(node)
+            if node.left is not None:
+                stack.append(node.left)
+            if node.right is not None:
+                stack.append(node.right)
+        while len(stack2) > 0:
+            print(stack2.pop().value)
     ```
 
 - ### 层次遍历
@@ -243,11 +289,27 @@ class TreeNode(object):
             return
         else:
             queue = [root]
-        while queue:
-            current = queue.pop(0)
-            print(current.value)
+        for current in queue:
+            print current.value
             if current.left:
                 queue.append(current.left)
             if current.right:
                 queue.append(current.right)
     ```
+
+## 单链表翻转
+```py
+class LinkNode:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+
+def rev(root: LinkNode):
+    pre, now, nex = None, root, root.next
+    while now:
+        now.next = pre
+        pre = now
+        now = nex
+        nex = nex.next
+```

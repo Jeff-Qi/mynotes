@@ -18,10 +18,11 @@ categories: MySQL
   - [创建文本数据备份](#创建文本数据备份)
   - [二进制日志增量备份](#二进制日志增量备份)
 - [开源热备工具](#开源热备工具)
-  - [percona xtrabakup（捉急需要了解）](#percona-xtrabakup捉急需要了解)
+  - [percona xtrabakup](#percona-xtrabakup)
 - [备份与恢复](#备份与恢复)
   - [备份策略](#备份策略)
   - [数据恢复](#数据恢复)
+- [参考文档](#参考文档)
 <!-- TOC END -->
 <!--more-->
 
@@ -187,9 +188,200 @@ categories: MySQL
         ```sql
         mysqlbinlog --stop-position=368312 /var/log/mysql/bin.123456 | mysql -u root -p
         ```
+
 # 开源热备工具
 
-## percona xtrabakup（捉急需要了解）
+## percona xtrabakup
+
+- ### xtrabackup
+    **工作机制**：xtrabackup的工作基于**innodb存储引擎的崩溃恢复功能力**进行的。复制完数据库的数据之后，通过崩溃恢复的功能来进行数据的恢复。保持数据的一致性。崩溃护肤功能基于innodb的内置的redo-log日志。**在恢复数据时对于已经提交的事务直接重做应用；未提交的事务进行回滚**。相比于mysqldump等工具来说，xtrabackup工具是**物理备份**，对于数据直接拷贝。同时对系统的影响较小，基本不会阻塞线上的业务的运行。
+
+    **工作流程**：
+
+        1.  启动xtra进程开启一个子进程对redo-log进行持续复制。如果redo-log发生了改动，也会进行复制操作。
+
+        2.  启动另一个子进程，对innodb存储引擎的数据库的数据和日志进行复制
+
+        3.  复制完所有innodb/xtradb数据和日志后，对所有myisam和其他非innodb表执行锁定操作（LOCK BINLOG FOR BACKUP）；进行数据的复制（此阶段数据库短暂不可写）
+
+        4.  非事务表复制完成后，会停止复制线程，记录日志的坐标。同时停止redo-log日志的复制。
+
+        5.  对于上锁的数据进行解锁
+
+        6.  完成复制
+
+    **恢复数据**：
+
+        1.  首先读取配置文件 my.cnf 检查相应的文件是否存在
+
+        2.  之后会首先复制恢复非事务表和数据
+
+        3.  恢复innodb表和数据
+
+        4.  最后是二进制日志
+
+        5.  需要修改文件的权限归属等信息
+
+    ![xtrabakup_process](http://study.jeffqi.cn/mysql/xtrabackup-process.png)
+
+- ### 安装
+    1.  安装rpm包
+        ```sh
+        yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+        # 也可以从官网下载rpm的安装包进行直接安装
+        ```
+
+    2.  启用存储库
+        ```sh
+        percona-release enable-only tools release
+        ```
+
+    3.  安装xtrabackup
+        ```sh
+        yum install percona-xtrabackup-80
+        ```
+
+    4.  卸载xtrbackup
+        ```sh
+        yum remove percona-xtrabackup
+        ```
+
+- ### 基本使用
+    ```sh
+    xtrabackup \
+    --user=user_name \
+    --password=password \
+    --host=host_ip \
+    --port=port_number \
+    --socket=/path/to/socker \
+    --backup \
+    --target-dir=/data/bkps/
+    ```
+
+    **创建备份用户，分配必要权限**
+    ```sql
+    create user 'bkpuser'@'%' identified with 'mysql_native_password' by 'Hjqme525+';
+    grant reload,lock tables,backup_admin,replication client,create \
+    tablespace,process,super,create,insert, select on *.* to 'bkpuser'@'%';
+    ```
+
+- #### 全量备份
+
+    **创建全量备份**
+    ```sh
+    xtrabackup --backup \
+    --host=xxx.xxx.xxx.xxx --user=bkpuser --port=3306 --password \
+    --target-dir=/tmp/xtrabackup.test
+    ```
+
+    **准备备份**
+    ```sh
+    xtrabackup --prepare --target-dir=/tmp/xtrabackup.test
+    ```
+
+    **恢复备份**
+    ```sh
+    xtrabackup --copy-back --target-dir=/mysql/data/dir   # --move-back：删除备份数据
+    ```
+
+    --copy-back参数与--move-back参数的区别：**copyback在复制完数据后，会保存当前的文件，而moveback在复制完成后会删除备份文件**
+
+    **重启数据库**
+    ```sh
+    chmod -R mysql:mysql /mysql/data/dir
+    systemctl restart mysqld
+    ```
+
+- #### 增量备份（基于全量备份）
+    **创建全量备份**
+    ```sh
+    xtrabackup --backup \
+    --host=xxx.xxx.xxx.xxx --user=bkpuser --port=3306 --password \
+    --target-dir=/root/data2.data
+    ```
+
+    **基于全量备份的增量备份**
+    ```sh
+    xtrabackup --backup --host=192.168.80.128 --user=root --password \
+    --target-dir=/root/data2.increment.data \
+    --incremental-basedir=/root/data2.data/
+    ```
+
+    **增量备份时需要指定基础的文件**
+
+    **插入**
+    ```sql
+    delimiter //
+    create procedure xtratest2()
+        begin
+        declare i int;
+        declare a int;
+        set i=1;
+        set a=1;
+            begin
+            while i<=10000 do
+            insert into d3.t1(id,a) values (i,a);
+            set i=i+1;
+            set a=a+1;
+            end while;
+            end;
+        end
+        //
+      delimiter ;
+      call xtratest2();
+      ```
+
+    **基于增量备份的增量备份**
+    ```sh
+    xtrabackup --backup --host=192.168.80.128 --user=root --password \
+    --target-dir=/root/data2.increment2.data \
+    --incremental-basedir=/root/data2.increment.data/
+    ```
+
+    **准备全量备份**
+    ```sh
+    xtrabackup --prepare --apply-log-only --target-dir=/root/dada2.data/
+    ```
+
+    **对于需要恢复增量备份的数据，其全量备份还原时需要添加 --apply-log-only 参数，否则后续增量备份不可用**
+
+    **恢复增量备份**
+    ```sh
+    xtrabackup --prepare --apply-log-only --target-dir=/root/data2.data/ \
+    --incremental-dir=/root/data2.increment.data/
+    ```
+
+    ```sh
+    xtrabackup --prepare --apply-log-only --target-dir=/root/data2.data/ \
+    --incremental-dir=/root/data2.increment2.data/    
+    ```
+
+    **一个增量备份文件只恢复一次不要重复恢复**
+
+    **恢复备份**
+    ```sh
+    xtrabackup --copy-back --target-dir=/root/dada2.data/
+    chown -R mysql:mysql /var/lib/mysql
+    ```
+
+- #### 压缩备份
+    **压缩备份**
+    ```sh
+    xtrabackup --backup --host=192.168.80.128 --user=root --password \
+    --compress --compress-threads=2 \
+    --target-dir=/root/data3.data
+    ```
+
+    **解压备份**
+    ```sh
+    yum install qpress-11-1.el7.x86_64    # 注意安装qpress软件，可以通过安装rpm来找到相应的软件
+    xtrabackup --decompress --target-dir=/root/data3.data/
+    ```
+
+    **准备备份**
+
+    **恢复备份**
+
 
 # 备份与恢复
 
@@ -222,3 +414,11 @@ categories: MySQL
     ```sql
     mysqlbinlog binglog_1_name [binlog_2_name] | mysql -uroot -p
     ```
+
+# 参考文档
+- [xtrabakup备份入门](https://www.cnblogs.com/linuxk/p/9372990.html)
+- [percona-xtrabakup-documents](https://www.percona.com/doc/percona-xtrabackup/8.0/index.html)
+- [xtrabakup流处理](https://www.percona.com/doc/percona-xtrabackup/2.4/howtos/recipes_ibkx_stream.html)
+- [mysqldump文档](https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html)
+- [mysqlbinlog文档](https://dev.mysql.com/doc/refman/8.0/en/mysqlbinlog.html)
+- [mysql数据备份](https://dev.mysql.com/doc/refman/8.0/en/backup-and-recovery.html)

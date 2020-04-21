@@ -47,7 +47,8 @@ date: 2020-03-20 22:00:00</p>
 <li><a href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F">&#x5FEB;&#x901F;&#x6392;&#x5E8F;</a></li>
 <li><a href="#%E6%89%A9%E5%B1%95%E6%8E%92%E5%BA%8F">&#x6269;&#x5C55;&#x6392;&#x5E8F;</a></li>
 <li><a href="#%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE">&#x4E8C;&#x5206;&#x67E5;&#x627E;</a></li>
-<li><a href="#%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86">&#x6811;&#x7684;&#x904D;&#x5386;</a><!-- TOC END -->
+<li><a href="#%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86">&#x6811;&#x7684;&#x904D;&#x5386;</a></li>
+<li><a href="#%E5%8D%95%E9%93%BE%E8%A1%A8%E7%BF%BB%E8%BD%AC">&#x5355;&#x94FE;&#x8868;&#x7FFB;&#x8F6C;</a><!-- TOC END -->
 <!--more-->
 
 </li>
@@ -174,12 +175,13 @@ def merger(li, low, mid, high):
 <ul>
 <li><h3 id="-">&#x57FA;&#x672C;&#x5B9E;&#x73B0;</h3>
   <code>`</code>py
-  def fast(li, low, high):
-  if low &gt;= high:<pre><code>  return</code></pre>  number = random.randrange(low, high)
+  def fast(li, low, high):<pre><code>  if low &gt;= high:
+      return
+  number = random.randrange(low, high)
   li[high], li[number] = li[number], li[high]
   p = partition(li, low, high)
   fast(li, low, p - 1)
-  fast(li, p + 1, high)</li>
+  fast(li, p + 1, high)</code></pre></li>
 </ul>
 <pre><code>def partition(li, low, high):
     i, value = low, li[high]
@@ -206,15 +208,15 @@ def merger(li, low, mid, high):
 <ul>
 <li><h3 id="-">&#x57FA;&#x672C;&#x5B9E;&#x73B0;</h3>
 <pre><code class="language-py">  def half(li, low, high, value):
-  while low &lt;= high:
-      mid = low + (high - low) // 2
-      if li[mid] &lt; value:
-          low = mid + 1
-      elif li[mid] &gt; value:
-          high = mid - 1
-      else:
-          return mid
-  return -1</code></pre>
+      while low &lt;= high:
+          mid = low + (high - low) // 2
+          if li[mid] &lt; value:
+              low = mid + 1
+          elif li[mid] &gt; value:
+              high = mid - 1
+          else:
+              return mid
+      return -1</code></pre>
 </li>
 <li><h3 id="-">&#x6269;&#x5C55;&#x4E8C;&#x5206;</h3>
 </li>
@@ -227,25 +229,70 @@ def merger(li, low, mid, high):
         self.right = None</code></pre>
 <ul>
 <li><h3 id="-">&#x524D;&#x5E8F;&#x904D;&#x5386;</h3>
-<pre><code class="language-py">  def pre_order(root: TreeNode):
+<pre><code class="language-py">  # &#x9012;&#x5F52;&#x5B9E;&#x73B0;
+  def pre_order(root: TreeNode):
       if root:
           print(root.value)
           pre_order(root.left)
-          pre_order(root.right)</code></pre>
+          pre_order(root.right)
+  # &#x975E;&#x9012;&#x5F52;&#x5B9E;&#x73B0;
+  def pre_order_no(root: TreeNode):
+      p = root
+      stack = [p]
+      while len(stack) &gt; 0:
+          print(p.value)
+          if p.right:
+              stack.append(p.right)
+          if p.left:
+              stack.append(p.left)
+          p = stack.pop()</code></pre>
 </li>
 <li><h3 id="-">&#x4E2D;&#x5E8F;&#x904D;&#x5386;</h3>
-<pre><code class="language-py">  def in_order(root: TreeNode):
+<pre><code class="language-py">  # &#x9012;&#x5F52;&#x5B9E;&#x73B0;
+  def in_order(root: TreeNode):
       if root:
           in_order(root.left)
           print(root.value)
-          in_order(root.right)</code></pre>
+          in_order(root.right)
+  # &#x975E;&#x9012;&#x5F52;&#x5B9E;&#x73B0;
+  def in_order(root: TreeNode):
+      p = root
+      stack = []
+      while p or len(stack) &gt; 0:
+          if p:
+              stack.append(p)
+              p = p.left
+          else:
+              p = stack.pop()
+              print(p.value)
+              p = p.right</code></pre>
 </li>
 <li><h3 id="-">&#x540E;&#x7EED;&#x904D;&#x5386;</h3>
-<pre><code class="language-py">  def post_order(root: TreeNode):
+<pre><code class="language-py">  # &#x9012;&#x5F52;&#x5B9E;&#x73B0;
+  def post_order(root: TreeNode):
       if root:
           post_order(root.left)
           post_order(root.right)
-          print(root.value)</code></pre>
+          print(root.value)
+  # &#x975E;&#x9012;&#x5F52;&#x5B9E;&#x73B0;
+  # &#x540E;&#x5E8F;&#x6253;&#x5370;&#x4E8C;&#x53C9;&#x6811;&#xFF08;&#x975E;&#x9012;&#x5F52;&#xFF09;
+  # &#x4F7F;&#x7528;&#x4E24;&#x4E2A;&#x6808;&#x7ED3;&#x6784;
+  # &#x7B2C;&#x4E00;&#x4E2A;&#x6808;&#x8FDB;&#x6808;&#x987A;&#x5E8F;&#xFF1A;&#x5DE6;&#x8282;&#x70B9;-&gt;&#x53F3;&#x8282;&#x70B9;-&gt;&#x8DDF;&#x8282;&#x70B9;
+  # &#x7B2C;&#x4E00;&#x4E2A;&#x6808;&#x5F39;&#x51FA;&#x987A;&#x5E8F;&#xFF1A; &#x8DDF;&#x8282;&#x70B9;-&gt;&#x53F3;&#x8282;&#x70B9;-&gt;&#x5DE6;&#x8282;&#x70B9;(&#x5148;&#x5E8F;&#x904D;&#x5386;&#x6808;&#x5F39;&#x51FA;&#x987A;&#x5E8F;&#xFF1A;&#x8DDF;-&gt;&#x5DE6;-&gt;&#x53F3;)
+  # &#x7B2C;&#x4E8C;&#x4E2A;&#x6808;&#x5B58;&#x50A8;&#x4E3A;&#x7B2C;&#x4E00;&#x4E2A;&#x6808;&#x7684;&#x6BCF;&#x4E2A;&#x5F39;&#x51FA;&#x4F9D;&#x6B21;&#x8FDB;&#x6808;
+  # &#x6700;&#x540E;&#x7B2C;&#x4E8C;&#x4E2A;&#x6808;&#x4F9D;&#x6B21;&#x51FA;&#x6808;
+  def post_order_no(node: TreeNode):
+      stack = [node]
+      stack2 = []
+      while len(stack) &gt; 0:
+          node = stack.pop()
+          stack2.append(node)
+          if node.left is not None:
+              stack.append(node.left)
+          if node.right is not None:
+              stack.append(node.right)
+      while len(stack2) &gt; 0:
+          print(stack2.pop().value)</code></pre>
 </li>
 <li><h3 id="-">&#x5C42;&#x6B21;&#x904D;&#x5386;</h3>
 <pre><code class="language-py">  def level_order(root: TreeNode):
@@ -253,15 +300,28 @@ def merger(li, low, mid, high):
           return
       else:
           queue = [root]
-      while queue:
-          current = queue.pop(0)
-          print(current.value)
+      for current in queue:
+          print current.value
           if current.left:
               queue.append(current.left)
           if current.right:
               queue.append(current.right)</code></pre>
 </li>
 </ul>
+<h2 id="-">&#x5355;&#x94FE;&#x8868;&#x7FFB;&#x8F6C;</h2>
+<pre><code class="language-py">class LinkNode:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+
+def rev(root: LinkNode):
+    pre, now, nex = None, root, root.next
+    while now:
+        now.next = pre
+        pre = now
+        now = nex
+        nex = nex.next</code></pre>
 </article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
   <svg t="1533629773982" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1035" xlink="http://www.w3.org/1999/xlink" width="40" height="40"><defs><style type="text/css">@font-face { font-family: uc-nexus-iconfont; src: url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff") format("woff"), url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf") format("truetype"); }
   </style></defs><path d="M536.255427 195.182354c-7.804756-7.804756-17.966187-11.615549-28.311813-11.615549-9.43693 0-18.874883 3.449565-26.496467 10.163477-2.360767 1.452071-4.356214 3.267417-6.352685 5.262864L218.47792 455.611735c-15.607466 15.60542-15.607466 40.834011 0 56.43943 15.607466 15.607466 41.558511 15.607466 57.167001 0l193.46013-192.733583 0 600.526219c0 22.1423 17.787108 39.927361 39.927361 39.927361 22.140253 0 39.927361-17.785062 39.927361-39.927361L548.959773 319.317583 737.15704 508.422522c15.607466 15.607466 40.469714 15.607466 56.078203 0 15.607466-15.607466 15.425318-40.834011-0.182149-56.441477L536.255427 195.182354 536.255427 195.182354z" p-id="1036" fill="#333"/><path d="M101.784174 143.097092l816.674071 0c22.140253 0 39.925315-17.785062 39.925315-39.927361 0-22.140253-17.784038-39.925315-39.925315-39.925315L101.784174 63.244416c-22.140253 0-39.927361 17.785062-39.927361 39.925315C61.856813 125.31203 79.643921 143.097092 101.784174 143.097092L101.784174 143.097092z" p-id="1037" fill="#333"/></svg>

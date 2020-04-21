@@ -18,3 +18,4 @@ categories: Linux
 - [linux负载均衡lvs](https://www.cnblogs.com/yanjieli/p/10582324.html)
 - [linux VRRP](https://www.jianshu.com/p/81115a4293c7)
 - [Gentoo下折腾emerge包管理器](https://blog.csdn.net/u014466109/article/details/68957657)
+- [cgroup原理](https://www.ibm.com/developerworks/cn/linux/1506_cgroup/index.html)

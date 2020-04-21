@@ -32,9 +32,12 @@ categories: Linux
     - [为什么 Nginx 不使用多线程?](#为什么-nginx-不使用多线程)
     - [Nginx常见的优化配置有哪些?](#nginx常见的优化配置有哪些)
     - [负载均衡算法](#负载均衡算法)
+  - [nginx与httpd的平滑启动](#nginx与httpd的平滑启动)
+    - [nginx](#nginx-1)
+    - [httpd](#httpd)
 - [select、poll、epoll](#selectpollepoll)
 - [nginx，lvs，haproxy](#nginxlvshaproxy)
-  - [nginx](#nginx-1)
+  - [nginx](#nginx-2)
     - [优点](#优点)
     - [缺点](#缺点)
   - [lvs](#lvs)
@@ -350,6 +353,29 @@ ip_hash：每个请求按访问IP的哈希结果分配，使来自同一个IP的
 3.  fair：比weight、ip_hash更加智能的负载均衡算法，fair算法可以根据页面大小和加载时间长短智能地进行负载均
 衡，也就是根据后端服务器的响应时间来分配请求，响应时间短的优先分配。Nginx本身不支持fair，如果需要这种调度算法，则必须安装upstream_fair模块。
 4.  url_hash：按访问的URL的哈希结果来分配请求，使每个URL定向到一台后端服务器，可以进一步提高后端缓存服务器的效率。Nginx本身不支持url_hash，如果需要这种调度算法，则必须安装Nginx的hash软件包。
+
+## nginx与httpd的平滑启动
+
+### nginx
+
+```sh
+nginx -s reload/reopen/stop/quit
+# reload 读取配置文件重启
+# reopen 重新打开日志文件
+# stop 立即退出
+# quit 优雅的退出
+nginx -t # 检查配置文件是否正确，不会重启nginx
+```
+
+### httpd
+
+```sh
+apachectl -k graceful
+# 重新加载配置，并且不会停止现有的正在处理的请求。主进程和正在有请求的进程不会变化。但假如配置文件语法有错误，apache会停止掉。
+# graceful信号使得父进程建议子进程在完成它们现在的请求后退出(如果他们没有进行服务，将会立刻退出)。父进程重新读入配置文件并重新打开日志文件。每当一个子进程死掉，父进程立刻用新的配置文件产生一个新的子进程并立刻开始伺服新的请求。
+service httpd reload
+# 重新加载配置，现有的请求会被中断，除了主进程外其他的进程都被重建。如果配置文件有问题的话，会不做操作，保持原有配置，apache不会中止。
+```
 
 # select、poll、epoll
 1.  select：select 函数监视的文件描述符分3类，分别是writefds、readfds、和exceptfds；调用后select函数会阻塞，直到有描述副就绪（有数据 可读、可写、或者有except），或者超时（timeout指定等待时间，如果立即返回设为null即可），函数返回。当select函数返回后，可以 通过遍历fdset，来找到就绪的描述符。

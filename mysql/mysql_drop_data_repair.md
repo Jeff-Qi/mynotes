@@ -31,6 +31,12 @@ categories: MySQL
 
       **工作机制**：flash的实际工作由mysqlbinlog与--flashback一起完成。这将导致事件被转换：从INSERT到DELETE，从DELETE到INSERT，并且对于UPDATE，交换之前和之后的图像。
 
+      ```sh
+      mysqlbinlog /path/to/binlog -vv -d db_name -T table_name \
+      --start-datetime '2020-02-03 17:00:00' --flashback > flash.sql
+      mysql < flash.sql
+      ```
+
       避免数据的误操作，我们急需做的是预防；
           1.  sql_safe_updates 参数设置为 on；对于语句进行检查，需要添加where才能使用
           2.  上线前对sql进行审计

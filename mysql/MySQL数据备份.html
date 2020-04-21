@@ -45,16 +45,17 @@ date: 2020-3-23 19:00:00</p>
 </ul>
 </li>
 <li><a href="#%E5%BC%80%E6%BA%90%E7%83%AD%E5%A4%87%E5%B7%A5%E5%85%B7">&#x5F00;&#x6E90;&#x70ED;&#x5907;&#x5DE5;&#x5177;</a><ul>
-<li><a href="#percona-xtrabakup%E6%8D%89%E6%80%A5%E9%9C%80%E8%A6%81%E4%BA%86%E8%A7%A3">percona xtrabakup&#xFF08;&#x6349;&#x6025;&#x9700;&#x8981;&#x4E86;&#x89E3;&#xFF09;</a></li>
+<li><a href="#percona-xtrabakup">percona xtrabakup</a></li>
 </ul>
 </li>
 <li><a href="#%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D">&#x5907;&#x4EFD;&#x4E0E;&#x6062;&#x590D;</a><ul>
 <li><a href="#%E5%A4%87%E4%BB%BD%E7%AD%96%E7%95%A5">&#x5907;&#x4EFD;&#x7B56;&#x7565;</a></li>
-<li><a href="#%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D">&#x6570;&#x636E;&#x6062;&#x590D;</a><!-- TOC END -->
+<li><a href="#%E6%95%B0%E6%8D%AE%E6%81%A2%E5%A4%8D">&#x6570;&#x636E;&#x6062;&#x590D;</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3">&#x53C2;&#x8003;&#x6587;&#x6863;</a><!-- TOC END -->
 <!--more-->
 
-</li>
-</ul>
 </li>
 </ul>
 <h1 id="-">&#x5907;&#x4EFD;&#x4E0E;&#x6062;&#x590D;&#x7C7B;&#x578B;</h1>
@@ -227,12 +228,140 @@ mysqlbinlog --base64-output=decode-rows --verbose /binary/log/path</code></pre>
 </li>
 <li><p>&#x57FA;&#x4E8E;&#x4F4D;&#x70B9;&#x7684;&#x6062;&#x590D;&#xFF1A;&#x4F7F;&#x7528; --start-position &#x548C; --stop-position &#x9009;&#x9879;&#x53EF;&#x7528;&#x4E8E;&#x6307;&#x5B9A;&#x65E5;&#x5FD7;&#x4F4D;&#x7F6E;&#x3002;</p>
 <pre><code class="language-sql">mysqlbinlog --stop-position=368312 /var/log/mysql/bin.123456 | mysql -u root -p</code></pre>
-<h1 id="-">&#x5F00;&#x6E90;&#x70ED;&#x5907;&#x5DE5;&#x5177;</h1>
 </li>
 </ol>
 </li>
 </ul>
-<h2 id="percona-xtrabakup-">percona xtrabakup&#xFF08;&#x6349;&#x6025;&#x9700;&#x8981;&#x4E86;&#x89E3;&#xFF09;</h2>
+<h1 id="-">&#x5F00;&#x6E90;&#x70ED;&#x5907;&#x5DE5;&#x5177;</h1>
+<h2 id="percona-xtrabakup">percona xtrabakup</h2>
+<ul>
+<li><h3 id="xtrabackup">xtrabackup</h3>
+<p>  <strong>&#x5DE5;&#x4F5C;&#x673A;&#x5236;</strong>&#xFF1A;xtrabackup&#x7684;&#x5DE5;&#x4F5C;&#x57FA;&#x4E8E;<strong>innodb&#x5B58;&#x50A8;&#x5F15;&#x64CE;&#x7684;&#x5D29;&#x6E83;&#x6062;&#x590D;&#x529F;&#x80FD;&#x529B;</strong>&#x8FDB;&#x884C;&#x7684;&#x3002;&#x590D;&#x5236;&#x5B8C;&#x6570;&#x636E;&#x5E93;&#x7684;&#x6570;&#x636E;&#x4E4B;&#x540E;&#xFF0C;&#x901A;&#x8FC7;&#x5D29;&#x6E83;&#x6062;&#x590D;&#x7684;&#x529F;&#x80FD;&#x6765;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x7684;&#x6062;&#x590D;&#x3002;&#x4FDD;&#x6301;&#x6570;&#x636E;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x3002;&#x5D29;&#x6E83;&#x62A4;&#x80A4;&#x529F;&#x80FD;&#x57FA;&#x4E8E;innodb&#x7684;&#x5185;&#x7F6E;&#x7684;redo-log&#x65E5;&#x5FD7;&#x3002;<strong>&#x5728;&#x6062;&#x590D;&#x6570;&#x636E;&#x65F6;&#x5BF9;&#x4E8E;&#x5DF2;&#x7ECF;&#x63D0;&#x4EA4;&#x7684;&#x4E8B;&#x52A1;&#x76F4;&#x63A5;&#x91CD;&#x505A;&#x5E94;&#x7528;&#xFF1B;&#x672A;&#x63D0;&#x4EA4;&#x7684;&#x4E8B;&#x52A1;&#x8FDB;&#x884C;&#x56DE;&#x6EDA;</strong>&#x3002;&#x76F8;&#x6BD4;&#x4E8E;mysqldump&#x7B49;&#x5DE5;&#x5177;&#x6765;&#x8BF4;&#xFF0C;xtrabackup&#x5DE5;&#x5177;&#x662F;<strong>&#x7269;&#x7406;&#x5907;&#x4EFD;</strong>&#xFF0C;&#x5BF9;&#x4E8E;&#x6570;&#x636E;&#x76F4;&#x63A5;&#x62F7;&#x8D1D;&#x3002;&#x540C;&#x65F6;&#x5BF9;&#x7CFB;&#x7EDF;&#x7684;&#x5F71;&#x54CD;&#x8F83;&#x5C0F;&#xFF0C;&#x57FA;&#x672C;&#x4E0D;&#x4F1A;&#x963B;&#x585E;&#x7EBF;&#x4E0A;&#x7684;&#x4E1A;&#x52A1;&#x7684;&#x8FD0;&#x884C;&#x3002;</p>
+<p>  <strong>&#x5DE5;&#x4F5C;&#x6D41;&#x7A0B;</strong>&#xFF1A;</p>
+<pre><code>  1.  &#x542F;&#x52A8;xtra&#x8FDB;&#x7A0B;&#x5F00;&#x542F;&#x4E00;&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;&#x5BF9;redo-log&#x8FDB;&#x884C;&#x6301;&#x7EED;&#x590D;&#x5236;&#x3002;&#x5982;&#x679C;redo-log&#x53D1;&#x751F;&#x4E86;&#x6539;&#x52A8;&#xFF0C;&#x4E5F;&#x4F1A;&#x8FDB;&#x884C;&#x590D;&#x5236;&#x64CD;&#x4F5C;&#x3002;
+
+  2.  &#x542F;&#x52A8;&#x53E6;&#x4E00;&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;&#xFF0C;&#x5BF9;innodb&#x5B58;&#x50A8;&#x5F15;&#x64CE;&#x7684;&#x6570;&#x636E;&#x5E93;&#x7684;&#x6570;&#x636E;&#x548C;&#x65E5;&#x5FD7;&#x8FDB;&#x884C;&#x590D;&#x5236;
+
+  3.  &#x590D;&#x5236;&#x5B8C;&#x6240;&#x6709;innodb/xtradb&#x6570;&#x636E;&#x548C;&#x65E5;&#x5FD7;&#x540E;&#xFF0C;&#x5BF9;&#x6240;&#x6709;myisam&#x548C;&#x5176;&#x4ED6;&#x975E;innodb&#x8868;&#x6267;&#x884C;&#x9501;&#x5B9A;&#x64CD;&#x4F5C;&#xFF08;LOCK BINLOG FOR BACKUP&#xFF09;&#xFF1B;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x7684;&#x590D;&#x5236;&#xFF08;&#x6B64;&#x9636;&#x6BB5;&#x6570;&#x636E;&#x5E93;&#x77ED;&#x6682;&#x4E0D;&#x53EF;&#x5199;&#xFF09;
+
+  4.  &#x975E;&#x4E8B;&#x52A1;&#x8868;&#x590D;&#x5236;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x4F1A;&#x505C;&#x6B62;&#x590D;&#x5236;&#x7EBF;&#x7A0B;&#xFF0C;&#x8BB0;&#x5F55;&#x65E5;&#x5FD7;&#x7684;&#x5750;&#x6807;&#x3002;&#x540C;&#x65F6;&#x505C;&#x6B62;redo-log&#x65E5;&#x5FD7;&#x7684;&#x590D;&#x5236;&#x3002;
+
+  5.  &#x5BF9;&#x4E8E;&#x4E0A;&#x9501;&#x7684;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x89E3;&#x9501;
+
+  6.  &#x5B8C;&#x6210;&#x590D;&#x5236;</code></pre><p>  <strong>&#x6062;&#x590D;&#x6570;&#x636E;</strong>&#xFF1A;</p>
+<pre><code>  1.  &#x9996;&#x5148;&#x8BFB;&#x53D6;&#x914D;&#x7F6E;&#x6587;&#x4EF6; my.cnf &#x68C0;&#x67E5;&#x76F8;&#x5E94;&#x7684;&#x6587;&#x4EF6;&#x662F;&#x5426;&#x5B58;&#x5728;
+
+  2.  &#x4E4B;&#x540E;&#x4F1A;&#x9996;&#x5148;&#x590D;&#x5236;&#x6062;&#x590D;&#x975E;&#x4E8B;&#x52A1;&#x8868;&#x548C;&#x6570;&#x636E;
+
+  3.  &#x6062;&#x590D;innodb&#x8868;&#x548C;&#x6570;&#x636E;
+
+  4.  &#x6700;&#x540E;&#x662F;&#x4E8C;&#x8FDB;&#x5236;&#x65E5;&#x5FD7;
+
+  5.  &#x9700;&#x8981;&#x4FEE;&#x6539;&#x6587;&#x4EF6;&#x7684;&#x6743;&#x9650;&#x5F52;&#x5C5E;&#x7B49;&#x4FE1;&#x606F;</code></pre><p>  <img src="http://study.jeffqi.cn/mysql/xtrabackup-process.png" alt="xtrabakup_process"></p>
+</li>
+<li><h3 id="-">&#x5B89;&#x88C5;</h3>
+<ol>
+<li><p>&#x5B89;&#x88C5;rpm&#x5305;</p>
+<pre><code class="language-sh">yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+# &#x4E5F;&#x53EF;&#x4EE5;&#x4ECE;&#x5B98;&#x7F51;&#x4E0B;&#x8F7D;rpm&#x7684;&#x5B89;&#x88C5;&#x5305;&#x8FDB;&#x884C;&#x76F4;&#x63A5;&#x5B89;&#x88C5;</code></pre>
+</li>
+<li><p>&#x542F;&#x7528;&#x5B58;&#x50A8;&#x5E93;</p>
+<pre><code class="language-sh">percona-release enable-only tools release</code></pre>
+</li>
+<li><p>&#x5B89;&#x88C5;xtrabackup</p>
+<pre><code class="language-sh">yum install percona-xtrabackup-80</code></pre>
+</li>
+<li><p>&#x5378;&#x8F7D;xtrbackup</p>
+<pre><code class="language-sh">yum remove percona-xtrabackup</code></pre>
+</li>
+</ol>
+</li>
+<li><h3 id="-">&#x57FA;&#x672C;&#x4F7F;&#x7528;</h3>
+<pre><code class="language-sh">  xtrabackup \
+  --user=user_name \
+  --password=password \
+  --host=host_ip \
+  --port=port_number \
+  --socket=/path/to/socker \
+  --backup \
+  --target-dir=/data/bkps/</code></pre>
+<p>  <strong>&#x521B;&#x5EFA;&#x5907;&#x4EFD;&#x7528;&#x6237;&#xFF0C;&#x5206;&#x914D;&#x5FC5;&#x8981;&#x6743;&#x9650;</strong></p>
+<pre><code class="language-sql">  create user &apos;bkpuser&apos;@&apos;%&apos; identified with &apos;mysql_native_password&apos; by &apos;Hjqme525+&apos;;
+  grant reload,lock tables,backup_admin,replication client,create \
+  tablespace,process,super,create,insert, select on *.* to &apos;bkpuser&apos;@&apos;%&apos;;</code></pre>
+</li>
+<li><h4 id="-">&#x5168;&#x91CF;&#x5907;&#x4EFD;</h4>
+<p>  <strong>&#x521B;&#x5EFA;&#x5168;&#x91CF;&#x5907;&#x4EFD;</strong></p>
+<pre><code class="language-sh">  xtrabackup --backup \
+  --host=xxx.xxx.xxx.xxx --user=bkpuser --port=3306 --password \
+  --target-dir=/tmp/xtrabackup.test</code></pre>
+<p>  <strong>&#x51C6;&#x5907;&#x5907;&#x4EFD;</strong></p>
+<pre><code class="language-sh">  xtrabackup --prepare --target-dir=/tmp/xtrabackup.test</code></pre>
+<p>  <strong>&#x6062;&#x590D;&#x5907;&#x4EFD;</strong></p>
+<pre><code class="language-sh">  xtrabackup --copy-back --target-dir=/mysql/data/dir   # --move-back&#xFF1A;&#x5220;&#x9664;&#x5907;&#x4EFD;&#x6570;&#x636E;</code></pre>
+<p>  --copy-back&#x53C2;&#x6570;&#x4E0E;--move-back&#x53C2;&#x6570;&#x7684;&#x533A;&#x522B;&#xFF1A;<strong>copyback&#x5728;&#x590D;&#x5236;&#x5B8C;&#x6570;&#x636E;&#x540E;&#xFF0C;&#x4F1A;&#x4FDD;&#x5B58;&#x5F53;&#x524D;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x800C;moveback&#x5728;&#x590D;&#x5236;&#x5B8C;&#x6210;&#x540E;&#x4F1A;&#x5220;&#x9664;&#x5907;&#x4EFD;&#x6587;&#x4EF6;</strong></p>
+<p>  <strong>&#x91CD;&#x542F;&#x6570;&#x636E;&#x5E93;</strong></p>
+<pre><code class="language-sh">  chmod -R mysql:mysql /mysql/data/dir
+  systemctl restart mysqld</code></pre>
+</li>
+<li><h4 id="-">&#x589E;&#x91CF;&#x5907;&#x4EFD;&#xFF08;&#x57FA;&#x4E8E;&#x5168;&#x91CF;&#x5907;&#x4EFD;&#xFF09;</h4>
+<p>  <strong>&#x521B;&#x5EFA;&#x5168;&#x91CF;&#x5907;&#x4EFD;</strong></p>
+<pre><code class="language-sh">  xtrabackup --backup \
+  --host=xxx.xxx.xxx.xxx --user=bkpuser --port=3306 --password \
+  --target-dir=/root/data2.data</code></pre>
+<p>  <strong>&#x57FA;&#x4E8E;&#x5168;&#x91CF;&#x5907;&#x4EFD;&#x7684;&#x589E;&#x91CF;&#x5907;&#x4EFD;</strong></p>
+<pre><code class="language-sh">  xtrabackup --backup --host=192.168.80.128 --user=root --password \
+  --target-dir=/root/data2.increment.data \
+  --incremental-basedir=/root/data2.data/</code></pre>
+<p>  <strong>&#x589E;&#x91CF;&#x5907;&#x4EFD;&#x65F6;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x57FA;&#x7840;&#x7684;&#x6587;&#x4EF6;</strong></p>
+<p>  <strong>&#x63D2;&#x5165;</strong></p>
+<pre><code class="language-sql">  delimiter //
+  create procedure xtratest2()
+      begin
+      declare i int;
+      declare a int;
+      set i=1;
+      set a=1;
+          begin
+          while i&lt;=10000 do
+          insert into d3.t1(id,a) values (i,a);
+          set i=i+1;
+          set a=a+1;
+          end while;
+          end;
+      end
+      //
+    delimiter ;
+    call xtratest2();</code></pre>
+<p>  <strong>&#x57FA;&#x4E8E;&#x589E;&#x91CF;&#x5907;&#x4EFD;&#x7684;&#x589E;&#x91CF;&#x5907;&#x4EFD;</strong></p>
+<pre><code class="language-sh">  xtrabackup --backup --host=192.168.80.128 --user=root --password \
+  --target-dir=/root/data2.increment2.data \
+  --incremental-basedir=/root/data2.increment.data/</code></pre>
+<p>  <strong>&#x51C6;&#x5907;&#x5168;&#x91CF;&#x5907;&#x4EFD;</strong></p>
+<pre><code class="language-sh">  xtrabackup --prepare --apply-log-only --target-dir=/root/dada2.data/</code></pre>
+<p>  <strong>&#x5BF9;&#x4E8E;&#x9700;&#x8981;&#x6062;&#x590D;&#x589E;&#x91CF;&#x5907;&#x4EFD;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5176;&#x5168;&#x91CF;&#x5907;&#x4EFD;&#x8FD8;&#x539F;&#x65F6;&#x9700;&#x8981;&#x6DFB;&#x52A0; --apply-log-only &#x53C2;&#x6570;&#xFF0C;&#x5426;&#x5219;&#x540E;&#x7EED;&#x589E;&#x91CF;&#x5907;&#x4EFD;&#x4E0D;&#x53EF;&#x7528;</strong></p>
+<p>  <strong>&#x6062;&#x590D;&#x589E;&#x91CF;&#x5907;&#x4EFD;</strong></p>
+<pre><code class="language-sh">  xtrabackup --prepare --apply-log-only --target-dir=/root/data2.data/ \
+  --incremental-dir=/root/data2.increment.data/</code></pre>
+<pre><code class="language-sh">  xtrabackup --prepare --apply-log-only --target-dir=/root/data2.data/ \
+  --incremental-dir=/root/data2.increment2.data/    </code></pre>
+<p>  <strong>&#x4E00;&#x4E2A;&#x589E;&#x91CF;&#x5907;&#x4EFD;&#x6587;&#x4EF6;&#x53EA;&#x6062;&#x590D;&#x4E00;&#x6B21;&#x4E0D;&#x8981;&#x91CD;&#x590D;&#x6062;&#x590D;</strong></p>
+<p>  <strong>&#x6062;&#x590D;&#x5907;&#x4EFD;</strong></p>
+<pre><code class="language-sh">  xtrabackup --copy-back --target-dir=/root/dada2.data/
+  chown -R mysql:mysql /var/lib/mysql</code></pre>
+</li>
+<li><h4 id="-">&#x538B;&#x7F29;&#x5907;&#x4EFD;</h4>
+<p>  <strong>&#x538B;&#x7F29;&#x5907;&#x4EFD;</strong></p>
+<pre><code class="language-sh">  xtrabackup --backup --host=192.168.80.128 --user=root --password \
+  --compress --compress-threads=2 \
+  --target-dir=/root/data3.data</code></pre>
+<p>  <strong>&#x89E3;&#x538B;&#x5907;&#x4EFD;</strong></p>
+<pre><code class="language-sh">  yum install qpress-11-1.el7.x86_64    # &#x6CE8;&#x610F;&#x5B89;&#x88C5;qpress&#x8F6F;&#x4EF6;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5B89;&#x88C5;rpm&#x6765;&#x627E;&#x5230;&#x76F8;&#x5E94;&#x7684;&#x8F6F;&#x4EF6;
+  xtrabackup --decompress --target-dir=/root/data3.data/</code></pre>
+<p>  <strong>&#x51C6;&#x5907;&#x5907;&#x4EFD;</strong></p>
+<p>  <strong>&#x6062;&#x590D;&#x5907;&#x4EFD;</strong></p>
+</li>
+</ul>
 <h1 id="-">&#x5907;&#x4EFD;&#x4E0E;&#x6062;&#x590D;</h1>
 <h2 id="-">&#x5907;&#x4EFD;&#x7B56;&#x7565;</h2>
 <ul>
@@ -265,6 +394,15 @@ mysqlbinlog --base64-output=decode-rows --verbose /binary/log/path</code></pre>
 <pre><code class="language-sql">mysqlbinlog binglog_1_name [binlog_2_name] | mysql -uroot -p</code></pre>
 </li>
 </ol>
+<h1 id="-">&#x53C2;&#x8003;&#x6587;&#x6863;</h1>
+<ul>
+<li><a href="https://www.cnblogs.com/linuxk/p/9372990.html">xtrabakup&#x5907;&#x4EFD;&#x5165;&#x95E8;</a></li>
+<li><a href="https://www.percona.com/doc/percona-xtrabackup/8.0/index.html">percona-xtrabakup-documents</a></li>
+<li><a href="https://www.percona.com/doc/percona-xtrabackup/2.4/howtos/recipes_ibkx_stream.html">xtrabakup&#x6D41;&#x5904;&#x7406;</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html">mysqldump&#x6587;&#x6863;</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/8.0/en/mysqlbinlog.html">mysqlbinlog&#x6587;&#x6863;</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/8.0/en/backup-and-recovery.html">mysql&#x6570;&#x636E;&#x5907;&#x4EFD;</a></li>
+</ul>
 </article></div><div style="background-color: #b4b2b2;width: 50px;height:50px;line-height: 50px;text-align: center;position: fixed;bottom: 10px;right: 10px;padding-top:5px;" onclick="document.documentElement.scrollTop = document.body.scrollTop =0;">
   <svg t="1533629773982" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1035" xlink="http://www.w3.org/1999/xlink" width="40" height="40"><defs><style type="text/css">@font-face { font-family: uc-nexus-iconfont; src: url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff") format("woff"), url("chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf") format("truetype"); }
   </style></defs><path d="M536.255427 195.182354c-7.804756-7.804756-17.966187-11.615549-28.311813-11.615549-9.43693 0-18.874883 3.449565-26.496467 10.163477-2.360767 1.452071-4.356214 3.267417-6.352685 5.262864L218.47792 455.611735c-15.607466 15.60542-15.607466 40.834011 0 56.43943 15.607466 15.607466 41.558511 15.607466 57.167001 0l193.46013-192.733583 0 600.526219c0 22.1423 17.787108 39.927361 39.927361 39.927361 22.140253 0 39.927361-17.785062 39.927361-39.927361L548.959773 319.317583 737.15704 508.422522c15.607466 15.607466 40.469714 15.607466 56.078203 0 15.607466-15.607466 15.425318-40.834011-0.182149-56.441477L536.255427 195.182354 536.255427 195.182354z" p-id="1036" fill="#333"/><path d="M101.784174 143.097092l816.674071 0c22.140253 0 39.925315-17.785062 39.925315-39.927361 0-22.140253-17.784038-39.925315-39.925315-39.925315L101.784174 63.244416c-22.140253 0-39.927361 17.785062-39.927361 39.925315C61.856813 125.31203 79.643921 143.097092 101.784174 143.097092L101.784174 143.097092z" p-id="1037" fill="#333"/></svg>

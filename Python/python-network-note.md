@@ -8,8 +8,9 @@ categories: Python
 <!-- TOC END -->
 <!--more-->
 
-- python垃圾回收算法:https://www.jianshu.com/p/1e375fb40506
-- python与ruby垃圾回收：http://patshaughnessy.net/2013/10/30/generational-gc-in-python-and-ruby
-- python迭代器生成器：https://www.jianshu.com/p/dcc4c1af63c7
-- python内存管理机制：https://www.jianshu.com/p/fb1d4dc8e367
-- pymysql基本使用：https://www.cnblogs.com/hanmk/p/9215387.html
+- [python垃圾回收算法](https://www.jianshu.com/p/1e375fb40506)
+- [python与ruby垃圾回收](http://patshaughnessy.net/2013/10/30/generational-gc-in-python-and-ruby)
+- [python迭代器生成器](https://www.jianshu.com/p/dcc4c1af63c7)
+- [python内存管理机制](https://www.jianshu.com/p/fb1d4dc8e367)
+- [pymysql基本使用](https://www.cnblogs.com/hanmk/p/9215387.html)
+- [pyecharts文档](https://pyecharts.org/#/zh-cn/quickstart)

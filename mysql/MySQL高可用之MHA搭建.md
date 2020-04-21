@@ -186,3 +186,6 @@ catogories: MySQL
     ```
     masterha_check_status --conf=/etc/mha/cluster1.cnf
     ```
+
+# 参考文档
+- [MySQL高可用之MHA搭建](https://www.cnblogs.com/xuanzhi201111/p/4231412.html)

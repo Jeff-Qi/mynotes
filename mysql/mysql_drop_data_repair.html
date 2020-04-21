@@ -49,6 +49,9 @@ binlog_format=row
 binlog_row_image=full
 ```</code></pre><p><img src="http://study.jeffqi.cn/mysql/flashback_row_full.jpg" alt="flashback_row_full.jpg"></p>
 <p><strong>&#x5DE5;&#x4F5C;&#x673A;&#x5236;</strong>&#xFF1A;flash&#x7684;&#x5B9E;&#x9645;&#x5DE5;&#x4F5C;&#x7531;mysqlbinlog&#x4E0E;--flashback&#x4E00;&#x8D77;&#x5B8C;&#x6210;&#x3002;&#x8FD9;&#x5C06;&#x5BFC;&#x81F4;&#x4E8B;&#x4EF6;&#x88AB;&#x8F6C;&#x6362;&#xFF1A;&#x4ECE;INSERT&#x5230;DELETE&#xFF0C;&#x4ECE;DELETE&#x5230;INSERT&#xFF0C;&#x5E76;&#x4E14;&#x5BF9;&#x4E8E;UPDATE&#xFF0C;&#x4EA4;&#x6362;&#x4E4B;&#x524D;&#x548C;&#x4E4B;&#x540E;&#x7684;&#x56FE;&#x50CF;&#x3002;</p>
+<pre><code class="language-sh">mysqlbinlog /path/to/binlog -vv -d db_name -T table_name \
+--start-datetime &apos;2020-02-03 17:00:00&apos; --flashback &gt; flash.sql
+mysql &lt; flash.sql</code></pre>
 <p>&#x907F;&#x514D;&#x6570;&#x636E;&#x7684;&#x8BEF;&#x64CD;&#x4F5C;&#xFF0C;&#x6211;&#x4EEC;&#x6025;&#x9700;&#x505A;&#x7684;&#x662F;&#x9884;&#x9632;&#xFF1B;</p>
 <pre><code>1.  sql_safe_updates &#x53C2;&#x6570;&#x8BBE;&#x7F6E;&#x4E3A; on&#xFF1B;&#x5BF9;&#x4E8E;&#x8BED;&#x53E5;&#x8FDB;&#x884C;&#x68C0;&#x67E5;&#xFF0C;&#x9700;&#x8981;&#x6DFB;&#x52A0;where&#x624D;&#x80FD;&#x4F7F;&#x7528;
 2.  &#x4E0A;&#x7EBF;&#x524D;&#x5BF9;sql&#x8FDB;&#x884C;&#x5BA1;&#x8BA1;</code></pre></li>
