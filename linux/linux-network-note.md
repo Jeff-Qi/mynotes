@@ -1,5 +1,5 @@
 ---
-title: Linux优秀笔记网站记录
+title: Linux笔记网站记录
 date: 2020-03-19 0:15
 categories: Linux
 ---
@@ -19,3 +19,7 @@ categories: Linux
 - [linux VRRP](https://www.jianshu.com/p/81115a4293c7)
 - [Gentoo下折腾emerge包管理器](https://blog.csdn.net/u014466109/article/details/68957657)
 - [cgroup原理](https://www.ibm.com/developerworks/cn/linux/1506_cgroup/index.html)
+- [centos7升级glibc](https://www.nanguoyu.com/centos%E5%8D%87%E7%BA%A7glibc)
+- [openssl介绍与使用](https://blog.csdn.net/pecovio/article/details/82348924)
+- [qt5安装](https://www.cnblogs.com/h2zZhou/p/10984622.html)
+- [qt升级](https://www.cnblogs.com/hanlulu1998/p/12003845.html)

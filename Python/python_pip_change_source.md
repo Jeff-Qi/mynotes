@@ -22,7 +22,7 @@ https://pypi.tuna.tsinghua.edu.cn/simple/ 清华大学。
 # 临时替换
 - 使用 -i 参数添加临时下载源
     ```sh
-    pip -i source_url package
+    pip install package -i source_url
     ```
 
 # 永久替换

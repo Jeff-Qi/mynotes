@@ -6,6 +6,7 @@ categories: Docker
 <!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
 - [Docker第一步](#docker第一步)
   - [安装Docker](#安装docker)
+  - [deepin安装docker](#deepin安装docker)
   - [创建docker用户组](#创建docker用户组)
 - [Docker国内镜像加速](#docker国内镜像加速)
 - [Dockerfile](#dockerfile)
@@ -31,7 +32,7 @@ categories: Docker
 # Docker第一步
 
 ## 安装Docker
-1. 安装必要工具
+1. 安装必要工具，yum-utils提供yum-config-manager功能，另外两个是devicemapper驱动依赖
   ```sh
   yum install -y yum-utils \
   device-mapper-persistent-data.x86_64 \
@@ -40,9 +41,10 @@ categories: Docker
 
 2. 创建yum源repo文件
   ```sh
-  yum-config-manager \
-  --add-repo \
-  https://download.docker.com/linux/centos/docker-ce.repo
+  # docker中央仓库
+  yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  # 阿里仓库
+  yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
   ```
 
 3. 更新并安装
@@ -51,6 +53,38 @@ categories: Docker
   yum list docker-ce --showduplicates | sort -r
   yum install docker-ce-19.03.2-3.el7
   ```
+
+## deepin安装docker
+1. 安装docker-ce与密钥管理与下载相关的工具
+   ```sh
+   sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+   ```
+
+2. 安装密钥
+   ```sh
+   curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/debian/gpg | sudo apt-key add -   # 国内的源
+   ```
+
+3. 验证密钥
+   ```sh
+   sudo apt-key fingerprint 0EBFCD88
+   ```
+
+4. 添加docker仓库
+   ```sh
+   sudo add-apt-repository "deb [arch=amd64] https://mirrors.ustc.edu.cn/docker-ce/linux/debian jessie stable"
+   # 如果不行就讲引号中的内容添加到 /etc/apt/sources.list
+   ```
+
+5. 更新
+   ```sh
+   sudo apt-get update
+   ```
+
+6. 安装
+   ```sh
+   sudo apt-get install docker-ce
+   ```
 
 ## 创建docker用户组
 - 默认情况下，docker 命令会使用Unix socket与Docker引擎通讯。而只有root用户和docker 组的用户才可以访问Docker引擎的Unix socket
@@ -70,6 +104,11 @@ categories: Docker
     "registry-mirrors": ["https://3hijzt0l.mirror.aliyuncs.com"]
   }
   EOF
+  # 国内镜像源
+　　　  # "http://ovfftd6p.mirror.aliyuncs.com",
+　　　  # "http://registry.docker-cn.com",
+　　　  # "http://docker.mirrors.ustc.edu.cn",
+　　　  # "http://hub-mirror.c.163.com"
   sudo systemctl daemon-reload
   sudo systemctl restart docker
   ```
