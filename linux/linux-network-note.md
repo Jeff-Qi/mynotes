@@ -23,3 +23,4 @@ categories: Linux
 - [openssl介绍与使用](https://blog.csdn.net/pecovio/article/details/82348924)
 - [qt5安装](https://www.cnblogs.com/h2zZhou/p/10984622.html)
 - [qt升级](https://www.cnblogs.com/hanlulu1998/p/12003845.html)
+- [消息队列](https://www.jianshu.com/p/36a7775b04ec)
