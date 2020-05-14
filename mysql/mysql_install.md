@@ -95,6 +95,16 @@ categories: MySQL
     ```sh
     systemctl start mysqld.server
     ```
+    - 中间报错信息
+        ```
+        无法更新pid文件到时服务器启动失败。
+        1.  权限不正确，需要讲mysql需要的文件全部改为 mysql:mysql 属性
+        2.  无法创建pid文件上级目录。通过手工创建临时解决。永久解决修改/etc/rc.d/init.d/mysqld文件。
+            vim /etc/rc.d/init.d/mysqld
+
+            mkdir -p /path/to/pidfile
+            chown -R mysql:mysql /path/to/pidfile
+        ```
 
 9.  添加mysql环境变量
     ```sh
