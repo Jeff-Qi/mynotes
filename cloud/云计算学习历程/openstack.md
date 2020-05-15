@@ -59,7 +59,7 @@ categories: Cloud
 
 - openstack 核心架构
 
-    ![openstack-core]()
+    ![openstack-core](http://study.jeffqi.cn/cloud/openstack-core.jpg)
 
 - ## 核心服务
 
@@ -398,7 +398,7 @@ categories: Cloud
 
 - 核心架构图
 
-    ![openstack-glance]()
+    ![openstack-glance](http://study.jeffqi.cn/cloud/openstack-glance.jpg)
 
 1.  glance api
     - glance-api 是系统后台运行的服务进程。对外提供REST API，响应image 查询、获取和存储的调用
