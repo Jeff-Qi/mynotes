@@ -1,7 +1,7 @@
 ---
 title: docker machine
 date: 2020-02-24 13:42:00
-categories: Docker
+categories: Cloud
 ---
 <!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
 - [docker machine](#docker-machine)

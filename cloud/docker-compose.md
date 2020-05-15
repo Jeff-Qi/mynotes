@@ -1,7 +1,7 @@
 ---
 title: docker compose
 date: 2020-02-23 11:04:00
-categories: Docker
+categories: Cloud
 ---
 <!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
 - [docker compose](#docker-compose)

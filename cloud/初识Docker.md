@@ -1,7 +1,7 @@
 ---
 title: 初始Docker
 date: 2019-11-29 11:07:00
-categories: Docker
+categories: Cloud
 ---
 <!-- TOC START min:1 max:3 link:true asterisk:false update:true -->
 - [Docker第一步](#docker第一步)
